@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelSaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://kit.fontawesome.com/9cb7a2c1cd.js"></script>
+</head>
+<body>
+    
+
+<div class="HeaderWEB"></div>
+<div class="HeadContent">
+        <!-- <img class="background" src="home.jpg"> -->
+        <img class="pichead" src="airplane.svg">
+        <div class="txhead">
+            <div class="hihead1">
+                TRAVEL
+            </div>
+            <div class="hihead2">
+                SAYA
+            </div>
+        </div>
+    
+        <div class="NavBar">
+            <div class="txnav home" onclick="ChangePage('in_home')">Home</div>
+            <div class="txnav form" onclick="ChangePage('in_form')">Account</div>
+            <div class="txnav" onclick="ChangePage('in')">FLights</div>
+            <div class="txnav" onclick="ChangePage('in')">Hotels</div>
+            <div class="txnav" onclick="ChangePage('in')">Facilities</div>
+        </div>
+
+        <div class="slideshow-container">
+
+            <div class="mySlides  animright">
+              <div class="numbertext"></div>
+              <img src="home.jpg" style="width:100%" >
+            </div>
+            
+            <div class="mySlides animright">
+              <div class="numbertext"></div>
+              <img src="eiffel.jpg" style="width:100%">
+              <!-- <div class="text">Caption Two</div> -->
+            </div>
+            
+            <div class="mySlides  animright">
+              <div class="numbertext"></div>
+              <img src="village.jpg" style="width:100%">
+            </div>
+            
+            </div>
+            <br>
+            
+            <div style="text-align:center">
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+            </div>
+    
+</div>
+
+<div id="FormContent" class="bgform hidden">
+        <img class="avatar" src="profilepick.svg">
+        <h2>Fill Your Profile</h2>
+        <div class="input-div one">
+            <div class="i">
+                <i class="fas fa-user"></i>
+            </div>
+            <div>
+                <h5>Name</h5>
+                <input id="form_name" class="input" type="text" autocomplete="off">
+            </div>
+        </div>
+        <div class="input-div two">
+            <div class="i">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div>
+                <h5>Date of Birth</h5>
+                <input id="form_birth" class="input" autocomplete="off">
+            </div>
+        </div>
+        <div class="input-div three">
+            <div class="i">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+                <h5>Email</h5>
+                <input id="form_email" class="input" type="email" autocomplete="off">
+            </div>
+        </div>
+        <div class="input-div four">
+            <div class="i">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+                <h5>Address</h5>
+                <input id="form_address" class="input" type="text" autocomplete="off">
+            </div>
+        </div>
+        <div class="input-div five">
+            <div class="i">
+                <i class="fas fa-globe-asia"></i>
+            </div>
+            <div>
+                <h5>Nationality</h5>
+                <select id="form_nationality" class="input nationality" name="nationality">
+                    <option selected disabled value="default"></option>
+                    <option value="United States">United States</option>
+                    <option value="England">England</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="France">France</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="China">China</option>
+                </select>
+            </div>
+        </div>
+        <div class="input-div six">
+            <div class="i">
+                <i class="fas fa-phone-square-alt"></i>
+            </div>
+            <div>
+                <h5>Phone Number</h5>
+                <input id="form_phone" class="input" type="number" autocomplete="off">
+            </div>
+        </div>
+        <!-- <input type="submit" class="button" value="submit"> -->
+        <button class="button" onclick="Submit()">Save</button>
+</div>
+
+<div id="HomeContent" class="bghome">
+    <div class="home">
+        <div>
+            <h2>TravelSaya</h2>
+        </div>
+        <div>
+            <h4>Build Your Dream With Us</h4>
+        </div>
+        <a href="#" title="call us now"> CALL US NOW<i class="fas fa-caret-right"></i> </a>
+    </div>
+    <div class="bg">
+        <img src="apartment.jpg" style="width:100%">
+        <div class="triangle-up"></div>
+        <div class="textcontent01">
+            <div class="txnumber">01</div>
+            <div class="text1">Living Spaces For <span class="text2">Family and Friend</span></div>     
+            <div class="text3">Enjoy the convenience of a wide selection of hotels and villas close to tourist destinations</div>
+
+            <a href="#" title="see more"><i class="fas fa-hotel"></i> See More Gallery<i class="fas fa-caret-right"></i> </a>
+        </div>
+        <div class="textcontent02">
+            <div class="txnumber">02</div>
+            <div class="text1">Why Choose <span class="text2">Us</span></div>     
+            
+            <div class="text4 one"><i class="fas fa-tags"></i><i class="fas fa-percent"></i> Special Discount</div>
+            <div class="text3 one">Special hotel discounts for flight customers and TravelSaya members. You will save more.</div>
+            
+            <div class="text4 two"><i class="fas fa-key"></i></i><i class="fas fa-clipboard-check"></i> Stay Guarantee</div>
+            <div class="text3 two">Once your booking of hotel is complete, you are guaranteed to get a hotel. If there is a problem with your hotel booking, we will replace it with an equally good hotel. Or your money back.</div>
+            
+            <div class="text4 three"><i class="fas fa-user-edit"></i> Real Trusted Reviews</div>
+            <div class="text3 three">3,000,000+ trusted reviews from worldwide traveler and hotel guest will help you make your choice.</div>
+
+            <div class="text4 four"><i class="fas fa-person-booth"></i> Best Service</div>
+            <div class="text3 four"> We offer the high class and unlimited service for your journey. if you are not satisfied, your money back.</div>
+        </div>
+       
+    </div>
+
+    <div class="bg2">
+        <img src="service.jpg" style="width:100%">
+        <div class="triangle-left"></div>
+        <div class="textcontent03">
+            <div class="txnumber">03</div>
+            <div class="text2">TravelSaya <span class="text1">Flights</span></div>     
+            <div class="text3">Enjoy the best service that you have ever know</div>
+
+            <a href="#" title="see more"><i class="fas fa-plane-departure"></i> See Schedules<i class="fas fa-caret-right"></i> </a>
+        </div>
+    </div>
+    
+</div>
+
+<div id="FooterContent" class="bgfooter">
+    <div class="footer">
+        <div class="footerleft">
+            <h2>TravelSaya</h2>
+            <h4>By aiming to take the everyone's dream to be realized with high class travel</h4>
+        </div>
+        <div class="footerright">
+            <h5>Call Center</h5>
+            <h3>(+62)89695765720</h3>
+            <div>enjoy@travelsaya.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="filejs.js"></script>
+
+
+
+
+</body>
+</html>
+
