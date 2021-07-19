@@ -223,7 +223,7 @@ const buildData = () => {
       url: photoData_ith.url,
       thumbnail: photoData_ith.thumbnailUrl
     })
-    console.log(userNameById)
+    // console.log(userNameById)
   }
 
  
@@ -448,7 +448,7 @@ const Search = () => {
   // tr = rowAll;
   for (i = 0; i < User.length; i++) {
     const userData = User[i];
-    td = [userData.name, userData.position, userData.address];
+    td = [userData.photoName, userData.albumName, userData.user];
     
     let found = 0;
     for(j = 0;j<td.length;j++){
