@@ -51,8 +51,8 @@ class App extends Component {
         </div>
       </div>
 
-      <div class="head1">Table of</div>
-      <h2 class="head2">Employee</h2>
+      <div class="head1">List of</div>
+      <h2 class="head2">Photos</h2>
       <div class="triangle-left"></div>
       <div class="triangle-up"></div>
 
@@ -69,28 +69,28 @@ class App extends Component {
             <div class="cell">Bali Photos</div>
             <div class="cell">Travel</div>
             <div class="cell">John</div>
-            <div class="cell">Thumbnail</div>
+            <img class="myImg" src="https://via.placeholder.com/150/92c952"/>
           </div>
           <div class="row">
             <div class="cell">2</div>
             <div class="cell">Isekai Photos</div>
             <div class="cell">Wibu</div>
             <div class="cell">Eko</div>
-            <div class="cell">Thumbnail</div>
+            <img class="myImg" src="https://via.placeholder.com/150/24f355"/>
           </div>
           <div class="row">
             <div class="cell">3</div>
             <div class="cell">DJ Photos</div>
             <div class="cell">Music</div>
             <div class="cell">Steeve</div>
-            <div class="cell">Thumbnail</div>
+            <img class="myImg" src="https://via.placeholder.com/150/54176f"/>
           </div>
           <div class="row">
             <div class="cell">4</div>
             <div class="cell">Interstellar Photos</div>
             <div class="cell">Movie</div>
             <div class="cell">Gege</div>
-            <div class="cell">Thumbnail</div>
+            <img class="myImg" src="https://via.placeholder.com/150/810b14"/>
           </div>
         
       </div>
