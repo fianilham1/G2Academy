@@ -163,52 +163,100 @@ let AlbumData = []; //data album
 let PhotoData = []; //data photo >>>>..
 
 
-const getUsers = () => {
-  // promise
-  fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(json => {
-        UserData = json.map(users => {
-              return {
-                  userId: users.id,
-                  userName: users.name
-              }
-          })
-      })
+// const getUsers = () => {
+//   // promise
+//   // fetch("https://jsonplaceholder.typicode.com/users")
+//   //     .then(response => response.json())
+//   //     .then(json => {
+//   //       console.log(json)
+//   //       UserData = json.map(users => {
+//   //             return {
+//   //                 userId: users.id,
+//   //                 userName: users.name
+//   //             }
+//   //         })
+//   //     })
 
-      fetch("https://jsonplaceholder.typicode.com/albums")
-      .then(response => response.json())
-      .then(json => {
-        AlbumData = json.map(albums => {
-              return {
-                  albumId: albums.id,
-                  albumName: albums.title,
-                  userId: albums.userId
-              }
-          })
-      })
+//   //     fetch("https://jsonplaceholder.typicode.com/albums")
+//   //     .then(response => response.json())
+//   //     .then(json => {
+//   //       AlbumData = json.map(albums => {
+//   //             return {
+//   //                 albumId: albums.id,
+//   //                 albumName: albums.title,
+//   //                 userId: albums.userId
+//   //             }
+//   //         })
+//   //     })
 
-      fetch("https://jsonplaceholder.typicode.com/photos")
-      .then(response => response.json())
-      .then(json => {
-        PhotoData = json.map(photos => {
-              return {
-                  albumId: photos.albumId,
-                  title: photos.title,
-                  url: photos.url,
-                  thumbnailUrl: photos.thumbnailUrl
-              }
-          })
-      })
-  .then(buildData)   
-  .then(setTimeout(() => buildTable(pageConfig.currentEntries,pageConfig.currentPage), 500))
-  .then(eventAddNew)
-  .then(resetSearch)
+//   //     fetch("https://jsonplaceholder.typicode.com/photos")
+//   //     .then(response => response.json())
+//   //     .then(json => {
+//   //       PhotoData = json.map(photos => {
+//   //             return {
+//   //                 albumId: photos.albumId,
+//   //                 title: photos.title,
+//   //                 url: photos.url,
+//   //                 thumbnailUrl: photos.thumbnailUrl
+//   //             }
+//   //         })
+//   //     })
+//   // .then(buildData)   
+//   // .then(setTimeout(() => buildTable(pageConfig.currentEntries,pageConfig.currentPage), 2000))
+//   // .then(eventAddNew)
+//   // .then(resetSearch)
+
+// }
+
+async function getUsers() {
+  const [usersResponse, albumsResponse, photosResponse] = await Promise.all([
+    fetch("https://jsonplaceholder.typicode.com/users"),
+    fetch("https://jsonplaceholder.typicode.com/albums"),
+    fetch("https://jsonplaceholder.typicode.com/photos")
+  ]);
+
+  const users = await usersResponse.json();
+  const albums = await albumsResponse.json();
+  const photos = await photosResponse.json();
+
+      UserData = users.map(users => {
+         return {
+             userId: users.id,
+             userName: users.name
+         }
+     });     // fetched users
+
+      AlbumData = albums.map(albums => {
+         return {
+             albumId: albums.id,
+             albumName: albums.title,
+             userId: albums.userId
+         }
+     }); // fetched albums
+
+      PhotoData = photos.map(photos => {
+         return {
+             albumId: photos.albumId,
+             title: photos.title,
+             url: photos.url,
+             thumbnailUrl: photos.thumbnailUrl
+         }
+     }) // fetched photos
+     if(usersResponse.ok){
+       console.log(UserData)
+       console.log(AlbumData)
+       console.log(PhotoData)
+       buildData()
+       buildTable(pageConfig.currentEntries,pageConfig.currentPage)
+       eventAddNew()
+       resetSearch()
+     }
+
 }
 
 const buildData = () => {
 
-  for (let i=0;i<PhotoData.length-4000;i++){ //LIST of PhotoData
+  for (let i=0;i<PhotoData.length;i++){ //LIST of PhotoData
     const photoData_ith = PhotoData[i];
     const albumNameById = AlbumData.filter(function (currentElement) { //ARRAY of Album
       return currentElement.albumId === photoData_ith.albumId; 
@@ -291,10 +339,14 @@ const buildTable = (entries,current,data = User) => {
       }
 }
 
+
+
 //event of pagination
 const buildPagination = (entries,currentPage,data = User) => {
   let pagination = document.querySelector(".pagination_section");
+  let paginationBottom = document.querySelector(".pagination_section.bottom");
   pagination.innerHTML = "";
+
 
   if(currentPage!=1){
     pagination.innerHTML = `
@@ -339,7 +391,18 @@ const buildPagination = (entries,currentPage,data = User) => {
 
   let buttonPagination="";
 
+  //add pagination number to pagination html through for
   for(let i = startIndex-1 ;i < endIndex;i++){
+    if(currentPage >= diff && i==startIndex-1){
+      //add pagination of first
+      buttonPagination += `
+      <a href="#" onclick="Choose('1')" class="page1">1</a>
+      `
+      //add pagination triple dot
+      buttonPagination += `
+      <a href="#" class="dot">...</a>
+      `
+    }
     if(i==currentPage-1){
       buttonPagination += `
       <a href="#" onclick="Choose('${i+1}')" class="page${i+1} active">${i+1}</a>
@@ -350,18 +413,52 @@ const buildPagination = (entries,currentPage,data = User) => {
       `
     }
   }
-  pagination.innerHTML += buttonPagination;
 
-  if(currentPage!=pageTotal && pageTotal!=0){
-    pagination.innerHTML += `
-    <a href="#" onclick="Choose('next')" class="next">Next >></a>
-    `
+  if((pageTotal-currentPage)>=diff && pageTotal!=0){
+    pagination.classList.remove("maxPage")
+    paginationBottom.classList.remove("maxPage")
+      //add pagination triple dot
+      buttonPagination += `
+      <a href="#" class="dot">...</a>
+      `
+      //add pagination of last
+      buttonPagination += `
+      <a href="#" onclick="Choose('${pageTotal}')" class="page${pageTotal}">${pageTotal}</a>
+      `
+
+      buttonPagination += `
+      <a href="#" onclick="Choose('next')" class="next">Next >></a>
+      `  
   }else{
-    pagination.innerHTML += `
-    <span class="hide">Next >></span>
-    `
+    pagination.classList.add("maxPage")
+    paginationBottom.classList.add("maxPage")
+    //  //add pagination triple dot
+    //  buttonPagination += `
+    //  <span class="hide">...</span>
+    //  `
+ 
+    //  //add pagination of maks
+    //  buttonPagination += `
+    //  <span class="hide">${pageTotal}</span>
+    //  `
+
+    // buttonPagination += `
+    // <span class="hide">Next >></span>
+    // `
   }
 
+  pagination.innerHTML += buttonPagination;
+  let background = document.querySelector(".bg");
+  paginationBottom.innerHTML = pagination.innerHTML;
+  paginationBottom.style = pagination.style;
+  if(pageConfig.currentEntries==4){
+    background.style.height = "720px";
+    paginationBottom.style.top = "750px"; //entries : 4
+  }else{
+    paginationBottom.style.top = "1180px"; //entries : 8
+    background.style.height = "1150px";
+  }
+  console.log("clone",paginationBottom)
 }
 
 
@@ -639,9 +736,6 @@ const resetSearch = () => {
 const __init = () => {
   // Initialization Function
   getUsers();
-  //   buildTable(pageConfig.currentEntries,pageConfig.currentPage)  
-  // resetSearch();
-  // eventAddNew();
 }
 
 __init()
