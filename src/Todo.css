@@ -192,7 +192,7 @@
 
 .pagination_section {
   position: absolute;
-  top: 660px;
+  top: 730px;
   right: 15%;
 }
 /* pagination styling */
@@ -205,6 +205,7 @@
   color: black;
   padding: 10px 15px;
   text-decoration: none;
+  border: 1px solid gray;
 }
 /* pagination hover effect on non-active */
 
@@ -212,6 +213,7 @@
   background-image: linear-gradient(to right,#9b200a,#c41818,#9b200a);
   color: white;
   transition: 1s;
+  border: 1px solid gray;
 }
 /* pagination hover effect on active*/
 
@@ -230,6 +232,7 @@
   background-color: green;
   color: white;
   text-decoration: none;
+  border: 1px solid green;
 }
 
 a:nth-child(1) {
@@ -306,7 +309,6 @@ a:last-child {
   width: 70px;
   cursor: pointer;
   transition: 0.3s;
-  margin: 10px 0;
   margin-right: 260px;
 }
 
