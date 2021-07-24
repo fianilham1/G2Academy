@@ -87,7 +87,7 @@ class Table extends Component {
   }
   handleSave = e => {
     // console.log("Row-i:",e.target.parentElement.parentElement)
-    if(this.state.addData.photoName=='' || this.state.addData.albumName=='' || this.state.addData.user==''){
+    if(this.state.data.photoName=='' || this.state.data.albumName=='' || this.state.data.user==''){
       return alert("Please FIll All the Fields!!")
     }
     let isEditCopy = {
@@ -105,6 +105,15 @@ class Table extends Component {
     }
 
     this.props.onUpdateDate(updateDate);
+
+    //clear all data
+    this.setState(prevState => {
+      let data = { ...prevState.data };    // creating copy of state variable 
+      data['photoName'] = '';// update the name property, assign a new value   
+      data['albumName'] = '';// update the name property, assign a new value   
+      data['user'] = '';// update the name property, assign a new value                 
+      return { data };                     // return new object 
+    })
     
   }
   handleDelete = e => {
@@ -140,13 +149,13 @@ class Table extends Component {
   }
   keyPress = e => {
 
-    if(this.state.addData.photoName=='' || this.state.addData.albumName=='' || this.state.addData.user==''){
-      console.log("ALERT")
-      return alert("Please FIll All the Fields!!")
-    }
-
     if(e.keyCode == 13){ //enter key
        console.log('value', e.target.value);
+       
+      if(this.state.addData.photoName=='' || this.state.addData.albumName=='' || this.state.addData.user==''){
+        console.log("ALERT")
+        return alert("Please FIll All the Fields!!")
+      }
 
        let property = `id`;
         this.setState(prevState => {
@@ -156,6 +165,15 @@ class Table extends Component {
         })
   
       this.props.onAddData(this.state.addData);
+
+      //clear all data
+      this.setState(prevState => {
+        let addData = { ...prevState.addData };    // creating copy of state variable 
+        addData['photoName'] = '';// update the name property, assign a new value   
+        addData['albumName'] = '';// update the name property, assign a new value   
+        addData['user'] = '';// update the name property, assign a new value                 
+        return { addData };                     // return new object 
+      })
     }
  }
   render() { 
