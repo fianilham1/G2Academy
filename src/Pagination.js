@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 const prevPage = 'prev';
 const nextPage = 'next';
-const dot = '...';
+let currentPage = 1;
 
 const range = (from, to, step = 1) => {
     let i = from;
@@ -65,7 +65,7 @@ const buildPagination = (entries,currentPage,dataLength) => {
         
         // if(currentPage >= diff && currentPage==startIndex){
         if(startIndex!=1 && showPagination!=pageTotal){
-            pages = [1, prevPage, ...pages];
+            pages = [1, prevPage, ...pages]; //pages = ['prev',1,2,3,4,5]
         }else{
             pages = [prevPage, ...pages];
         }
@@ -80,32 +80,7 @@ const buildPagination = (entries,currentPage,dataLength) => {
         }
     }
  
-    return pages;
-
-    //add pagination number to pagination html through for
-    // for(let i = startIndex-1 ;i < endIndex;i++){
-    //   if(currentPage >= diff && i==startIndex-1){
-    //     //add pagination of first
-    //     buttonPagination += `
-    //     <a href="#" onclick="Choose('1')" class="page1">1</a>
-    //     `
-    //     //add pagination triple dot
-    //     buttonPagination += `
-    //     <a href="#" class="dot">...</a>
-    //     `
-    //   }
-    //   if(i==currentPage-1){
-    //     buttonPagination += `
-    //     <a href="#" onclick="Choose('${i+1}')" class="page${ currentPage === i ? ' active' : ''}">${i+1}</a>
-    //   `
-    //   }else{
-    //     buttonPagination += `
-    //     <a href="#" onclick="Choose('${i+1}')" class="page${i+1}">{i+1}</a>
-    //     `
-    //   }
-    // }
-  
-    
+    return pages;    
   
     // pagination.innerHTML += buttonPagination;
     // let background = document.querySelector(".bg");
@@ -128,79 +103,45 @@ class Pagination extends Component {
         // this.gotoPage = this.gotoPage.bind(this);
     }
     gotoPage = page => {
-        // const { onPageChanged = f => f } = this.props;
-        // const currentPage = Math.max(0, Math.min(page, this.totalPages));
-        // const paginationData = {
-        //   currentPage,
-        //   totalPages: this.totalPages,
-        //   pageLimit: this.pageLimit,
-        //   totalRecords: this.totalRecords
-        // }
         this.props.onSelectPage(page); 
         console.log("PAGECLICKED",page)
     }
     handleClick = page => e => {
         e.preventDefault();
         this.gotoPage(page);
-    }
-    
+    }  
     handleMovePrev = e => {
         e.preventDefault();
-        // this.gotoPage(this.state.currentPage - (this.pageNeighbours * 2) - 1);
-     }
-    
+        this.gotoPage(currentPage-1);
+    }
     handleMoveNext = e => {
         e.preventDefault();
-        // this.gotoPage(this.state.currentPage + (this.pageNeighbours * 2) + 1);
+        this.gotoPage(currentPage+1);
     }
     render() { 
         const { data } = this.props;
         const entries = data.pageConfig.currentEntries;
-        const currentPage = data.pageConfig.currentPage;
+        const pageTotal = Math.ceil(data.user.length/entries); //total pagination number
+        currentPage = data.pageConfig.currentPage;
         const pages = buildPagination(entries,currentPage,data.user.length)
         const showPages = pages.map((page, index) => {
-
             if (page === prevPage) return (
-                <a href="#" onClick={this.handleMovePrev} class="prev">{'<<'}</a>
+                <a href="#" onClick={this.handleMovePrev} className="prevNext">{'<<'}</a>
             );
-    
-            // if (page === dot) return (
-            //     <a href="#" class="dot">{dot}</a>
-            // );
-    
+            
             if (page === nextPage) return (
-                <a href="#" onClick={this.handleMoveNext} class="next">{'>>'}</a>
+                <a href="#" onClick={this.handleMoveNext} className="prevNext">{'>>'}</a>
             );
     
             return (
-                <a href="#" onClick={this.handleClick(page)} class={`page${ currentPage === page ? ' active' : ''}`}>{page}</a>
+                <a href="#" onClick={this.handleClick(page)} className={`page${ currentPage === page ? ' active' : ''}`}>{page}</a>
             );
         }) 
         console.log(showPages)
         return ( 
             <React.Fragment>
-                <div className="pagination_section">
+                <div className={`pagination_section${ currentPage === pageTotal ? ' maxPage' : ''}${ pages[0] === 1 && pages[1] === prevPage ? ' shift' : ''}`}>
                     {showPages}
-                    {/* {
-                        pages.map((page, index) => {
-
-                            if (page === prevPage) return (
-                                <a href="#" onclick={this.handleMovePrev} class="prev">{'<<'}</a>
-                            );
-                    
-                            // if (page === dot) return (
-                            //     <a href="#" class="dot">{dot}</a>
-                            // );
-                    
-                            if (page === nextPage) return (
-                                <a href="#" onclick={this.handleMoveNext} class="next">{'>>'}</a>
-                            );
-                    
-                            return (
-                                <a href="#" onclick={this.handleClick(page)} class={`page${ currentPage === page ? ' active' : ''}`}>{page}</a>
-                            );
-                        }) 
-                    } */}
                 </div>
             </React.Fragment>
          );

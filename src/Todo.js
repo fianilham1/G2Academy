@@ -31,6 +31,7 @@
 import './Todo.css';
 import Table from './Table';
 import ShowEntries from './ShowEntries';
+import Login from './Login';
 
 import React, { Component } from 'react';
 
@@ -42,12 +43,14 @@ class Todo extends Component {
         currentEntries:4,
         currentPage:1
       },
+      isAddNew : false,
       user : [
           {
             'id': '1',
             'photoName': 'Bali Photos',
             'albumName': 'Travel',
             'user':'John',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/92c952'
           },
           {
@@ -55,6 +58,7 @@ class Todo extends Component {
             'photoName': 'Isekai Photos',
             'albumName': 'Wibu',
             'user':'Eko',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/24f355'
           },
           {
@@ -62,6 +66,7 @@ class Todo extends Component {
             'photoName': 'DJ Photos',
             'albumName': 'Music',
             'user':'Steve',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/54176f'
           },
           {
@@ -69,6 +74,7 @@ class Todo extends Component {
             'photoName': 'Interstellar Photos',
             'albumName': 'Movie',
             'user':'Gege',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/810b14'
           },
           {
@@ -76,6 +82,7 @@ class Todo extends Component {
             'photoName': 'Yogya Photos',
             'albumName': 'Travel',
             'user':'John',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/92c952'
           },
           {
@@ -83,6 +90,7 @@ class Todo extends Component {
             'photoName': 'Math Photos',
             'albumName': 'Learning',
             'user':'Eko',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/24f355'
           },
           {
@@ -90,6 +98,7 @@ class Todo extends Component {
             'photoName': 'Rock Photos',
             'albumName': 'Music',
             'user':'Steve',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/54176f'
           },
           {
@@ -97,62 +106,71 @@ class Todo extends Component {
             'photoName': 'Saturnus Photos',
             'albumName': 'Astronomy',
             'user':'Gege',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/810b14'
           },
           {
             'id': '9',
-            'photoName': 'Yogya Photos',
-            'albumName': 'Travel',
+            'photoName': 'A Photos',
+            'albumName': 'Alphabet',
             'user':'John',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/92c952'
           },
           {
             'id': '10',
-            'photoName': 'Math Photos',
-            'albumName': 'Learning',
+            'photoName': 'B Photos',
+            'albumName': 'Alphabet',
             'user':'Eko',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/24f355'
           },
           {
             'id': '11',
-            'photoName': 'Rock Photos',
-            'albumName': 'Music',
+            'photoName': 'C Photos',
+            'albumName': 'Alphabet',
             'user':'Steve',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/54176f'
           },
           {
             'id': '12',
-            'photoName': 'Saturnus Photos',
-            'albumName': 'Astronomy',
+            'photoName': 'D Photos',
+            'albumName': 'Alphabet',
             'user':'Gege',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/810b14'
           },
           {
             'id': '13',
-            'photoName': 'Yogya Photos',
-            'albumName': 'Travel',
+            'photoName': 'Child Photos',
+            'albumName': 'Family',
             'user':'John',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/92c952'
           },
           {
             'id': '14',
-            'photoName': 'Math Photos',
-            'albumName': 'Learning',
+            'photoName': 'Picnic Photos',
+            'albumName': 'Family',
             'user':'Eko',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/24f355'
           },
           {
             'id': '15',
-            'photoName': 'Rock Photos',
-            'albumName': 'Music',
+            'photoName': 'World War Photos',
+            'albumName': 'Histoty',
             'user':'Steve',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/54176f'
           },
           {
             'id': '16',
-            'photoName': 'Saturnus Photos',
-            'albumName': 'Astronomy',
+            'photoName': '1945 Photos',
+            'albumName': 'History',
             'user':'Gege',
+            "url": "https://via.placeholder.com/600/92c952",
             'thumbnail':'https://via.placeholder.com/150/810b14'
           }
       ]
@@ -174,8 +192,35 @@ class Todo extends Component {
    
     this.setState({ pageConfig: pageConfigCopy});
     console.log("call page in MAIN:",val)
-    // console.log("call entries:",this.state.pageConfig) 
   }
+  handleUpdateData = val => {
+    let userCopy = JSON.parse(JSON.stringify(this.state.user))
+    userCopy[`${val.row-1}`].photoName = val.photoName;
+    userCopy[`${val.row-1}`].albumName = val.albumName;
+    userCopy[`${val.row-1}`].user = val.user;
+   
+    this.setState({ user: userCopy});
+    console.log("call update in MAIN:",val.row)
+  }
+  handleDeleteData = val => {
+    let userCopy = JSON.parse(JSON.stringify(this.state.user))
+    userCopy.splice(val-1, 1)
+   
+    this.setState({ user: userCopy});
+    console.log("call delete in MAIN:",val)
+  }
+  handleAddData = val => {
+    let userCopy = JSON.parse(JSON.stringify(this.state.user))
+    userCopy.push(val)
+   
+    this.setState({ user: userCopy});
+    this.setState({ isAddNew: false });
+    console.log("call add new in MAIN:",val)
+  }
+  handleClickAddData = val => {
+    this.setState({ isAddNew: true });
+  }
+
   render() { 
     console.log("currentPageConfig:",this.state.pageConfig)
     return ( 
@@ -184,7 +229,7 @@ class Todo extends Component {
 
         <div className="button">
           <div>
-            <button id="addButton" onClick="AddNew()">Add New</button>
+            <button id="addButton" onClick={this.handleClickAddData}>Add New</button>
           </div>
           <div className="searchbg">
             <input type="text" className="input" onKeyUp="Search()" placeholder="Search..." title="Type in a name"/>
@@ -196,19 +241,13 @@ class Todo extends Component {
         <div className="triangle-left"></div>
         <div className="triangle-up"></div>
 
-        <Table data={this.state} onSelectPage={this.handlePage}/>
+        <Table data={this.state} onSelectPage={this.handlePage} onUpdateDate={this.handleUpdateData} onDelete={this.handleDeleteData} onAddData={this.handleAddData}/>
 
         <ShowEntries onSelectEntries={this.handleEntries}/>
 
         
         {/* <div class="pagination_section bottom">
         </div> */}
-
-        <div id="myModal" className="modal">
-          <span className="close">&times;</span>
-          <img className="modal-content" id="img01"/>
-          <div id="caption"></div>
-        </div>
 
       </div>
       </React.Fragment>
@@ -217,3 +256,4 @@ class Todo extends Component {
 }
  
 export default Todo;
+
