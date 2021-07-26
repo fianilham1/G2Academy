@@ -1,0 +1,55 @@
+.bg{
+    background-color: #37436b;
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* text header */
+.head1{
+  position: absolute;
+  top: 0;
+  left: 20px;
+  margin: 10px;
+  font-family: 'Malgun Gothic',Malgun Gothic;
+  font-size: 30px;
+  color: white;
+}
+
+.head2{
+  position: absolute;
+  top: 20px;
+  left: 35px;
+  margin: 20px;
+  font-family: 'Malgun Gothic',Malgun Gothic;
+  font-weight: bold;
+  font-size: 37px;
+  color: white;
+}
+
+/* triangle shape */
+.triangle-left {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-right: 30px solid #58689c;
+  border-bottom: 75px solid transparent;
+  opacity: 50%;
+}
+
+.triangle-up {
+  position: absolute;
+  margin-left: 130px;
+  width: 0px;
+  bottom: 0;
+  height: 0;
+  border-left: 145px solid transparent;
+  border-right: 600px solid transparent;
+  border-bottom: 40px solid #58689c;
+  opacity: 50%;
+}
