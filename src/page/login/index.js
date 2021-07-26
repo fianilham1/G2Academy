@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../inputType.css';
+import { Input } from '../../component';
 import profileImg from './profile.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUnlockAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -30,11 +31,12 @@ class Login extends Component {
             [keyPassword]:e.target[1].value
         }
         console.log(this.state.userConfig[keyUsername])
-        this.props.onLogin();
 
         const {dataUser} = this.props
-        console.log("call user in login",dataUser)
+       
+        console.log("CEK LOGIN USER",userInput[keyUsername])
         for(let i=0;i<dataUser.length;i++){
+            console.log("call user in login",dataUser[i][keyUsername])
             if(userInput[keyUsername] === dataUser[i][keyUsername] && userInput[keyPassword] === dataUser[i][keyPassword]){
                 // console.log("ceklogged",userInput)
                 userInput['name']=dataUser[i]['name']
@@ -67,24 +69,24 @@ class Login extends Component {
                 <img className="avatar" src={profileImg}/>
                 <h2>Welcome</h2>
                 <div className={`input-div${ this.state[`isFocus${input[0]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {envelope}
-                        {/* <i className="fas fa-user"></i> */}
                     </div>
                     <div>
                         <h5>{input[0]}</h5>
                         <input id={`isFocus${input[0]}`} className="input" type="text" onFocus={this.focusHandler} onBlur={this.blurHandler} name="username"/>
-                    </div>
+                    </div> */}
+                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={0} typeTx="text"/>
                 </div>
                 <div className={`input-div${ this.state[`isFocus${input[1]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {unlock}
-                        {/* <i className="fas fa-calendar-check"></i> */}
                     </div>
                     <div>
                         <h5>{input[1]}</h5>
                         <input id={`isFocus${input[1]}`} className="input"  type="password" onFocus={this.focusHandler} onBlur={this.blurHandler} name="password"/>
-                    </div>
+                    </div> */}
+                     <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={1} typeTx="password"/>
                 </div>
                 
                 <button className="button" type="submit">Sign In</button>

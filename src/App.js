@@ -151,7 +151,7 @@ class App extends Component {
       <>
         <Header />
         <Nav page={this.state.currentPage} goToPage={this.changePage} loginStatus={this.state.isLogin} loggedUser={this.state.currentLoggedUser}/>
-        <Body page={this.state.currentPage} onLogin={this.loginHandler} loggedUser={this.state.currentLoggedUser}/>
+        <Body page={this.state.currentPage} onLogin={this.loginHandler} loginStatus={this.state.isLogin} loggedUser={this.state.currentLoggedUser}/>
         {/* <button onClick={() => this.changePage("about")}>Change</button> */}
       </>
     )

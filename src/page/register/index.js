@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../inputType.css';
+import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faUnlockAlt, faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
@@ -20,7 +21,7 @@ class Home extends Component {
                 name:"",
                 username:"",
                 password:"",
-                confirmPassword:""
+                confirmpassword:""
             }
         }
     }
@@ -64,67 +65,47 @@ class Home extends Component {
         const input = ['Name','Username','Password','ConfirmPassword']; 
         return (
             <React.Fragment>
-            {/* <div className="register-wrapper">
-                <h1>Please Register</h1>
-                <form onSubmit={this.onSubmitHandler}>
-                    <label>
-                        <p>Name</p>
-                        <input type="text" name="name"/>
-                    </label>
-                    <label>
-                        <p>Username</p>
-                        <input type="text" name="username"/>
-                    </label>
-                    <label>
-                        <p>Password</p>
-                        <input type="password" name="password"/>
-                    </label>
-                    <label>
-                        <p>Confirm Password</p>
-                        <input type="password" name="confirmPassword"/>
-                    </label>
-                    <div>
-                    <button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div> */}
             <form onSubmit={this.onSubmitHandler} className="bgform">
                 <h2>Create Account</h2>
                 <div className={`input-div${ this.state[`isFocus${input[0]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {person}
                     </div>
                     <div>
                         <h5>{input[0]}</h5>
                         <input id={`isFocus${input[0]}`} className="input" type="text" onFocus={this.focusHandler} onBlur={this.blurHandler} name="name"/>
-                    </div>
+                    </div> */}
+                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={person} index={0} typeTx="text"/>
                 </div>
                 <div className={`input-div${ this.state[`isFocus${input[1]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {envelope}
                     </div>
                     <div>
                         <h5>{input[1]}</h5>
                         <input id={`isFocus${input[1]}`} className="input" type="text" onFocus={this.focusHandler} onBlur={this.blurHandler} name="username"/>
-                    </div>
+                    </div> */}
+                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={1} typeTx="text"/>
                 </div>
                 <div className={`input-div${ this.state[`isFocus${input[2]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {unlock}
                     </div>
                     <div>
                         <h5>{input[2]}</h5>
                         <input id={`isFocus${input[2]}`} className="input"  type="password" onFocus={this.focusHandler} onBlur={this.blurHandler} name="password"/>
-                    </div>
+                    </div> */}
+                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={2} typeTx="password"/>
                 </div>
                 <div className={`input-div${ this.state[`isFocus${input[3]}`] ? ' focus' : ''}`}>
-                    <div className="i">
+                    {/* <div className="i">
                         {check}
                     </div>
                     <div>
                         <h5>Confirm Password</h5>
                         <input id={`isFocus${input[3]}`} className="input"  type="password" onFocus={this.focusHandler} onBlur={this.blurHandler} name="confirmPassword"/>
-                    </div>
+                    </div> */}
+                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={check} index={3} typeTx="password"/>
                 </div>
                 
                 <button className="button" type="submit">Register</button>

@@ -72,11 +72,18 @@ class Body extends Component {
 
     renderPage = () => {
         const page = this.props.page;
-        const {loggedUser} = this.props;
+        const {loggedUser, loginStatus} = this.props;
+        console.log("COKKKKKKKKKKKKKKKK",this.state.userList)
         if (page === "register")
             return <Register onAddNewUser={this.addNewUserHandler}/>
 
+        if (page === "userList" && !loginStatus)
+            return <Login onLogin={this.loginHandler} dataUser={this.state.userList}/>
+
         if (page === "userList")
+            return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser}/>
+
+        if (page === "login" && loginStatus)
             return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser}/>
 
         return <Login onLogin={this.loginHandler} dataUser={this.state.userList}/>

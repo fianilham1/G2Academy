@@ -69,9 +69,10 @@ class Table extends Component {
   }
   handleSave = e => {
     // console.log("Row-i:",e.target.parentElement.parentElement)
-    if(this.state.data.name==='' || this.state.data.username==='' || this.state.data.password===''){
-      return alert("Please FIll All the Fields!!")
-    }
+    // if(this.state.data.name==='' || this.state.data.username==='' || this.state.data.password===''){
+    //   return alert("Please FIll All the Fields!!")
+    // }
+    const { loggedUser } = this.props;
     let isEditCopy = {
       no:-1,
       status:false
@@ -79,16 +80,27 @@ class Table extends Component {
     this.setState({ isEdit: isEditCopy });
     let row = e.target.className;
 
-    let updateData = {
+    let updateData = { //default DATA
       row: row,
-      name: this.state.data.name,
-      username: this.state.data.username,
-      password:this.state.data.password
+      name: loggedUser.name,
+      username: loggedUser.username,
+      password: loggedUser.password
+    }
+    this.setState({data:updateData})
+    console.log("EDITCEK",loggedUser)
+
+    if(this.state.data.name!=='' || this.state.data.username!=='' || this.state.data.password!==''){
+      updateData = { //update DATA if any change detected
+        row: row,
+        name: this.state.data.name,
+        username: this.state.data.username,
+        password:this.state.data.password
+      }
+      this.props.onUpdateData(updateData);
+      this.setState({loggedUser:updateData})
     }
 
-    this.props.onUpdateData(updateData);
 
-    this.setState({loggedUser:updateData})
 
     //clear all data
     this.setState(prevState => {
@@ -217,13 +229,13 @@ class Table extends Component {
       <div class="row">
         <div class="cell num">{startIndex++}</div>
         <div class="cell">
-          <input type='text' name="name" onChange={this.handleChange}/>
+          <input type='text' defaultValue={data.name} name="name" onChange={this.handleChange}/>
         </div>
         <div class="cell">
-          <input type='text' name="username" onChange={this.handleChange}/>
+          <input type='text' defaultValue={data.username} name="username" onChange={this.handleChange}/>
         </div>
         <div class="cell">
-          <input type='password' name="password" onChange={this.handleChange}/>
+          <input type='password' defaultValue={data.password} name="password" onChange={this.handleChange}/>
         </div> 
         <div class="cell action">
           <button class={startIndex-1} id="editButton" onClick={this.handleEdit} style={this.state.isEdit['status'] ? { display: "none" } : {display: "block"}}>Edit</button>
