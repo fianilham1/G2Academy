@@ -5,9 +5,8 @@ import profileImg from './profile.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUnlockAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+// import withReactContent from 'sweetalert2-react-content'
 
-const MySwal = withReactContent(Swal)
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
 
@@ -84,9 +83,9 @@ class Login extends Component {
                 <img className="avatar" src={profileImg}/>
                 <h2>Sign In</h2>
                 
-                    <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={0} typeTx="text"/>
+                    <Input focusState={this.state} name="Username" focus={this.focusHandler} blur={this.blurHandler} icon={envelope} typeTx="text"/>
                 
-                    <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={1} typeTx="password"/>
+                    <Input focusState={this.state} name="Password" focus={this.focusHandler} blur={this.blurHandler} icon={unlock} typeTx="password"/>
                 
                 <button className="button" type="submit">Sign In</button>
             </form>

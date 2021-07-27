@@ -4,9 +4,8 @@ import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faUnlockAlt, faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+// import withReactContent from 'sweetalert2-react-content'
 
-const MySwal = withReactContent(Swal)
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
 const person = <FontAwesomeIcon icon={faUser} />
@@ -28,6 +27,18 @@ class Home extends Component {
             }
         }
     }
+
+    componentDidMount() {
+        const { editStatus } = this.props;
+        if (editStatus){
+            this.setState({
+                isFocusName:true,
+                isFocusUsername:true,
+                isFocusPassword:true
+            })
+        }
+      }
+
     onSubmitHandler =  e => {
         e.preventDefault();
       
@@ -89,7 +100,7 @@ class Home extends Component {
     }
     render() {
         const input = ['Name','Username','Password','ConfirmPassword'];
-        const {editStatus} = this.props; 
+        const {editStatus, loggedUser} = this.props; 
         console.log("EDIT??",editStatus)
         return (
             <React.Fragment>
@@ -97,13 +108,13 @@ class Home extends Component {
             <form onSubmit={this.onSubmitHandler} className="bgform">
                 <h2>{editStatus ? `Edit Account` : `Create Account`}</h2>
 
-                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={person} index={0} typeTx="text"/>
+                <Input focusState={this.state} name="Name" focus={this.focusHandler} blur={this.blurHandler} icon={person} typeTx="text" defaultValue={editStatus ? loggedUser.name : ''}/>
 
-                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={1} typeTx="text"/>
+                <Input focusState={this.state} name="Username" focus={this.focusHandler} blur={this.blurHandler} icon={envelope} typeTx="text" defaultValue={editStatus ? loggedUser.username : ''}/>
 
-                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={2} typeTx="password"/>
+                <Input focusState={this.state} name="Password" focus={this.focusHandler} blur={this.blurHandler} icon={unlock} typeTx="password" defaultValue={editStatus ? loggedUser.password : ''}/>
 
-                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={check} index={3} typeTx="password"/>
+                <Input focusState={this.state} name="ConfirmPassword" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="password"/>
                 
                 <button className="button" type="submit">{editStatus ? `Save` : `Register`}</button>
             </form>

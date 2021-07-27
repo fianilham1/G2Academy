@@ -57,9 +57,7 @@ class Body extends Component {
         // })
       }
 
-      loginHandler = loggedUser => {
-        this.props.onLogin(loggedUser);
-      }
+    
 
       addNewUserHandler = newUser => {
         let userCopy = JSON.parse(JSON.stringify(this.state.userList))
@@ -104,17 +102,17 @@ class Body extends Component {
 
 
     renderPage = () => {
-        const {loggedUser, page, isEdit} = this.props;
+        const {loggedUser, page, isEdit, onLogin} = this.props;
         console.log("CURRENT LIST MAIN:",this.state.userList)
         if (page === "register")
-            return <Register onAddNewUser={this.addNewUserHandler} editStatus={isEdit} onEditUser={this.editUserHandler} />
+            return <Register onAddNewUser={this.addNewUserHandler} editStatus={isEdit} onEditUser={this.editUserHandler} loggedUser={loggedUser}/>
 
         if (page === "userList")
             return <UserList dataUser={this.state.userList} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser} onGoToEditForm={this.GoToEditFormHandler}/>
 
             // return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser} onGoToPageForm={this.GoToPageFormHandler}/>
 
-        return <Login onLogin={this.loginHandler} dataUser={this.state.userList}/>
+        return <Login onLogin={onLogin} dataUser={this.state.userList}/>
     }
 
     render() {
@@ -122,21 +120,6 @@ class Body extends Component {
         return (
             <div className="body">
                 {this.renderPage()}
-                {/* <button onClick={this.onAddHandler}>Add New</button>
-                <table className="table-list">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Age</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderList()}
-                    </tbody>
-                </table> */}
             </div>
         );
     }
