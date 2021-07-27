@@ -6,16 +6,40 @@ class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            editRow:0,
             userList: [
-                {
-                    id: 1,
-                    name: 'Bobo',
-                    username: 'bobo1@gmail.com',
-                    password:'bobo123@'
-                  }
+                // {
+                //     id: 1,
+                //     name: 'Bobo',
+                //     username: 'bobo1@gmail.com',
+                //     password:'bobo123@'
+                // }
             ]
         }
     }
+
+    componentDidMount(){
+        const urlFetch = fetch('https://jsonplaceholder.typicode.com/users')
+        urlFetch.then( res => {
+           if(res.status === 200)
+              return res.json()   
+        }).then( resJson => {
+            const dataArr = resJson.map((data, index) => {
+                return (
+                  {
+                    name:data.name,
+                    username:data.username,
+                    password:'12345',
+                    address:data.address.city
+                  }
+                );
+            }) 
+            console.log("JSONDATA:",dataArr)
+           this.setState({
+            userList: dataArr
+           })
+        })
+     }
 
     onAddHandler = () => { }
     renderList = () => { }
@@ -55,11 +79,14 @@ class Body extends Component {
 
       editUserHandler = editedUser => {
         let userCopy = JSON.parse(JSON.stringify(this.state.userList))
-        userCopy[`${editedUser.row-1}`].name = editedUser.name;
-        userCopy[`${editedUser.row-1}`].username = editedUser.username;
-        userCopy[`${editedUser.row-1}`].password = editedUser.password;
+        let row = this.state.editRow;
+        userCopy[`${row-1}`].name = editedUser.name;
+        userCopy[`${row-1}`].username = editedUser.username;
+        userCopy[`${row-1}`].password = editedUser.password;
        
         this.setState({ userList: userCopy});
+        this.props.updateLoggedUser(editedUser);
+        this.props.onEditStatus();
       }
 
       deleteUserHandler = deletedRow => {
@@ -69,22 +96,23 @@ class Body extends Component {
         this.setState({ userList: userCopy});
       }
 
+      GoToEditFormHandler = editedUserDefault => {
+        this.props.onGoToEditForm()
+        //get default edit
+        this.setState({editRow:editedUserDefault.row})
+      }
+
 
     renderPage = () => {
-        const page = this.props.page;
-        const {loggedUser, loginStatus} = this.props;
-        console.log("COKKKKKKKKKKKKKKKK",this.state.userList)
+        const {loggedUser, page, isEdit} = this.props;
+        console.log("CURRENT LIST MAIN:",this.state.userList)
         if (page === "register")
-            return <Register onAddNewUser={this.addNewUserHandler}/>
-
-        if (page === "userList" && !loginStatus)
-            return <Login onLogin={this.loginHandler} dataUser={this.state.userList}/>
+            return <Register onAddNewUser={this.addNewUserHandler} editStatus={isEdit} onEditUser={this.editUserHandler} />
 
         if (page === "userList")
-            return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser}/>
+            return <UserList dataUser={this.state.userList} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser} onGoToEditForm={this.GoToEditFormHandler}/>
 
-        if (page === "login" && loginStatus)
-            return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser}/>
+            // return <UserList dataUser={this.state.userList} onEditUser={this.editUserHandler} onDeleteUser={this.deleteUserHandler} loggedUser={loggedUser} onGoToPageForm={this.GoToPageFormHandler}/>
 
         return <Login onLogin={this.loginHandler} dataUser={this.state.userList}/>
     }

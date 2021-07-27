@@ -3,7 +3,10 @@ import '../inputType.css';
 import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faUnlockAlt, faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
 const person = <FontAwesomeIcon icon={faUser} />
@@ -41,13 +44,36 @@ class Home extends Component {
             [keyConfirmPassword]:e.target[3].value
         }
         console.log(this.state.userNew[keyUsername])
+        const {editStatus} = this.props; 
 
         if(userInputNew[keyPassword] === userInputNew[keyConfirmPassword]){
-            alert("Register Success");
-            this.setState({ userNew: userInputNew});
-            this.props.onAddNewUser(userInputNew);
+            if(!editStatus){
+                this.setState({ userNew: userInputNew});
+                this.props.onAddNewUser(userInputNew);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Register is Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }else{
+                this.props.onEditUser(userInputNew);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Edit is Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+           
         }else{
-            alert("Password is not match");
+            Swal.fire({
+                icon: 'error',
+                title: 'Password is Not Match',
+                text: 'Please try again!',
+                showConfirmButton: false,
+                timer: 1500
+              })
         }
       }
 
@@ -62,53 +88,24 @@ class Home extends Component {
        
     }
     render() {
-        const input = ['Name','Username','Password','ConfirmPassword']; 
+        const input = ['Name','Username','Password','ConfirmPassword'];
+        const {editStatus} = this.props; 
+        console.log("EDIT??",editStatus)
         return (
             <React.Fragment>
+                {/* focusState={this.state} */}
             <form onSubmit={this.onSubmitHandler} className="bgform">
-                <h2>Create Account</h2>
-                <div className={`input-div${ this.state[`isFocus${input[0]}`] ? ' focus' : ''}`}>
-                    {/* <div className="i">
-                        {person}
-                    </div>
-                    <div>
-                        <h5>{input[0]}</h5>
-                        <input id={`isFocus${input[0]}`} className="input" type="text" onFocus={this.focusHandler} onBlur={this.blurHandler} name="name"/>
-                    </div> */}
-                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={person} index={0} typeTx="text"/>
-                </div>
-                <div className={`input-div${ this.state[`isFocus${input[1]}`] ? ' focus' : ''}`}>
-                    {/* <div className="i">
-                        {envelope}
-                    </div>
-                    <div>
-                        <h5>{input[1]}</h5>
-                        <input id={`isFocus${input[1]}`} className="input" type="text" onFocus={this.focusHandler} onBlur={this.blurHandler} name="username"/>
-                    </div> */}
-                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={1} typeTx="text"/>
-                </div>
-                <div className={`input-div${ this.state[`isFocus${input[2]}`] ? ' focus' : ''}`}>
-                    {/* <div className="i">
-                        {unlock}
-                    </div>
-                    <div>
-                        <h5>{input[2]}</h5>
-                        <input id={`isFocus${input[2]}`} className="input"  type="password" onFocus={this.focusHandler} onBlur={this.blurHandler} name="password"/>
-                    </div> */}
-                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={2} typeTx="password"/>
-                </div>
-                <div className={`input-div${ this.state[`isFocus${input[3]}`] ? ' focus' : ''}`}>
-                    {/* <div className="i">
-                        {check}
-                    </div>
-                    <div>
-                        <h5>Confirm Password</h5>
-                        <input id={`isFocus${input[3]}`} className="input"  type="password" onFocus={this.focusHandler} onBlur={this.blurHandler} name="confirmPassword"/>
-                    </div> */}
-                    <Input input={input} focus={this.focusHandler} blur={this.blurHandler} icon={check} index={3} typeTx="password"/>
-                </div>
+                <h2>{editStatus ? `Edit Account` : `Create Account`}</h2>
+
+                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={person} index={0} typeTx="text"/>
+
+                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={envelope} index={1} typeTx="text"/>
+
+                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={unlock} index={2} typeTx="password"/>
+
+                <Input focusState={this.state} input={input} focus={this.focusHandler} blur={this.blurHandler} icon={check} index={3} typeTx="password"/>
                 
-                <button className="button" type="submit">Register</button>
+                <button className="button" type="submit">{editStatus ? `Save` : `Register`}</button>
             </form>
             
         </React.Fragment>

@@ -1,6 +1,10 @@
-import React, { Children, Component } from 'react';
+import React, { Component } from 'react';
 import { Menu } from '../../component';
 import "./nav.css"
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 class Nav extends Component {
     constructor(props) {
@@ -19,13 +23,16 @@ class Nav extends Component {
         this.setState({loggedUser:loggedUser})
       }
 
-    renderPage = () => {
+    showPageAfterLogin = () => {
         const {goToPage, loginStatus} = this.props;
         
         if (loginStatus)
         return <Menu isActivePage={this.checkActivePage("logout")} redirect={() => goToPage("logout")}>Logout</Menu>
 
-        return <Menu isActivePage={this.checkActivePage("login")} redirect={() => goToPage("login")}>Login</Menu>
+        return <>
+        <Menu isActivePage={this.checkActivePage("login")} redirect={() => goToPage("login")}>Login</Menu>
+        <Menu isActivePage={this.checkActivePage("register")} redirect={() => goToPage("register")}>Register</Menu>
+        </>        
     }
     getUser = () => {
         const {loggedUser, loginStatus} = this.props;
@@ -36,9 +43,9 @@ class Nav extends Component {
     }
 
     checkActivePage = activePage => {
-        const page = this.props.page
+        const { page } = this.props
         if (activePage === page) return "active"
-
+       
         return ""
     }
 
@@ -47,13 +54,21 @@ class Nav extends Component {
         const { goToPage, loginStatus, loggedUser } = this.props
         console.log("cekk",loggedUser)
         return (
+            <>
             <div className="nav">
-                {this.renderPage()}
-                {/* <Menu isActivePage={this.checkActivePage("login")} redirect={() => goToPage("login")}>Login</Menu> */}
-                <Menu isActivePage={this.checkActivePage("register")} redirect={() => goToPage("register")}>Register</Menu>
-                <Menu isActivePage={this.checkActivePage("userList")} redirect={loginStatus ? () => goToPage("userList") : () => goToPage("prohibited")}>User List</Menu>
-                {this.getUser()}
+                {this.showPageAfterLogin()} 
+                <Menu isActivePage={this.checkActivePage("userList")} redirect={loginStatus ? () => goToPage("userList") : () =>  Swal.fire({
+                    icon: 'error',
+                    title: 'Please Sign In First',
+                    text: 'Please try again!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                }>User List</Menu>
             </div>
+            {this.getUser()}
+            </>
+            
         );
     }
 }

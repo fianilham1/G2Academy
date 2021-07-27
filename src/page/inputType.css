@@ -3,13 +3,14 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
     padding: 0;
     justify-content: center;
     align-items: center;
     text-align: center;
       /* background: rgba(223, 221, 221, 0.747); */
-      border:2px solid rgb(208, 209, 205); 
-      border-radius: 5%;
+    border:2px solid rgb(208, 209, 205); 
+    border-radius: 5%;
     width: 400px;
     height: 500px;
     padding: 20px;

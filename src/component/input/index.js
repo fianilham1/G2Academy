@@ -8,15 +8,17 @@ class Menu extends Component {
     }
 
     render() {
-        const { icon, input, focus, blur, index, typeTx } = this.props
+        const { focusState, icon, input, focus, blur, index, typeTx } = this.props
         return (
             <>
-            <div className="i">
-                {icon}      
-            </div>
-            <div>
-                <h5>{input[index]}</h5>
-            <input id={`isFocus${input[index]}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={input[index].toLowerCase()}/>
+            <div className={`input-div${ focusState[`isFocus${input[index]}`] ? ' focus' : ''}`}>
+                <div className="i">
+                    {icon}      
+                </div>
+                <div>
+                    <h5>{input[index]}</h5>
+                <input id={`isFocus${input[index]}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={input[index].toLowerCase()}/>
+                </div>
             </div>
             </>
         );

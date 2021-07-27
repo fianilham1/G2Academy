@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       isLogin:false,
+      isEdit:false,
       currentPage: "login",
       userInputName: "",
       userInputAge: "",
@@ -118,9 +119,9 @@ class App extends Component {
   // }
 
   changePage = page => {
-    if (page === "prohibited"){
-      return alert("Please Sign In First!!!")
-    }
+    // if (page === "prohibited"){
+    //   return alert("Please Sign In First!!!")
+    // }
     if (page === "logout"){
       const clearLoggedUser = {
         username: "",
@@ -128,7 +129,8 @@ class App extends Component {
       }
       this.setState({
         isLogin: false,
-        currentLoggedUser:clearLoggedUser
+        currentLoggedUser:clearLoggedUser,
+        currentPage: "login"
       })
       return alert("Logout")
     }
@@ -139,9 +141,30 @@ class App extends Component {
   loginHandler = loggedUser => {
    this.setState({
       isLogin:true,
-      currentLoggedUser:loggedUser})
+      currentLoggedUser:loggedUser,
+      currentPage: "userList"
+    })
   //  this.setState({currentLoggedUser:loggedUser})
    console.log("current logged User",loggedUser)
+  }
+
+  updateLoggedHandler = edittedLoggedUser => {
+    this.setState({
+      currentLoggedUser:edittedLoggedUser})
+  }
+
+  GoToEditFormHandler = () => {
+    this.setState({
+      currentPage: "register",
+      isEdit:true
+    })
+  }
+
+  editStatusHandler = () => {
+    this.setState({
+      currentPage: "userList",
+      isEdit:false
+    })
   }
 
   render() {
@@ -151,7 +174,7 @@ class App extends Component {
       <>
         <Header />
         <Nav page={this.state.currentPage} goToPage={this.changePage} loginStatus={this.state.isLogin} loggedUser={this.state.currentLoggedUser}/>
-        <Body page={this.state.currentPage} onLogin={this.loginHandler} loginStatus={this.state.isLogin} loggedUser={this.state.currentLoggedUser}/>
+        <Body page={this.state.currentPage} onLogin={this.loginHandler} loginStatus={this.state.isLogin} loggedUser={this.state.currentLoggedUser} updateLoggedUser={this.updateLoggedHandler} onGoToEditForm={this.GoToEditFormHandler} isEdit={this.state.isEdit} onEditStatus={this.editStatusHandler}/>
         {/* <button onClick={() => this.changePage("about")}>Change</button> */}
       </>
     )

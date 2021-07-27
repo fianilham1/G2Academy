@@ -16,8 +16,6 @@ const Header = () => {
     );
 };
 
-let currentPage = 1;
-
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -56,15 +54,30 @@ class Table extends Component {
   handlePage = val => {
     this.props.onSelectPage(val);
     console.log("call page in table:",val) 
-    currentPage = val;
   }
+
   handleEdit = e => {
       console.log(e.target.className)
+      console.log("LOGGED-IN-TABLE",this.state.loggedUser)
+
       let isEditCopy = {
         no:parseInt(e.target.className)-1,
         status:true
       }
-      this.setState({ isEdit: isEditCopy });
+
+      let updateData = { //default DATA
+        row: e.target.className,
+        name: this.state.loggedUser.name,
+        username: this.state.loggedUser.username,
+        password: this.state.loggedUser.password
+      }
+    
+      this.setState({ 
+        isEdit: isEditCopy,
+        data : updateData
+      });
+
+      this.props.onGoToEditForm(updateData);
       // console.log("Row-i:",e.target.parentElement.parentElement)
   }
   handleSave = e => {
@@ -72,7 +85,7 @@ class Table extends Component {
     // if(this.state.data.name==='' || this.state.data.username==='' || this.state.data.password===''){
     //   return alert("Please FIll All the Fields!!")
     // }
-    const { loggedUser } = this.props;
+    
     let isEditCopy = {
       no:-1,
       status:false
@@ -80,17 +93,8 @@ class Table extends Component {
     this.setState({ isEdit: isEditCopy });
     let row = e.target.className;
 
-    let updateData = { //default DATA
-      row: row,
-      name: loggedUser.name,
-      username: loggedUser.username,
-      password: loggedUser.password
-    }
-    this.setState({data:updateData})
-    console.log("EDITCEK",loggedUser)
-
     if(this.state.data.name!=='' || this.state.data.username!=='' || this.state.data.password!==''){
-      updateData = { //update DATA if any change detected
+      let updateData = { //update DATA if any change detected
         row: row,
         name: this.state.data.name,
         username: this.state.data.username,
@@ -174,10 +178,8 @@ class Table extends Component {
 //     }
 //  }
   render() { 
+    // console.log("EDITCEK",this.state.data)
     const { pageConfig, dataUser } = this.props;
-
-    // let pageConfigData = data.pageConfig;
-    // let isAddStatus = data.isAddNew;
 
     let filteredData = [];
     let entries = pageConfig.currentEntries;
@@ -252,7 +254,7 @@ class Table extends Component {
         <div class="cell">{data.password}</div>
         <div class="cell action">
           <button class={startIndex-1} id="editButton" onClick={this.handleEdit}>Edit</button>
-          <button class={startIndex-1} id="saveButton" onClick={this.handleSave} class="save">Save</button>
+          <button class={`save ${startIndex-1}`} id="saveButton" onClick={this.handleSave}>Save</button>
         </div>
       </div>
       )
@@ -261,7 +263,7 @@ class Table extends Component {
         <div class="cell num">{startIndex++}</div>
         <div class="cell">{data.name}</div>
         <div class="cell">{data.username}</div>
-        <div class="cell">{data.password}</div>
+        <div class="cell pass">{data.password}</div>
         <div class="cell action">
           <button class={startIndex-1} id="deleteButton" onClick={this.handleDelete}>Delete</button>
         </div>

@@ -31,6 +31,10 @@
   /* border: 1px solid black; */
 }
 
+.cell.pass{
+  -webkit-text-security: disc;
+}
+
 .cell.header{
   background-color: #1d212e;
   color: #ffffff;

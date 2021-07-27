@@ -13,9 +13,9 @@ class Header extends Component {
                 <div className="bg">
                     <div className="head1">List of</div>
                     <h2 className="head2">User</h2>
-                    <div className="triangle-left"></div>
-                    <div className="triangle-up"></div>
+                    <div className="bgImg"></div>
                 </div>
+                
             </>
         );
     }

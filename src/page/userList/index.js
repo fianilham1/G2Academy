@@ -27,31 +27,27 @@ class About extends Component {
         console.log("call entries:",pageConfigCopy)
         // console.log("call entries:",this.state.pageConfig) 
       }
-      handlePage = page => {
+    handlePage = page => {
         let pageConfigCopy = JSON.parse(JSON.stringify(this.state.pageConfig))
         pageConfigCopy.currentPage = parseInt(page)
        
         this.setState({ pageConfig: pageConfigCopy});
         console.log("call page in userList:",page)
       }
-      handleUpdateData = editedUser => {
-        // let userCopy = JSON.parse(JSON.stringify(this.state.user))
-        // userCopy[`${val.row-1}`].name = val.name;
-        // userCopy[`${val.row-1}`].username = val.username;
-        // userCopy[`${val.row-1}`].password = val.password;
-       
-        // this.setState({ user: userCopy});
+    handleUpdateData = editedUser => {
+    
         this.props.onEditUser(editedUser);
         console.log("call update in userList:",editedUser.row)
       }
-      handleDeleteData = deletedRow => {
-        // let userCopy = JSON.parse(JSON.stringify(this.state.user))
-        // userCopy.splice(val-1, 1)
-       
-        // this.setState({ user: userCopy});
+    handleDeleteData = deletedRow => {
+    
         this.props.onDeleteUser(deletedRow);
         console.log("call delete in userList:",deletedRow)
       }
+    
+    handleGoToEditForm = editedUserDefault => {
+      this.props.onGoToEditForm(editedUserDefault);
+    }
 
     render() {
         const {dataUser, loggedUser} = this.props;
@@ -67,7 +63,7 @@ class About extends Component {
                   </div>
                 </div>
         
-                <Table pageConfig={this.state.pageConfig} dataUser={dataUser} onSelectPage={this.handlePage} onUpdateData={this.handleUpdateData} onDelete={this.handleDeleteData} onAddData={this.handleAddData} loggedUser={loggedUser}/>
+                <Table pageConfig={this.state.pageConfig} dataUser={dataUser} onSelectPage={this.handlePage} onUpdateData={this.handleUpdateData} onDelete={this.handleDeleteData} onAddData={this.handleAddData} loggedUser={loggedUser} onGoToEditForm={this.handleGoToEditForm}/>
         
                 <ShowEntries onSelectEntries={this.handleEntries}/>
         
