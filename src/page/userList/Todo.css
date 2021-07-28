@@ -177,7 +177,7 @@ s
   right: 200px;
 }
 
-.pagination_section a:not(.active) {
+.pagination_section button:not(.active) {
   color: black;
   padding: 10px 20px;
   text-decoration: none;
@@ -189,23 +189,20 @@ s
 }
 /* pagination hover effect on non-active */
 
-.pagination_section a:hover:not(.active) {
+.pagination_section button:hover:not(.active) {
   background-image: linear-gradient(to right,#9b200a,#c41818,#9b200a);
   color: white;
-  /* transition: .5s; */
+  transition: .5s;
   border: 1px solid gray;
 }
 /* pagination hover effect on active*/
+.pagination_section button:hover {
+  cursor: pointer;
+}
 
 .pagination_section .dot{
   cursor: auto;
 }
-
-/* .bottom a:not(.active) {
-  color: black;
-  padding: 10px 15px;
-  text-decoration: none;
-} */
 
 .active {
   padding: 10px 20px;
@@ -215,11 +212,11 @@ s
   border: 1px solid green;
 }
 
-a:nth-child(1) {
+button:nth-child(1) {
   font-weight: bold;
 }
 
-a:last-child {
+button:last-child {
   font-weight: bold;
 }
 

@@ -99,7 +99,6 @@ class Home extends Component {
        
     }
     render() {
-        const input = ['Name','Username','Password','ConfirmPassword'];
         const {editStatus, loggedUser} = this.props; 
         console.log("EDIT??",editStatus)
         return (

@@ -73,14 +73,13 @@ class Login extends Component {
     }
     
     render() { 
-        const input = ['Username','Password']; 
         
         console.log("focus",this.state.isFocusUsername)
         return ( 
            
             <React.Fragment>
             <form onSubmit={this.onSubmitHandler} className="bgform">
-                <img className="avatar" src={profileImg}/>
+                <img className="avatar" src={profileImg} alt=""/>
                 <h2>Sign In</h2>
                 
                     <Input focusState={this.state} name="Username" focus={this.focusHandler} blur={this.blurHandler} icon={envelope} typeTx="text"/>

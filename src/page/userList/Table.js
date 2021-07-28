@@ -1,6 +1,7 @@
 
 import './Todo.css';
 import Pagination from './Pagination';
+import { RowTable } from '../../component';
 
 import React, { Component } from 'react';
 
@@ -80,6 +81,7 @@ class Table extends Component {
       this.props.onGoToEditForm(updateData);
       // console.log("Row-i:",e.target.parentElement.parentElement)
   }
+  
   handleSave = e => {
     // console.log("Row-i:",e.target.parentElement.parentElement)
     // if(this.state.data.name==='' || this.state.data.username==='' || this.state.data.password===''){
@@ -104,8 +106,6 @@ class Table extends Component {
       this.setState({loggedUser:updateData})
     }
 
-
-
     //clear all data
     this.setState(prevState => {
       let data = { ...prevState.data };    // creating copy of state variable 
@@ -117,11 +117,13 @@ class Table extends Component {
     
   }
   handleDelete = e => {
-    let deletedRow = parseInt(e.target.className);
+    const deletedRow = parseInt(e.target.className);
+    const totalCurrentRowPage = parseInt(e.target.name);
     const { pageConfig, dataUser } = this.props;
     if(dataUser.length!==0){ //left header only
       console.log("CEK CURRENT PAGE BEFORE DELETE",pageConfig.currentPage)
-      if(deletedRow === dataUser.length && pageConfig.currentPage!==1){ 
+      console.log("CEK BEFORE DELETE",totalCurrentRowPage)
+      if(totalCurrentRowPage === 1 && pageConfig.currentPage!==1){ 
         pageConfig.currentPage -= 1;
       }
   
@@ -139,46 +141,10 @@ class Table extends Component {
       return { data };                     // return new object 
     })
   }
-//   handleChangeAdd = e => {
-//     // console.log(e.target.value)
-//     let property = `${e.target.name}`;
-//     this.setState(prevState => {
-//       let addData = { ...prevState.addData };    // creating copy of state variable 
-//       addData[property] = `${e.target.value}`;// update the name property, assign a new value                 
-//       return { addData };                     // return new object 
-//     })
-//   }
-//   keyPress = e => {
 
-//     if(e.keyCode == 13){ //enter key
-//        console.log('value', e.target.value);
-       
-//       if(this.state.addData.photoName=='' || this.state.addData.albumName=='' || this.state.addData.user==''){
-//         console.log("ALERT")
-//         return alert("Please FIll All the Fields!!")
-//       }
 
-//        let property = `id`;
-//         this.setState(prevState => {
-//           let addData = { ...prevState.addData };    // creating copy of state variable 
-//           addData[property] = 17;// update the name property, assign a new value                 
-//           return { addData };                     // return new object 
-//         })
-  
-//       this.props.onAddData(this.state.addData);
-
-//       //clear all data
-//       this.setState(prevState => {
-//         let addData = { ...prevState.addData };    // creating copy of state variable 
-//         addData['photoName'] = '';// update the name property, assign a new value   
-//         addData['albumName'] = '';// update the name property, assign a new value   
-//         addData['user'] = '';// update the name property, assign a new value                 
-//         return { addData };                     // return new object 
-//       })
-//     }
-//  }
   render() { 
-    // console.log("EDITCEK",this.state.data)
+    console.log("EDITCEK",this.state.totalRowPage)
     const { pageConfig, dataUser } = this.props;
 
     let filteredData = [];
@@ -190,84 +156,37 @@ class Table extends Component {
     for(let i = startIndex;i < endIndex;i++){
         if(i<dataUser.length){ //limit to user data length
             const user = dataUser[i];
-            console.log("filtered",user)
             filteredData.push(user);
         }        
     }
   
-    // if(isAddStatus){
-    //   let addData = {
-    //     'id': userData[userData.length-1].id,
-    //     'photoName': '',
-    //     'albumName': '',
-    //     'user':'',
-    //     "url": "https://via.placeholder.com/600/92c952",
-    //     'thumbnail':'https://via.placeholder.com/150/92c952'
-    //   }
-    //   filteredData.unshift(addData); //add new element in the first index
-    // }
     startIndex++;
-    
     let showData = filteredData.map((data,index) => {
-      // if(index==0 && isAddStatus) return(
+     
+      if(data.username===this.state.loggedUser.username) return(
+        <RowTable keyNum={index} startIndex={startIndex} data={data} onClickEvent={this.handleEdit} text={"Edit"} loggedUser={this.state.loggedUser.username}/>
       // <div class="row">
-      //   <div class="cell num">{userData.length+1}</div>
-      //   <div class="cell">
-      //     <input type='text' name="photoName" onKeyUp={this.keyPress} onChange={this.handleChangeAdd}/>
-      //   </div>
-      //   <div class="cell">
-      //     <input type='text' name="albumName" onKeyUp={this.keyPress} onChange={this.handleChangeAdd}/>
-      //   </div>
-      //   <div class="cell">
-      //     <input type='text' name="user" onKeyUp={this.keyPress} onChange={this.handleChangeAdd}/>
-      //   </div> 
-      //   <div class="cell">
-      //   </div>
+      //   <div class="cell num">{startIndex++}</div>
+      //   <div class="cell">{data.name}</div>
+      //   <div class="cell">{data.username}</div>
+      //   <div class="cell">{data.password}</div>
       //   <div class="cell action">
+      //     <button class={startIndex-1} id="editButton" onClick={this.handleEdit}>Edit</button>
+      //     <button class={`save ${startIndex-1}`} id="saveButton" onClick={this.handleSave}>Save</button>
       //   </div>
       // </div>
-      // )
-      if(index === this.state.isEdit['no'] && this.state.isEdit['status']) return(
-      <div class="row">
-        <div class="cell num">{startIndex++}</div>
-        <div class="cell">
-          <input type='text' defaultValue={data.name} name="name" onChange={this.handleChange}/>
-        </div>
-        <div class="cell">
-          <input type='text' defaultValue={data.username} name="username" onChange={this.handleChange}/>
-        </div>
-        <div class="cell">
-          <input type='password' defaultValue={data.password} name="password" onChange={this.handleChange}/>
-        </div> 
-        <div class="cell action">
-          <button class={startIndex-1} id="editButton" onClick={this.handleEdit} style={this.state.isEdit['status'] ? { display: "none" } : {display: "block"}}>Edit</button>
-          <button class={startIndex-1} id="saveButton" onClick={this.handleSave} style={this.state.isEdit['status'] ? { display: "block" } : {display: "none"}}>Save</button>
-        </div>
-      </div>
-      )
-
-      if(data.username===this.state.loggedUser.username) return(
-        <div class="row">
-        <div class="cell num">{startIndex++}</div>
-        <div class="cell">{data.name}</div>
-        <div class="cell">{data.username}</div>
-        <div class="cell">{data.password}</div>
-        <div class="cell action">
-          <button class={startIndex-1} id="editButton" onClick={this.handleEdit}>Edit</button>
-          <button class={`save ${startIndex-1}`} id="saveButton" onClick={this.handleSave}>Save</button>
-        </div>
-      </div>
       )
       return (
-      <div class="row">
-        <div class="cell num">{startIndex++}</div>
-        <div class="cell">{data.name}</div>
-        <div class="cell">{data.username}</div>
-        <div class="cell pass">{data.password}</div>
-        <div class="cell action">
-          <button class={startIndex-1} id="deleteButton" onClick={this.handleDelete}>Delete</button>
-        </div>
-      </div>
+        <RowTable keyNum={index} startIndex={startIndex} data={data} onClickEvent={this.handleDelete} text={"Delete"} totalCurrentRowPage={filteredData.length} typeTx={"pass"}/>
+      // <div class="row">
+      //   <div class="cell num">{startIndex++}</div>
+      //   <div class="cell">{data.name}</div>
+      //   <div class="cell">{data.username}</div>
+      //   <div class="cell pass">{data.password}</div>
+      //   <div class="cell action">
+      //     <button class={startIndex-1} id="deleteButton" onClick={this.handleDelete}>Delete</button>
+      //   </div>
+      // </div>
       )
         
     });

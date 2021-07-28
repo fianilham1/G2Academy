@@ -1,5 +1,5 @@
 import Menu from "./menu";
-import TransformText from "./text"
 import Input from "./input";
+import RowTable from "./rowTable";
 
-export { Menu, Input, TransformText }
+export { Menu, Input, RowTable }

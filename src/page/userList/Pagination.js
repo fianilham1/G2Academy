@@ -126,15 +126,15 @@ class Pagination extends Component {
         const pages = buildPagination(entries,currentPage,userList.length)
         const showPages = pages.map((page, index) => {
             if (page === prevPage) return (
-                <a href="#" onClick={this.handleMovePrev} className="prevNext">{'<<'}</a>
+                <button href="#" onClick={this.handleMovePrev} className="prevNext">{'<<'}</button>
             );
             
             if (page === nextPage) return (
-                <a href="#" onClick={this.handleMoveNext} className="prevNext">{'>>'}</a>
+                <button href="#" onClick={this.handleMoveNext} className="prevNext">{'>>'}</button>
             );
     
             return (
-                <a href="#" onClick={this.handleClick(page)} className={`page${ currentPage === page ? ' active' : ''}`}>{page}</a>
+                <button href="#" onClick={this.handleClick(page)} className={`page${ currentPage === page ? ' active' : ''}`}>{page}</button>
             );
         }) 
         console.log(showPages)
