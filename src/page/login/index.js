@@ -42,6 +42,7 @@ class Login extends Component {
             if(userInput[keyUsername] === dataUser[i][keyUsername] && userInput[keyPassword] === dataUser[i][keyPassword]){
                 // console.log("ceklogged",userInput)
                 userInput['name']=dataUser[i]['name']
+                userInput['role']=dataUser[i]['role']
                 this.props.onLogin(userInput);
                 return Swal.fire({
                   icon: 'success',

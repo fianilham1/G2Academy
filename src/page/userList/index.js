@@ -34,23 +34,9 @@ class About extends Component {
         this.setState({ pageConfig: pageConfigCopy});
         console.log("call page in userList:",page)
       }
-    handleUpdateData = editedUser => {
-    
-        this.props.onEditUser(editedUser);
-        console.log("call update in userList:",editedUser.row)
-      }
-    handleDeleteData = deletedRow => {
-    
-        this.props.onDeleteUser(deletedRow);
-        console.log("call delete in userList:",deletedRow)
-      }
-    
-    handleGoToEditForm = editedUserDefault => {
-      this.props.onGoToEditForm(editedUserDefault);
-    }
 
     render() {
-        const {dataUser, loggedUser} = this.props;
+        const {dataUser, loggedUser, onEditEvent, onDetailEvent} = this.props;
         return (
             <React.Fragment>
               <div className="bgTable">
@@ -63,7 +49,7 @@ class About extends Component {
                   </div>
                 </div>
         
-                <Table pageConfig={this.state.pageConfig} dataUser={dataUser} onSelectPage={this.handlePage} onUpdateData={this.handleUpdateData} onDelete={this.handleDeleteData} onAddData={this.handleAddData} loggedUser={loggedUser} onGoToEditForm={this.handleGoToEditForm}/>
+                <Table pageConfig={this.state.pageConfig} dataUser={dataUser} onSelectPage={this.handlePage} loggedUser={loggedUser} onEditEvent={onEditEvent} onDetailEvent={onDetailEvent}  />
         
                 <ShowEntries onSelectEntries={this.handleEntries}/>
         

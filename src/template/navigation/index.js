@@ -26,17 +26,19 @@ class Nav extends Component {
         const {goToPage, loginStatus} = this.props;
         
         if (loginStatus)
-        return <Menu isActivePage={this.checkActivePage("logout")} redirect={() => goToPage("logout")}>Logout</Menu>
+        return <>
+        <Menu isActivePage={this.checkActivePage("logout")} redirect={() => goToPage("logout")}>Logout</Menu>
+        <Menu isActivePage={this.checkActivePage("form")} redirect={() => goToPage("form")}>Register</Menu>
+        </>
 
         return <>
         <Menu isActivePage={this.checkActivePage("login")} redirect={() => goToPage("login")}>Login</Menu>
-        <Menu isActivePage={this.checkActivePage("register")} redirect={() => goToPage("register")}>Register</Menu>
         </>        
     }
     getUser = () => {
         const {loggedUser, loginStatus} = this.props;
         if (loginStatus)
-        return <div className="welcome">{`Welcome ${String(loggedUser.name)}`}</div>
+        return <div className="welcome">{`Welcome ${String(loggedUser.name)}`}<div>{`Role: ${String(loggedUser.role)}`}</div></div>
 
         return <div className="welcome">Welcome</div>
     }

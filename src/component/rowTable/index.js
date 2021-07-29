@@ -8,16 +8,17 @@ class RowTable extends Component {
     }
 
     render() { 
-        const {data, keyNum, startIndex, onClickEvent, text, typeTx, totalCurrentRowPage} = this.props;
+        const {data, keyNum, startIndex, onEditEvent, onDetailEvent, buttonName, typeTx, totalCurrentRowPage} = this.props;
         const number = startIndex+keyNum;
+        const totalSalary = data.mainSalary + data.allowance.entertaint ? data.allowance.entertaint : data.allowance.food + data.allowance.transport;
         return ( 
             <>
-            <div class="row">
+            <div key={number} class="row">
                 <CellTable number={number} addClassType="num"/>
                 <CellTable data={data.name}/>
-                <CellTable data={data.username} />
-                <CellTable data={data.password} addClassType={typeTx}/>
-                <CellTable number={number} totalCurrentRowPage={totalCurrentRowPage} onClickEvent={onClickEvent} text={text} addClassType="action"/>
+                <CellTable data={data.role} />
+                <CellTable data={`Rp${totalSalary}`} />
+                <CellTable dataId={data.id} totalCurrentRowPage={totalCurrentRowPage} onEditEvent={onEditEvent} onDetailEvent={onDetailEvent} buttonName={buttonName} addClassType="action"/>
                 {/* <div className="cell num">{number}</div>
                 <div className="cell">{data.name}</div>
                 <div className="cell">{data.username}</div>

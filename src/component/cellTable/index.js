@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './cell.css';
 
 class CellTable extends Component {
     constructor(props) {
@@ -6,8 +7,18 @@ class CellTable extends Component {
         this.state = {  }
     }
     renderButton = () => {
-        const { number, onClickEvent, text, totalCurrentRowPage, addClassType} = this.props;
-        if (addClassType==="action") return <button name={totalCurrentRowPage} className={number} id={`${text.toLowerCase()}Button`} onClick={onClickEvent}>{text}</button>
+        const { dataId, onEditEvent, onDetailEvent, buttonName, totalCurrentRowPage, addClassType} = this.props;
+
+        if (addClassType==="action") return (
+            buttonName.map((button,index) => {
+                if(index===0) return  <button key={index} name={totalCurrentRowPage} data-id={dataId} id={`${button.toLowerCase()}Button`} onClick={onEditEvent}>{button}</button>
+
+                if(index===1) return  <button key={index} name={totalCurrentRowPage} data-id={dataId} id={`${button.toLowerCase()}Button`} onClick={onDetailEvent}>{button}</button>
+
+                return''
+                }
+            )
+        )
 
         return ''
     }

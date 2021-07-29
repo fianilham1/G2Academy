@@ -1,5 +1,6 @@
 import Login from "./login";
-import Register from "./register";
+import Form from "./form";
 import UserList from "./userList";
+import Detail from "./detail";
 
-export { Login, Register, UserList }
+export { Login, Form, UserList, Detail }
