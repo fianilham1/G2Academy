@@ -8,17 +8,19 @@ class RowTable extends Component {
     }
 
     render() { 
-        const {data, keyNum, startIndex, onEditEvent, onDetailEvent, buttonName, typeTx, totalCurrentRowPage} = this.props;
+        const {data, keyNum, startIndex, onEditEvent, onDetailEvent, buttonName, totalCurrentRowPage, loggedUser} = this.props;
         const number = startIndex+keyNum;
-        const totalSalary = data.mainSalary + data.allowance.entertaint ? data.allowance.entertaint : data.allowance.food + data.allowance.transport;
+        const totalSalary = data.allowance.entertaint ? data.mainSalary + data.allowance.entertaint : data.mainSalary + data.allowance.food + data.allowance.transport;
         return ( 
             <>
             <div key={number} class="row">
                 <CellTable number={number} addClassType="num"/>
                 <CellTable data={data.name}/>
                 <CellTable data={data.role} />
+                <CellTable data={data.username} />
+                <CellTable data={data.password} addClassType="pass"/>
                 <CellTable data={`Rp${totalSalary}`} />
-                <CellTable dataId={data.id} totalCurrentRowPage={totalCurrentRowPage} onEditEvent={onEditEvent} onDetailEvent={onDetailEvent} buttonName={buttonName} addClassType="action"/>
+                <CellTable loggedUser={loggedUser} dataId={data.id} totalCurrentRowPage={totalCurrentRowPage} onEditEvent={onEditEvent} onDetailEvent={onDetailEvent} buttonName={buttonName} addClassType="action"/>
                 {/* <div className="cell num">{number}</div>
                 <div className="cell">{data.name}</div>
                 <div className="cell">{data.username}</div>

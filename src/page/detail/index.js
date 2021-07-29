@@ -6,8 +6,31 @@ class Detail extends Component {
         super(props);
         this.state = {  }
     }
+
+    renderAllowance = () => {
+        const {detailUser} = this.props;
+        if (detailUser.role==="Manager"){
+            return ( 
+            <div className="rowDetail"> 
+                <div className="cellDetail">Allowance of Entertaint</div>
+                <div className="cellDetail">Rp{detailUser.allowance.entertaint}</div>
+            </div>
+            )
+        }
+        return <>
+            <div className="rowDetail"> 
+                <div className="cellDetail">Allowance of Food</div>
+                <div className="cellDetail">Rp{detailUser.allowance.food}</div>
+            </div>
+            <div className="rowDetail"> 
+                <div className="cellDetail">Allowance of Transport</div>
+                <div className="cellDetail">Rp{detailUser.allowance.transport}</div>
+            </div>
+        </>
+    }
     render() { 
         const {detailUser} = this.props;
+        console.log("DETAIL",detailUser.allowance)
         return ( 
             <>
             <div className="detailbg">
@@ -18,21 +41,14 @@ class Detail extends Component {
                     <div className="cellDetail header">Amount</div>
                 </div>
                 <div className="rowDetail"> 
+                    <div className="cellDetail">Total Salary</div>
+                    <div className="cellDetail">Rp{detailUser.allowance.entertaint ? detailUser.mainSalary + detailUser.allowance.entertaint : detailUser.mainSalary + detailUser.allowance.food + detailUser.allowance.transport}</div>
+                </div>
+                <div className="rowDetail"> 
                     <div className="cellDetail">Main Salary</div>
                     <div className="cellDetail">Rp{detailUser.mainSalary}</div>
                 </div>
-                <div className="rowDetail"> 
-                    <div className="cellDetail">Allowance of Food</div>
-                    <div className="cellDetail">Rp{detailUser.allowance.food}</div>
-                </div>
-                <div className="rowDetail"> 
-                    <div className="cellDetail">Allowance of Transport</div>
-                    <div className="cellDetail">Rp{detailUser.allowance.transport}</div>
-                </div>
-                <div className="rowDetail"> 
-                    <div className="cellDetail">Allowance of Entertaint</div>
-                    <div className="cellDetail">Rp{detailUser.allowance.entertaint}</div>
-                </div>
+                {this.renderAllowance()}
                 </div>
             </div>
             </>

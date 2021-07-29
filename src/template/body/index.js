@@ -6,7 +6,6 @@ class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editStatus: false,
             edittedUser:{},
             detailUser: {},
             userList: [
@@ -137,27 +136,33 @@ class Body extends Component {
       //   this.setState({editRow:editedUserDefault.row})
       // }
 
+
       editUserHandler = edittedSalary => {
         const userCopy = this.state.userList;
         const indexForEdit = userCopy.map((user)=> {return user.id}).indexOf(edittedSalary.id);
-        // let updatedUser = userCopy.find(user => user.id === edittedSalary.id);
-        userCopy[indexForEdit].mainSalary = edittedSalary.mainSalary;
+
+        console.log("SALARY1",userCopy[indexForEdit].mainSalary)
+        userCopy[indexForEdit].mainSalary = edittedSalary.mainsalary;
         userCopy[indexForEdit].allowance.food = edittedSalary.allowance.food;
         userCopy[indexForEdit].allowance.transport = edittedSalary.allowance.transport;
         userCopy[indexForEdit].allowance.entertaint = edittedSalary.allowance.entertaint;
        
-        this.setState({ userList: userCopy});
-        console.log("EDITT MASUK",indexForEdit)
+        this.setState({ 
+          userList: userCopy,
+        });
+
+        console.log("SALARY2",userCopy[indexForEdit].mainSalary)
         this.props.goToPage("userList")
+        // this.props.onEditEvent(false) //to set false
       }
 
       editEventHandler = id => {
         const user = this.state.userList[id-1]
         this.setState({
-          editStatus:true,
           edittedUser:user
         })
         this.props.goToPage("form")
+        this.props.onEditEvent(true) //to set true
       }
 
       detailEventHandler = id => {
@@ -170,10 +175,14 @@ class Body extends Component {
 
 
     renderPage = () => {
-        const {loggedUser, page, onLogin} = this.props;
-        console.log("CURRENT LIST MAIN:",this.state.userList)
+        const {loggedUser, page, onLogin, editStatus} = this.props;
+        console.log("CURRENT detail:",this.state.detailUser)
 
         const filteredUserBasedRole = []; 
+        // if(loggedUser.role==="Employee"){
+        //   () => this.detailEventHandler(loggedUser.id)
+        // }
+
         if (loggedUser){
           this.state.userList.map((user,index) => {
             if(loggedUser.role==='HRD'){
@@ -185,6 +194,11 @@ class Body extends Component {
               filteredUserBasedRole.push(user)
               return index
             }
+
+            if(loggedUser.role==='Employee' && user.username===loggedUser.username){
+              filteredUserBasedRole.push(user)
+              return index
+            }
       
             return ''
           })
@@ -192,13 +206,13 @@ class Body extends Component {
         }
         
         if (page === "form")
-            return <Form onAddNewUser={this.addNewUserHandler} loggedUser={loggedUser} editStatus={this.state.editStatus} onEditUser={this.editUserHandler} edittedUser={this.state.edittedUser} />
+            return <Form onAddNewUser={this.addNewUserHandler} loggedUser={loggedUser} editStatus={editStatus} onEditUser={this.editUserHandler} edittedUser={this.state.edittedUser} />
 
         if (page === "userList")
             return <UserList dataUser={filteredUserBasedRole} loggedUser={loggedUser} onEditEvent={this.editEventHandler} onDetailEvent={this.detailEventHandler}/>
 
         if (page === "detail")
-            return <Detail detailUser={this.state.detailUser}/>
+            return <Detail detailUser={loggedUser.role!=="Employee" ? this.state.detailUser : filteredUserBasedRole[0]}/>
 
         return <Login onLogin={onLogin} dataUser={this.state.userList}/>
     }

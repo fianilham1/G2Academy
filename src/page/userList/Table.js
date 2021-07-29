@@ -11,9 +11,9 @@ const Header = () => {
         <div class="cell header">No</div>
         <div class="cell header">Name</div>
         <div class="cell header">Position</div>
-        <div class="cell header">Salary</div>
-        {/* <div class="cell header">Username</div>
-        <div class="cell header">Password</div> */}
+        <div class="cell header">Username</div>
+        <div class="cell header">Password</div>
+        <div class="cell header">Total Salary</div>
         <div class="cell header">Salary Action</div>
     </div>
     );
@@ -102,7 +102,6 @@ class Table extends Component {
 
 
   render() { 
-    console.log("EDITCEK",this.state.totalRowPage)
     const { pageConfig, dataUser } = this.props;
 
     let filteredData = []; //filter based on pagination
@@ -122,7 +121,7 @@ class Table extends Component {
     console.log("ROLE",this.state.loggedUser.role)
     let showData = filteredData.map((data,index) => {
 
-      return <RowTable keyNum={index} startIndex={startIndex} data={data} onEditEvent={this.handleEdit} onDetailEvent={this.handleDetail} buttonName={["Edit","Detail"]} loggedUser={this.state.loggedUser.username}/>
+      return <RowTable keyNum={index} startIndex={startIndex} data={data} onEditEvent={this.handleEdit} onDetailEvent={this.handleDetail} buttonName={["Edit","Detail"]} loggedUser={this.state.loggedUser}/>
         
     });
 

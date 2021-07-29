@@ -22,13 +22,29 @@ class Nav extends Component {
         this.setState({loggedUser:loggedUser})
       }
 
-    showPageAfterLogin = () => {
-        const {goToPage, loginStatus} = this.props;
+    showUserListAfterLogin = () => { //for page UserList ONLY
+        const {goToPage, loginStatus, loggedUser} = this.props;
+
+        if (loginStatus && loggedUser.role!=="Employee"){
+            return <Menu isActivePage={this.checkActivePage("userList")} redirect={() => goToPage("userList")}>User List</Menu>
+        }
+
+        return ''
+      
+    }
+
+    showPageAfterLogin = () => { //for page login, logut, register/edit
+        const {goToPage, loginStatus, loggedUser, editStatus} = this.props;
+        console.log("Edit in nav",editStatus)
+        if (loginStatus && loggedUser.role==="HRD")
+        return <>
+        <Menu isActivePage={this.checkActivePage("logout")} redirect={() => goToPage("logout")}>Logout</Menu>
+        <Menu isActivePage={this.checkActivePage("form")} redirect={() => goToPage("form")}>{editStatus ? 'Edit':'Register'}</Menu>
+        </>
         
         if (loginStatus)
         return <>
         <Menu isActivePage={this.checkActivePage("logout")} redirect={() => goToPage("logout")}>Logout</Menu>
-        <Menu isActivePage={this.checkActivePage("form")} redirect={() => goToPage("form")}>Register</Menu>
         </>
 
         return <>
@@ -58,14 +74,7 @@ class Nav extends Component {
             <>
             <div className="nav">
                 {this.showPageAfterLogin()} 
-                <Menu isActivePage={this.checkActivePage("userList")} redirect={loginStatus ? () => goToPage("userList") : () =>  Swal.fire({
-                    icon: 'error',
-                    title: 'Please Sign In First',
-                    text: 'Please try again!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                }>User List</Menu>
+                {this.showUserListAfterLogin()}
             </div>
             {this.getUser()}
             </>
@@ -75,3 +84,12 @@ class Nav extends Component {
 }
 
 export default Nav;
+
+// <Menu isActivePage={this.checkActivePage("userList")} redirect={loginStatus ? () => goToPage("userList") : () =>  Swal.fire({
+//                 icon: 'error',
+//                 title: 'Please Sign In First',
+//                 text: 'Please try again!',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             })
+//             }>User List</Menu>

@@ -29,7 +29,7 @@ class Form extends Component {
                 password:"",
                 confirmpassword:"",
                 role:"",
-                mainSalary:0,
+                mainsalary:0,
                 allowance:{
                   food:0,
                   transport:0,
@@ -91,14 +91,14 @@ class Form extends Component {
 
             let salaryInputNew = {
                 id:edittedUser.id,
-                [e.target[0].name]:e.target[0].value,
+                [e.target[0].name]:parseInt(e.target[0].value),
                 allowance:{
-                    [e.target[1].name]:e.target[1].value,
-                    [e.target[2].name]:e.target[2].value,
-                    [e.target[3].name]:e.target[3].value
+                    [e.target[1].name]:parseInt(e.target[1].value),
+                    [e.target[2].name]:parseInt(e.target[2].value),
+                    [e.target[3].name]:parseInt(e.target[3].value)
                 }
             }
-
+           
             this.props.onEditUser(salaryInputNew);
             return Swal.fire({
                     icon: 'success',
@@ -123,7 +123,7 @@ class Form extends Component {
 
     renderPage = () => {
         const {editStatus, edittedUser} = this.props; 
-        console.log("EDIT??",editStatus)
+        console.log("EDITSTATUS in FORM??",editStatus)
 
         if(editStatus) return (
             <>
