@@ -28,6 +28,14 @@ class Detail extends Component {
             </div>
         </>
     }
+
+    renderButton = () => {
+        const {loggedUser, goToPage} = this.props;
+        if(loggedUser.role==="Employee") return ''
+
+        return (<button className="backButton" onClick={() => goToPage("userList")}> {'<<'} </button>)
+    }
+
     render() { 
         const {detailUser} = this.props;
         console.log("DETAIL",detailUser.allowance)
@@ -50,6 +58,7 @@ class Detail extends Component {
                 </div>
                 {this.renderAllowance()}
                 </div>
+                {this.renderButton()}
             </div>
             </>
          );

@@ -5,6 +5,7 @@ import profileImg from './profile.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUnlockAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
+import './login.css'
 // import withReactContent from 'sweetalert2-react-content'
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
@@ -25,6 +26,7 @@ class Login extends Component {
     
     onSubmitHandler =  e => {
         e.preventDefault();
+
         const keyUsername = e.target[0].name;
         const keyPassword = e.target[1].name
         let userInput = {
@@ -53,6 +55,7 @@ class Login extends Component {
                   
             }
         }
+
         return Swal.fire({
             icon: 'error',
             title: 'Username/Password is Wrong',
@@ -72,6 +75,16 @@ class Login extends Component {
         }
        
     }
+
+    renderButton = () => {
+        const {dataUser} = this.props;
+        if(!dataUser.length){  //check if fetch api is failed
+            return (
+            <div className="lds-ring">Loading<div></div><div></div><div></div></div>
+            )
+        } 
+        return <button className="button login" type="submit">Sign In</button>
+    }
     
     render() { 
         
@@ -87,7 +100,7 @@ class Login extends Component {
                 
                     <Input focusState={this.state} name="Password" focus={this.focusHandler} blur={this.blurHandler} icon={unlock} typeTx="password"/>
                 
-                <button className="button" type="submit">Sign In</button>
+                {this.renderButton()}
             </form>
             </React.Fragment>
         );

@@ -9,91 +9,91 @@ class Body extends Component {
             edittedUser:{},
             detailUser: {},
             userList: [
-                {
-                    id: 1,
-                    name: 'Bobo',
-                    username: 'bobo1@gmail.com',
-                    password:'bobo123@',
-                    role: 'HRD',
-                    mainSalary:7000000,
-                    allowance:{
-                      food:1000000,
-                      transport:1200000
-                    }
-                },
-                {
-                  id: 2,
-                  name: 'Fian',
-                  username: 'fian1@gmail.com',
-                  password:'fian123@',
-                  role: 'Manager',
-                  mainSalary:10000000,
-                  allowance:{
-                    entertaint:2500000
-                  }
-                },
-                {
-                  id: 3,
-                  name: 'Steve',
-                  username: 'steve1@gmail.com',
-                  password:'steve123@',
-                  role: 'Employee',
-                  mainSalary:5000000,
-                  allowance:{
-                    food:1500000,
-                    transport:1500000
-                  }
-                },
-                {
-                  id: 4,
-                  name: 'Hahi',
-                  username: 'hahi1@gmail.com',
-                  password:'hahi123@',
-                  role: 'Employee',
-                  mainSalary:5000000,
-                  allowance:{
-                    food:1500000,
-                    transport:1500000
-                  }
-                },
-                {
-                  id: 5,
-                  name: 'John',
-                  username: 'john1@gmail.com',
-                  password:'john123@',
-                  role: 'Employee',
-                  mainSalary:5000000,
-                  allowance:{
-                    food:1500000,
-                    transport:1500000
-                  }
-                }
-            ]
+                // {
+                //     id: 1,
+                //     name: 'Bobo',
+                //     username: 'bobo1@gmail.com',
+                //     password:'bobo123@',
+                //     role: 'HRD',
+                //     mainSalary:7000000,
+                //     allowance:{
+                //       food:1000000,
+                //       transport:1200000
+                //     }
+                // },
+                // {
+                //   id: 2,
+                //   name: 'Fian',
+                //   username: 'fian1@gmail.com',
+                //   password:'fian123@',
+                //   role: 'Manager',
+                //   mainSalary:10000000,
+                //   allowance:{
+                //     entertaint:2500000
+                //   }
+                // },
+                // {
+                //   id: 3,
+                //   name: 'Steve',
+                //   username: 'steve1@gmail.com',
+                //   password:'steve123@',
+                //   role: 'Employee',
+                //   mainSalary:5000000,
+                //   allowance:{
+                //     food:1500000,
+                //     transport:1500000
+                //   }
+                // },
+                // {
+                //   id: 4,
+                //   name: 'Hahi',
+                //   username: 'hahi1@gmail.com',
+                //   password:'hahi123@',
+                //   role: 'Employee',
+                //   mainSalary:5000000,
+                //   allowance:{
+                //     food:1500000,
+                //     transport:1500000
+                //   }
+                // },
+                // {
+                //   id: 5,
+                //   name: 'John',
+                //   username: 'john1@gmail.com',
+                //   password:'john123@',
+                //   role: 'Employee',
+                //   mainSalary:5000000,
+                //   allowance:{
+                //     food:1500000,
+                //     transport:1500000
+                //   }
+                // }
+            ],
+            loading:false,
         }
     }
 
-    // componentDidMount(){
-    //     const urlFetch = fetch('https://jsonplaceholder.typicode.com/users')
-    //     urlFetch.then( res => {
-    //        if(res.status === 200)
-    //           return res.json()   
-    //     }).then( resJson => {
-    //         const dataArr = resJson.map((data, index) => {
-    //             return (
-    //               {
-    //                 name:data.name,
-    //                 username:data.username,
-    //                 password:'12345',
-    //                 address:data.address.city
-    //               }
-    //             );
-    //         }) 
-    //         console.log("JSONDATA:",dataArr)
-    //        this.setState({
-    //         userList: dataArr
-    //        })
-    //     })
-    //  }
+    getAPI = () => {
+      const urlFetch = fetch('http://localhost:3000/posts') 
+      //Use= npm json server -> file of list user in: src/server/db.json
+      urlFetch.then( res => {
+        if(res.status === 200)
+            return res.json()   
+      }).then( resJson => {
+          // console.log("JSONDATA:",resJson)
+       this.setState({
+         userList:resJson
+       })
+      }).finally(() => this.setState({ loading: false }))
+    }
+
+    componentDidMount() {
+      if (!this.state.userList.length)
+        setTimeout(() => { //simulation for slow network (delay)
+          this.getAPI()
+        }, 3000);
+          
+    }
     
       // addNewUserHandler = newUser => {
       //   let userCopy = this.state.userList;
@@ -111,31 +111,12 @@ class Body extends Component {
       //   console.log("call add new in MAIN LIST:",userInputNew)
       // }
 
-      // editUserHandler = editedUser => {
-      //   let userCopy = JSON.parse(JSON.stringify(this.state.userList))
-      //   let row = this.state.editRow;
-      //   userCopy[`${row-1}`].name = editedUser.name;
-      //   userCopy[`${row-1}`].username = editedUser.username;
-      //   userCopy[`${row-1}`].password = editedUser.password;
-       
-      //   this.setState({ userList: userCopy});
-      //   this.props.updateLoggedUser(editedUser);
-      //   this.props.onEditStatus();
-      // }
-
       // deleteUserHandler = deletedRow => {
       //   let userCopy = JSON.parse(JSON.stringify(this.state.userList))
       //   userCopy.splice(deletedRow-1, 1)
        
       //   this.setState({ userList: userCopy});
       // }
-
-      // GoToEditFormHandler = editedUserDefault => {
-      //   this.props.onGoToEditForm()
-      //   //get default edit
-      //   this.setState({editRow:editedUserDefault.row})
-      // }
-
 
       editUserHandler = edittedSalary => {
         const userCopy = this.state.userList;
@@ -153,7 +134,6 @@ class Body extends Component {
 
         console.log("SALARY2",userCopy[indexForEdit].mainSalary)
         this.props.goToPage("userList")
-        // this.props.onEditEvent(false) //to set false
       }
 
       editEventHandler = id => {
@@ -175,13 +155,10 @@ class Body extends Component {
 
 
     renderPage = () => {
-        const {loggedUser, page, onLogin, editStatus} = this.props;
+        const {loggedUser, page, onLogin, editStatus, goToPage} = this.props;
         console.log("CURRENT detail:",this.state.detailUser)
 
         const filteredUserBasedRole = []; 
-        // if(loggedUser.role==="Employee"){
-        //   () => this.detailEventHandler(loggedUser.id)
-        // }
 
         if (loggedUser){
           this.state.userList.map((user,index) => {
@@ -209,10 +186,10 @@ class Body extends Component {
             return <Form onAddNewUser={this.addNewUserHandler} loggedUser={loggedUser} editStatus={editStatus} onEditUser={this.editUserHandler} edittedUser={this.state.edittedUser} />
 
         if (page === "userList")
-            return <UserList dataUser={filteredUserBasedRole} loggedUser={loggedUser} onEditEvent={this.editEventHandler} onDetailEvent={this.detailEventHandler}/>
+            return <UserList setUsers={this.setUsers} dataUser={filteredUserBasedRole} loggedUser={loggedUser} onEditEvent={this.editEventHandler} onDetailEvent={this.detailEventHandler}/>
 
         if (page === "detail")
-            return <Detail detailUser={loggedUser.role!=="Employee" ? this.state.detailUser : filteredUserBasedRole[0]}/>
+            return <Detail detailUser={loggedUser.role!=="Employee" ? this.state.detailUser : filteredUserBasedRole[0]} goToPage={goToPage} loggedUser={loggedUser}/>
 
         return <Login onLogin={onLogin} dataUser={this.state.userList}/>
     }

@@ -61,3 +61,18 @@
     font-weight: bold;
     color: #009879;
   } */
+
+  .backButton {
+  color: #ffffff;
+  font-size: 15px;
+   background-color: #1d212e;
+   padding: 13px 10px; 
+   margin-left: 170px;
+   cursor: pointer;
+   transition: .4s;
+  }
+
+  .backButton:hover{
+    background-color: #505d8b;
+   /* background-position: right; */
+ }

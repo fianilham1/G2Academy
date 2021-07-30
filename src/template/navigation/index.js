@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from '../../component';
 import "./nav.css"
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 // import withReactContent from 'sweetalert2-react-content'
 
 
@@ -9,6 +9,7 @@ class Nav extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isMouse:false,
             loggedUser : {
                 name: '',
                 username: '',
@@ -68,7 +69,7 @@ class Nav extends Component {
 
     render() {
         // console.log("navlogged",this.getLoggedUser)
-        const { goToPage, loginStatus, loggedUser } = this.props
+        const { loggedUser } = this.props
         console.log("cekk",loggedUser)
         return (
             <>

@@ -12,10 +12,7 @@ class About extends Component {
                 currentPage:1
               },
             isAddNew : false,
-            user : [
-
-              ]
-            
+            user : [],
         }
     }
 
@@ -41,9 +38,9 @@ class About extends Component {
             <React.Fragment>
               <div className="bgTable">
                 <div className="featureAddSearch">
-                  <div>
+                  {/* <div>
                     <button id="addButton" onClick={this.handleClickAddData}>Add New</button>
-                  </div>
+                  </div> */}
                   <div className="searchbg">
                     <input type="text" className="searhInput" onKeyUp="Search()" placeholder="Search..." title="Type in a name"/>
                   </div>

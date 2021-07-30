@@ -91,11 +91,10 @@ class Form extends Component {
 
             let salaryInputNew = {
                 id:edittedUser.id,
-                [e.target[0].name]:parseInt(e.target[0].value),
-                allowance:{
-                    [e.target[1].name]:parseInt(e.target[1].value),
-                    [e.target[2].name]:parseInt(e.target[2].value),
-                    [e.target[3].name]:parseInt(e.target[3].value)
+                [e.target[0].name]:parseInt(e.target[0].value),     //main Salary
+                allowance:{                                         //if Manager   || if else
+                    [e.target[1].name]:parseInt(e.target[1].value), //Entertaint   || food
+                    [e.target[2].name]:parseInt(e.target[2].value), //  xxx        || transport
                 }
             }
            
@@ -125,6 +124,18 @@ class Form extends Component {
         const {editStatus, edittedUser} = this.props; 
         console.log("EDITSTATUS in FORM??",editStatus)
 
+        if(editStatus && edittedUser.role==="Manager") return (
+            <>
+            <h2>Edit Salary For {edittedUser.name}</h2>
+
+                <Input focusState={this.state} name="MainSalary" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" defaultValue={edittedUser.mainSalary}/>
+
+                <Input focusState={this.state} name="Entertaint" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" defaultValue={edittedUser.allowance.entertaint}/>
+                
+                <button className="button" type="submit">Save</button>
+            </>
+        )
+
         if(editStatus) return (
             <>
             <h2>Edit Salary For {edittedUser.name}</h2>
@@ -134,8 +145,6 @@ class Form extends Component {
                 <Input focusState={this.state} name="Food" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" defaultValue={edittedUser.allowance.food}/>
 
                 <Input focusState={this.state} name="Transport" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" defaultValue={edittedUser.allowance.transport}/>
-
-                <Input focusState={this.state} name="Entertaint" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" defaultValue={edittedUser.allowance.entertaint}/>
                 
                 <button className="button" type="submit">Save</button>
             </>
