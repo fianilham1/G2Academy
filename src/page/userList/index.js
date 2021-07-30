@@ -37,6 +37,7 @@ class About extends Component {
         return (
             <React.Fragment>
               <div className="bgTable">
+                <h2>List of Users</h2>
                 <div className="featureAddSearch">
                   {/* <div>
                     <button id="addButton" onClick={this.handleClickAddData}>Add New</button>

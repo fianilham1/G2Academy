@@ -6,11 +6,19 @@
   position: relative;
 }
 
+.bgTable h2{
+ color: #37436b;
+ font-size: 35px;
+ text-align: center;
+ justify-content: center;
+ font-family: 'Poppins',sans-serif;
+}
+
 /* table */
 .tbl {
   background-color: white;
   position: absolute;
-  top: 150px;
+  top: 170px;
   left: 50px;
   display: flex;
   flex-direction: column;
@@ -30,7 +38,7 @@
 } */
 
 .searchbg .searhInput{
-  margin-top: 40px;
+  margin-top: -50px;
   margin-left: 25px;
   height: 30px;
   z-index: 1;

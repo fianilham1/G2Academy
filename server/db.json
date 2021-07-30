@@ -58,7 +58,18 @@
             "food":1500000,
             "transport":1500000
           }
-        }
+        },
+        {
+            "id": 6,
+            "name": "Shayla",
+            "username": "shayla1@gmail.com",
+            "password":"shayla123@",
+            "role": "Manager",
+            "mainSalary":15000000,
+            "allowance":{
+              "entertaint":3000000
+            }
+          }
     ],
     "comments": [
       

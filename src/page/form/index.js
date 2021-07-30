@@ -19,10 +19,12 @@ class Form extends Component {
             isFocusUsername:false,
             isFocusPassword:false,
             isFocusConfirmPassword:false,
+            isFocusRole:true,
             isFocusMainSalary:false,
             isFocusFood:false,
             isFocusTransport:false,
             isFocusEntertaint:false,
+            roleInput:'Manager',
             userNew:{
                 name:"",
                 username:"",
@@ -57,16 +59,20 @@ class Form extends Component {
         const {editStatus, edittedUser} = this.props; 
 
         if(!editStatus){ //for Register NEW USER
-            
             let userInputNew = {
-                [e.target[0].name]:e.target[0].value,
-                [e.target[1].name]:e.target[1].value,
-                [e.target[2].name]:e.target[2].value,
-                [e.target[3].name]:e.target[3].value,
-                [e.target[4].name]:e.target[4].value,
-                [e.target[5].name]:e.target[5].value
+                [e.target[0].name]:e.target[0].value, //name
+                [e.target[1].name]:e.target[1].value, //username
+                [e.target[2].name]:e.target[2].value, //password
+                [e.target[3].name]:e.target[3].value, //confirm pass
+                [e.target[4].name]:e.target[4].value, //role
+                [e.target[5].name]:parseInt(e.target[5].value), //main salary
+                allowance:{
+                    [e.target[6].name]:parseInt(e.target[6].value), //entertaint/food
+                    [e.target[7].name]:parseInt(e.target[7].value) //transport
+                }
+
             }
-            // console.log(this.state.userNew[keyUsername])
+            console.log("NEWuser",userInputNew)
             
             if(userInputNew[e.target[2].name] === userInputNew[e.target[3].name]){
                 this.setState({ userNew: userInputNew});
@@ -115,8 +121,26 @@ class Form extends Component {
         const value = e.target.value;
         if(value===''){
             this.setState({[e.target.id]:false})
-        }
+        }       
+    }
+
+    handleChange = e => {
+        this.setState({
+            roleInput:e.target.value
+        })
+    }
+
+    renderAllowanceBasedRole = () => {
        
+        if(this.state.roleInput!=="Manager") return (
+            <>
+            <Input focusState={this.state} name="Food" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
+
+            <Input focusState={this.state} name="Transport" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
+            </>
+        )
+
+        return <Input focusState={this.state} name="Entertaint" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
     }
 
 
@@ -162,9 +186,11 @@ class Form extends Component {
 
                 <Input focusState={this.state} name="ConfirmPassword" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="password"/>
 
-                <Input focusState={this.state} name="role" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
+                <Input focusState={this.state} name="Role" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text" typeInput="select" handleChange={this.handleChange}/>
 
-                <Input focusState={this.state} name="mainSalary" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
+                <Input focusState={this.state} name="MainSalary" focus={this.focusHandler} blur={this.blurHandler} icon={check} typeTx="text"/>
+
+                {this.renderAllowanceBasedRole()}
                 
                 <button className="button" type="submit">Register</button>
             </>
@@ -173,10 +199,10 @@ class Form extends Component {
     }
 
     render() {
-      
+        const {editStatus} = this.props; 
         return (
             <React.Fragment>
-            <form onSubmit={this.onSubmitHandler} className="bgform">
+            <form onSubmit={this.onSubmitHandler} className={`${!editStatus ? 'bgform':'bgform edit'}`}>
                 {this.renderPage()}
                 
             </form>

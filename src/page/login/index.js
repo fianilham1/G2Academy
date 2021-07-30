@@ -48,7 +48,7 @@ class Login extends Component {
                 this.props.onLogin(userInput);
                 return Swal.fire({
                   icon: 'success',
-                  title: 'Login is Success',
+                  title: `Welcome ${userInput['name']}` ,
                   showConfirmButton: false,
                   timer: 1500
                 })
@@ -76,14 +76,25 @@ class Login extends Component {
        
     }
 
-    renderButton = () => {
+    renderPage = () => {
         const {dataUser} = this.props;
         if(!dataUser.length){  //check if fetch api is failed
             return (
             <div className="lds-ring">Loading<div></div><div></div><div></div></div>
             )
         } 
-        return <button className="button login" type="submit">Sign In</button>
+        return (
+            <form onSubmit={this.onSubmitHandler} className="bgform login">
+                <img className="avatar" src={profileImg} alt=""/>
+                <h2>Sign In</h2>
+            
+                <Input focusState={this.state} name="Username" focus={this.focusHandler} blur={this.blurHandler} icon={envelope} typeTx="text"/>
+            
+                <Input focusState={this.state} name="Password" focus={this.focusHandler} blur={this.blurHandler} icon={unlock} typeTx="password"/>
+            
+                <button className="button login" type="submit">Sign In</button>
+            </form>)
+        
     }
     
     render() { 
@@ -92,7 +103,8 @@ class Login extends Component {
         return ( 
            
             <React.Fragment>
-            <form onSubmit={this.onSubmitHandler} className="bgform">
+                {this.renderPage()}
+            {/* <form onSubmit={this.onSubmitHandler} className="bgform login">
                 <img className="avatar" src={profileImg} alt=""/>
                 <h2>Sign In</h2>
                 
@@ -100,8 +112,8 @@ class Login extends Component {
                 
                     <Input focusState={this.state} name="Password" focus={this.focusHandler} blur={this.blurHandler} icon={unlock} typeTx="password"/>
                 
-                {this.renderButton()}
-            </form>
+                    <button className="button login" type="submit">Sign In</button>
+            </form> */}
             </React.Fragment>
         );
     }

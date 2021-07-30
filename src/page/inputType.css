@@ -3,7 +3,7 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: 50px;
     padding: 0;
     justify-content: center;
     align-items: center;
@@ -12,11 +12,19 @@
     border:2px solid rgb(208, 209, 205); 
     border-radius: 5%;
     width: 400px;
-    height: 500px;
+    height: 780px;
     padding: 20px;
-  
+  }
+
+  .bgform.login{
+    height: 500px;
   }
   
+  .bgform.edit{
+    height: 500px;
+  }
+  
+
   .avatar{
     width: 150px;
   }
@@ -125,7 +133,7 @@
     width: 50%;
     height: 50px;
     border-radius: 25px;
-    margin-top: 80px;
+    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
     /* margin-bottom: 20rem; */
@@ -151,4 +159,19 @@
   
   .button.login{
     margin-top: 0px !important;
+  }
+
+  .role{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 5px;
+    left: -5px;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5rem 0.7rem;
+    font-size: 1.1rem;
+    font-family: 'Poppins',sans-serif;
+    columns: rgb(182, 177, 177);
   }

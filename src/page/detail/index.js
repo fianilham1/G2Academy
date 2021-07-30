@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./detail.css"
+import profileImg from '../login/profile.svg';
 
 class Detail extends Component {
     constructor(props) {
@@ -13,18 +14,18 @@ class Detail extends Component {
             return ( 
             <div className="rowDetail"> 
                 <div className="cellDetail">Allowance of Entertaint</div>
-                <div className="cellDetail">Rp{detailUser.allowance.entertaint}</div>
+                <div className="cellDetail">: Rp{detailUser.allowance.entertaint}</div>
             </div>
             )
         }
         return <>
             <div className="rowDetail"> 
                 <div className="cellDetail">Allowance of Food</div>
-                <div className="cellDetail">Rp{detailUser.allowance.food}</div>
+                <div className="cellDetail">: Rp{detailUser.allowance.food}</div>
             </div>
             <div className="rowDetail"> 
                 <div className="cellDetail">Allowance of Transport</div>
-                <div className="cellDetail">Rp{detailUser.allowance.transport}</div>
+                <div className="cellDetail">: Rp{detailUser.allowance.transport}</div>
             </div>
         </>
     }
@@ -33,7 +34,7 @@ class Detail extends Component {
         const {loggedUser, goToPage} = this.props;
         if(loggedUser.role==="Employee") return ''
 
-        return (<button className="backButton" onClick={() => goToPage("userList")}> {'<<'} </button>)
+        return (<button className="backButton" onClick={() => goToPage("userList")}> Back to List </button>)
     }
 
     render() { 
@@ -42,19 +43,28 @@ class Detail extends Component {
         return ( 
             <>
             <div className="detailbg">
-                <h2>Detail Salary For {detailUser.name}</h2>
+                <h2>Detail Salary For <span className="detailName">{detailUser.name}</span></h2>
+                <h3>{detailUser.role}</h3>
+                <img className="avatar" src={profileImg} alt=""/>
                 <div className="detail-container">
                 <div className="rowDetail"> 
                     <div className="cellDetail header">Details</div>
-                    <div className="cellDetail header">Amount</div>
+                </div>
+                <div className="rowDetail"> 
+                    <div className="cellDetail">Name</div>
+                    <div className="cellDetail">: {detailUser.name}</div>
+                </div>
+                <div className="rowDetail"> 
+                    <div className="cellDetail">Position</div>
+                    <div className="cellDetail">: {detailUser.role}</div>
                 </div>
                 <div className="rowDetail"> 
                     <div className="cellDetail">Total Salary</div>
-                    <div className="cellDetail">Rp{detailUser.allowance.entertaint ? detailUser.mainSalary + detailUser.allowance.entertaint : detailUser.mainSalary + detailUser.allowance.food + detailUser.allowance.transport}</div>
+                    <div className="cellDetail">: Rp{detailUser.allowance.entertaint ? detailUser.mainSalary + detailUser.allowance.entertaint : detailUser.mainSalary + detailUser.allowance.food + detailUser.allowance.transport}</div>
                 </div>
                 <div className="rowDetail"> 
                     <div className="cellDetail">Main Salary</div>
-                    <div className="cellDetail">Rp{detailUser.mainSalary}</div>
+                    <div className="cellDetail">: Rp{detailUser.mainSalary}</div>
                 </div>
                 {this.renderAllowance()}
                 </div>

@@ -95,21 +95,28 @@ class Body extends Component {
           
     }
     
-      // addNewUserHandler = newUser => {
-      //   let userCopy = this.state.userList;
-      //   let userInputNew = {
-      //       id: userCopy[userCopy.length-1].id+1,
-      //       name: newUser.name,
-      //       username: newUser.username,
-      //       password: newUser.password
-      //   }
+      addNewUserHandler = newUser => {
+        let userCopy = this.state.userList;
+        let userInputNew = {
+            id: userCopy[userCopy.length-1].id+1,
+            name: newUser.name,
+            username: newUser.username,
+            password: newUser.password,
+            mainSalary: newUser.mainsalary,
+            role: newUser.role,
+            allowance:{
+              food: newUser.allowance.food,
+              transport: newUser.allowance.transport,
+              entertaint: newUser.allowance.entertaint
+            }
+        }
 
-      //   userCopy.push(userInputNew)
+        userCopy.push(userInputNew)
     
-      //   this.setState({ userList: userCopy});
-       
-      //   console.log("call add new in MAIN LIST:",userInputNew)
-      // }
+        this.setState({ userList: userCopy});
+        this.props.goToPage("userList")
+        console.log("call add new in MAIN LIST:",userInputNew)
+      }
 
       // deleteUserHandler = deletedRow => {
       //   let userCopy = JSON.parse(JSON.stringify(this.state.userList))

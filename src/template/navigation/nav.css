@@ -5,7 +5,7 @@
   align-items: center;
   margin: 0px 0;
   /* background-color: #37436b; */
-  background-image: linear-gradient(to right,#1d212e, #1d212e,#1d212e,#1d212e);
+  background-image: linear-gradient(to right,#1d212e, #1d212e,#2c3144,#333a50);
   padding: 10px 10px;
   box-shadow: 20px 15px 20px rgba(0, 0, 0, 0.25);
   /* z-index: -1; */
@@ -29,14 +29,20 @@
 .welcome{
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 35px;
+  font-size: 17px;
+  color: #ffffff;
   font-family: 'Poppins',sans-serif;
-  color: #37436b;
   /* margin-left: 50%; */
-  margin-top: 15px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  margin: 0px 0px;
+  margin-left: 500px ;
+  /* position: absolute; */
+
+}
+
+.roleWelcome{
+  margin: -5px 0px;
+  font-weight: 800;
+  font-size: 20px;
 }
 
 .menu:hover{

@@ -55,9 +55,9 @@ class Nav extends Component {
     getUser = () => {
         const {loggedUser, loginStatus} = this.props;
         if (loginStatus)
-        return <div className="welcome">{`Welcome ${String(loggedUser.name)}`}<div>{`Role: ${String(loggedUser.role)}`}</div></div>
+        return <div className="welcome">{`Welcome, ${String(loggedUser.name)} `}<h3 className="roleWelcome">{String(loggedUser.role)}</h3></div>
 
-        return <div className="welcome">Welcome</div>
+        return ''
     }
 
     checkActivePage = activePage => {
@@ -76,8 +76,9 @@ class Nav extends Component {
             <div className="nav">
                 {this.showPageAfterLogin()} 
                 {this.showUserListAfterLogin()}
+                {this.getUser()}
             </div>
-            {this.getUser()}
+            
             </>
             
         );
