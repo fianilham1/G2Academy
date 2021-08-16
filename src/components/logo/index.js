@@ -10,7 +10,7 @@ export default class Logo extends Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<Image  style={{width:50, height: 90}}
+				<Image  style={{width:60, height: 110}}
           			source={require('../../images/logo.png')}/>
           		<Text style={styles.logoText}>Welcome to My app.</Text>	
   			</View>
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   logoText : {
   	marginVertical: 15,
   	fontSize:22,
-  	color:'rgba(255, 255, 255, 0.7)'
+  	color:'#ffffff'
   }
 });

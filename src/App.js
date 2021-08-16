@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-native-elements';
 import { Text, View, StyleSheet } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppNavigator from './router'
 import { SafeAreaProvider } from 'react-native-safe-area-context';

@@ -1,5 +1,7 @@
 import Logo from './logo';
 import InputApp from './input';
 import ButtonApp from './button';
+import AuthHeader from './auth-header';
+import InputEdit from './input-edit';
 
-export {Logo, InputApp, ButtonApp};
+export {Logo, InputApp, ButtonApp, AuthHeader, InputEdit};

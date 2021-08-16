@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Text,
+    TouchableOpacity,
     View} from 'react-native';
 import {Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import { MAIN_COLOR } from '../../constant/main-color';
 
-const MAIN_COLOR = '#00716F'
 const GRAY_COLOR = '#CBCBCB'
 
 class InputApp extends Component {
@@ -14,14 +15,14 @@ class InputApp extends Component {
         this.state = {  }
     }
     render() {
-        const {state, label, setFocus, setValue, icon, secureTextEntry} = this.props
+        const {state, label, setFocus, setValue, icon, valid, found, visible, visibleToggle} = this.props
         return (
             <View style={{
                 flexDirection:"row",
                 alignItems:"center",
-                marginHorizontal:55,
+                marginHorizontal:45,
                 borderWidth:2,
-                marginTop:50,
+                marginTop:40,
                 paddingHorizontal:10,
                 borderColor:state[`isFocus${label}`] ? MAIN_COLOR : GRAY_COLOR,
                 borderRadius:23,
@@ -31,28 +32,57 @@ class InputApp extends Component {
               <Input
                     placeholder={label}
                     label={label}
-                    secureTextEntry={secureTextEntry ? secureTextEntry : false}
+                    errorMessage={valid ? '':`invalid ${label}`}
+                    secureTextEntry={label==='Password' || label==='Confirm' ? visible ? false : true : false}
                     onChangeText={text => setValue(label.toLowerCase(),text)}
                     onFocus={() => setFocus(label)}
                     onBlur={() => setFocus(label)}
                     labelStyle={{
                         position:"absolute",
-                        bottom:53,
+                        bottom:38,
+                        left:10,
                         fontSize:18,
-                        color:"#00716F"
+                        color:MAIN_COLOR,
+                        backgroundColor:"#ffffff"
                     }}
                     leftIcon={
                         <Icon
                         // name='mail'
                         name={icon}
                         size={20}
-                        color="#00716F"
+                        color={MAIN_COLOR}
                         />
+                    }
+                    rightIcon={label==='Password' || label==='Confirm' ?
+                        visible ? 
+                        <TouchableOpacity onPress={visibleToggle}>
+                            <FeatherIcon 
+                            name='eye'
+                            size={20}
+                            color='gray'
+                            />
+                        </TouchableOpacity>
+                         :
+                         <TouchableOpacity onPress={visibleToggle}>
+                            <FeatherIcon 
+                            name='eye-off'
+                            size={20}
+                            color='gray'
+                            />
+                        </TouchableOpacity>
+                        :
+                        found ? 
+                        <FeatherIcon 
+                        name='check-circle'
+                        size={20}
+                        color='green'
+                        /> : null
+                        
                     }
                    containerStyle={{
                        height:45,
                        paddingHorizontal:10,
-                       borderColor:"#CBCBCB"
+                       borderColor:GRAY_COLOR
                     }}
                     inputContainerStyle={{
                         borderBottomWidth:0,

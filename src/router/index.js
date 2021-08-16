@@ -8,18 +8,16 @@ import {
   Home, 
   Find, 
   Post, 
-  Chat, 
+  Contact, 
   Account} from '../screens';
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight} from 'react-native';
+  TouchableOpacity} from 'react-native';
 // import Register from '../screens/Register'
 import {connect} from "react-redux";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
 
 const RootStack = createNativeStackNavigator();
@@ -63,17 +61,17 @@ class TabScreen extends Component {
       <Tab.Navigator 
       initialRouteName="Home"
       screenOptions={{
-        // headerShown: false,
+        headerShown: false,
         tabBarShowLabel:false,
         tabBarStyle:{
           position:'absolute',
-          bottom:25,
-          left:20,
-          right:20,
-          elevation:0,
+          bottom:-20,
+          // left:20,
+          // right:20,
+          // elevation:0,
           backgroundColor:'#ffffff',
-          borderRadius:15,
-          height:80,
+          borderRadius:25,
+          height:90,
           ...styles.shadow
         }
       }}>
@@ -82,15 +80,16 @@ class TabScreen extends Component {
           name="Home" 
           component={Home} 
           options={{
+            headerStyle: {
+              backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
             tabBarIcon: ({focused}) => {
               return <View
-              style={{
-                alignItems:'center',
-                justifyContent:'center',
-                top:2,
-                height:30,
-                width:40
-              }}>
+              style={styles.buttonBar}>
               <Icon
                 name='home'
                 size={24}
@@ -117,11 +116,7 @@ class TabScreen extends Component {
           options={{
             tabBarIcon: ({focused}) => {
               return <View
-              style={{
-                alignItems:'center',
-                justifyContent:'center',
-                top:2
-              }}>
+              style={styles.buttonBar}>
               <Icon
                 name='search'
                 size={24}
@@ -149,8 +144,8 @@ class TabScreen extends Component {
             tabBarIcon: () => {
               return <View
               style={styles.button}>
-              <AntDesign
-                name='plus'
+              <Icon
+                name='camera'
                 size={24}
                 color='#ffffff'
               />
@@ -161,18 +156,15 @@ class TabScreen extends Component {
             }
           }}/>
          <Tab.Screen 
-          name="Chat" 
-          component={Chat} 
+          name="Contact" 
+          component={Contact} 
           options={{
+            headerShown: false,
             tabBarIcon: ({focused}) => {
               return <View
-              style={{
-                alignItems:'center',
-                justifyContent:'center',
-                top:2
-              }}>
+              style={styles.buttonBar}>
               <Icon
-                name='comments'
+                name='address-book'
                 size={24}
                 color={focused ? '#e32f45' : '#748c94'}
               />
@@ -181,7 +173,7 @@ class TabScreen extends Component {
                   color: focused ? '#e32f45' : '#748c94',
                   fontSize: 12
                 }}
-                >Chat</Text>
+                >Contact</Text>
               </View>
             },
             tabBarButton: (props) => {
@@ -197,11 +189,7 @@ class TabScreen extends Component {
           options={{
             tabBarIcon: ({focused}) => {
               return <View
-              style={{
-                alignItems:'center',
-                justifyContent:'center',
-                top:2
-              }}>
+              style={styles.buttonBar}>
               <Icon
                 name='user'
                 size={24}
@@ -274,6 +262,13 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(RootStackScreen);
 
 const styles = StyleSheet.create({
+  buttonBar:{
+    alignItems:'center',
+    justifyContent:'center',
+    top:-5,
+    height:30,
+    width:50
+  },
   shadow:{
     shadowColor: '#000000',
     shadowOffset:{
@@ -288,8 +283,8 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     top:-30,
-    height:70,
-    width:70,
+    height:60,
+    width:60,
     borderRadius:40,
     backgroundColor:'#F02A48'
   },

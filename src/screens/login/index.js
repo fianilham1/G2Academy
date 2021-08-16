@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
+import * as Animatable from 'react-native-animatable';
 import {
     Text,
     View,
-    Image, 
-    Alert,
-    TouchableHighlight} from 'react-native';
+    ScrollView, 
+    Alert} from 'react-native';
 import {connect} from "react-redux";
 import {signIn} from '../../actions/auth';
-import {InputApp, ButtonApp} from '../../components';
+import {InputApp, ButtonApp, AuthHeader} from '../../components';
+import { MAIN_COLOR } from '../../constant/main-color';
 
-// const alertSignIn = () =>
-//     Alert.alert(
-//       "Alert Title",
-//       "My Alert Msg",
-//       [
-//         {
-//           text: "Cancel",
-//           onPress: () => console.log("Cancel Pressed"),
-//           style: "cancel"
-//         },
-//         { text: "OK", onPress: () => console.log("OK Pressed") }
-//       ]
-//     );
 
 class Login extends Component{
     constructor(props) {
@@ -32,8 +20,18 @@ class Login extends Component{
             password:'',
             statusLogin:false,
             isFocusUsername:false,
-            isFocusPassword:false
+            isFocusPassword:false,
+            validUsername:true,
+            validPassword:true,
+            visible:false,
+            foundUsername:false,
          }
+    }
+
+    setVisibleToggle = () => {
+        this.setState({
+            visible:!this.state.visible
+        })
     }
 
     setFocus = name => {
@@ -45,9 +43,49 @@ class Login extends Component{
 
     setValue = (inputName, value) => {
        this.setState({
-        [inputName]:value
+        [inputName]:value,
+        validUsername:true,
+        validPassword:true
        })
-    //    console.log("value change",value)
+
+       setTimeout(() => {
+        if(this.ValidateEmail()) {       
+            if(this.authUsername()) {
+                 this.setState({
+                     foundUsername:true
+                 })
+            }else{
+                 this.setState({
+                     foundUsername:false
+                 })
+            }  
+        }else{
+            if(this.state.foundUsername) {
+                 this.setState({
+                     foundUsername:false
+                 })
+            }
+        }
+       },200)
+    }
+
+    authUsername = () => {
+        const {userList} = this.state
+        for(let i=0;i<userList.length;i++){
+         if(userList[i].username===this.state.username) {
+             return (true)
+         }else{
+            return (false)
+         } 
+        } 
+    }   
+
+    ValidateEmail = () => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.username))
+    {
+        return (true)
+    }
+    return (false)
     }
 
     getUserApi = () => {
@@ -74,7 +112,7 @@ class Login extends Component{
     authHandler = () => {
     const {userList} = this.state
        for(let i=0;i<userList.length;i++){
-        if(userList[i].username===this.state.username && userList[i].password===this.state.password) {
+        if(this.state.foundUsername && userList[i].password===this.state.password) {
             this.props.doLogin(
                 {
                 username:this.state.username,
@@ -91,24 +129,23 @@ class Login extends Component{
 
        }
 
-       //invalid username/password
-        return Alert.alert(
-            "Alert Sign In",
-            "Username/Password is Wrong")
+       this.setState({
+           validUsername:false,
+           validPassword:false
+       })
     }
 
     render(){
+        // console.log('state found',this.state.foundUsername)
         const {navigation} = this.props
         return(
-            <View style={{backgroundColor:"#FFF",height:"100%"}}>
-                <Image source ={require('../../images/image.jpg')}
-                    style={{
-                        width:"100%",
-                        height:"40%",
-                        marginTop:-20
-                    }}
-                />
-                <Text
+            <ScrollView style={{backgroundColor:"#FFF",height:"100%"}}>
+                <AuthHeader />
+          
+                <Animatable.View
+                animation="fadeInDown"
+                duration={1200}>
+                    <Text
                  style={{
                      fontSize:30,
                      fontFamily:"SemiBold",
@@ -131,17 +168,21 @@ class Login extends Component{
                 <InputApp 
                     state={this.state}
                     label="Username"
+                    valid={this.state.validUsername}
                     setFocus={this.setFocus}
                     setValue={this.setValue}
-                    icon="envelope"/>
+                    icon="envelope"
+                    found={this.state.foundUsername}/>
 
                 <InputApp 
                     state={this.state}
                     label="Password"
+                    valid={this.state.validPassword}
                     setFocus={this.setFocus}
                     setValue={this.setValue}
-                    secureTextEntry={true}
-                    icon="lock"/>
+                    icon="lock"
+                    visible={this.state.visible}
+                    visibleToggle={this.setVisibleToggle}/>
 
                 <ButtonApp 
                     label="Sign in"
@@ -157,7 +198,7 @@ class Login extends Component{
                     <Text 
                     onPress={()=>navigation.replace('Register')}
                     style={{
-                        color:"#00716F",
+                        color:MAIN_COLOR,
                         fontSize:18,
                         fontWeight:'bold'
                     }}
@@ -165,8 +206,12 @@ class Login extends Component{
                     <Text> </Text>
                     Now
                 </Text>
+
+
+                </Animatable.View>
+                
                
-            </View>
+            </ScrollView>
         )
     }
 }

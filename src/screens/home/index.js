@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {
     Text,
-    View} from 'react-native';
+    View,
+    StyleSheet} from 'react-native';
 
 class Home extends Component {
     constructor(props) {
@@ -11,12 +13,18 @@ class Home extends Component {
     }
     render() { 
         return (  
-            <View>
-                <Text>This is Home</Text>
-              
-            </View>
+          <View><Text>ggg</Text></View>
         );
     }
 }
  
 export default Home;
+
+const styles = StyleSheet.create({
+    headerIcon:{
+        alignItems:'center',
+        justifyContent:'center',
+        marginBottom:30,
+        marginTop:6
+    },
+})

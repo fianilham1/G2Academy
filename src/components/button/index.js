@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
+import { MAIN_COLOR } from '../../constant/main-color';
 import {
     Text,
     View,
     TouchableHighlight,
     StyleSheet} from 'react-native';
-
-const MAIN_COLOR = '#00716F'
 
 class ButtonApp extends Component {
     constructor(props) {
@@ -36,7 +34,7 @@ export default ButtonApp;
 
 const styles = StyleSheet.create({
     button:{
-        marginHorizontal:55,
+        marginHorizontal:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,

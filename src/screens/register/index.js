@@ -5,10 +5,13 @@ import {
     Image, 
     Alert,
     ScrollView,
+    ImageBackground,
+    Dimensions,
     StyleSheet} from 'react-native';
 import {connect} from "react-redux";
-import {signIn} from '../../actions/auth';
-import {InputApp, ButtonApp} from '../../components'
+import {InputApp, ButtonApp, AuthHeader} from '../../components';
+import { MAIN_COLOR } from '../../constant/main-color';
+
 
 class Register extends Component{
     constructor(props) {
@@ -80,13 +83,13 @@ class Register extends Component{
             "Password Is Not Match")
        }
 
-       this.props.doRegister(
-            {
-            name:this.state.name,
-            username:this.state.username,
-            password:this.state.password
-            }
-        )
+    //    this.props.doRegister(
+    //         {
+    //         name:this.state.name,
+    //         username:this.state.username,
+    //         password:this.state.password
+    //         }
+    //     )
         return (
             //correct username&password
             Alert.alert(
@@ -99,14 +102,15 @@ class Register extends Component{
         const {navigation} = this.props
         return(
             <View style={{backgroundColor:"#FFF",height:"100%"}}>
-                <Image source ={require('../../images/image.jpg')}
+                <ScrollView>
+                <AuthHeader />
+                {/* <ImageBackground 
+                    source ={require('../../images/image.jpg')}
                     style={{
                         width:"100%",
-                        height:"40%",
+                        height:Dimensions.get('window').height/2.5,
                         marginTop:-20
-                    }}/>
-
-                <ScrollView>
+                    }}/> */}
                 <Text
                  style={{
                      fontSize:30,
@@ -171,7 +175,7 @@ class Register extends Component{
                     <Text 
                     onPress={()=>navigation.replace('Login')}
                     style={{
-                        color:"#00716F",
+                        color:MAIN_COLOR,
                         fontSize:18,
                         fontWeight:'bold'
                     }}
@@ -192,7 +196,7 @@ class Register extends Component{
 // })
 
 const mapDispatchToProps = dispatch => ({
-    doLogin: data => dispatch(signIn(data))
+    // doLogin: data => dispatch(signIn(data))
 })
 
 export default connect(null, mapDispatchToProps)(Register);
