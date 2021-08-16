@@ -59,7 +59,7 @@ class inputEdit extends Component {
                             color='red'
                             />
                         </TouchableOpacity>     
-                        <Text style={{marginLeft:10, fontSize:17}}>Mobile</Text>
+                        <Text style={{marginLeft:10, fontSize:17}}>{label==='Phone' ? 'Mobile' : 'Home'}</Text>
                         </View>
                         
                         : null

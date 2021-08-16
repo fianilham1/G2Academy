@@ -12,7 +12,7 @@ import {
     StyleSheet,
     Dimensions,
     StatusBar,
-    Image} from 'react-native';
+    ScrollView} from 'react-native';
 
 import { Header } from 'react-native-elements'; 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -61,19 +61,17 @@ class EditContact extends Component {
             this.setState({
                 isLoading:false
             })
-        },1500)
+        },900)
     }
    
     setValue = (inputName, value, id) => {
         if(inputName==='phone' || inputName==='email'){
-            if (/^\d+$/.test(value)) {
-                const currentList = this.state[`${inputName}List`]
-                const index = currentList.findIndex(item => item.id === id);
-                currentList[index].data = value
-                this.setState({
-                    [`${inputName}List`]:currentList
-                })
-            }
+            const currentList = this.state[`${inputName}List`]
+            const index = currentList.findIndex(item => item.id === id);
+            currentList[index].data = value
+            this.setState({
+                [`${inputName}List`]:currentList
+            })
         }else{
             this.setState({
                 [inputName]:value
@@ -154,10 +152,11 @@ class EditContact extends Component {
     }
 
     render() {
-        return ( 
+        return (
+            <ScrollView> 
             <Animatable.View
             animation="fadeInUp"
-            duration={1200}>
+            duration={800}>
                 <Header
                 statusBarProps={{ barStyle: 'light-content',backgroundColor:"transparent"  }}
                 barStyle="light-content" // or directly
@@ -219,9 +218,7 @@ class EditContact extends Component {
                 
                 </View>
             </View>
-             <View style={styles.container}>
-                
-                 <View style={styles.phoneContainer}>
+             <View style={styles.phoneContainer}>
                     {!this.state.isLoading && this.renderList('Phone')}
                     <View style={{flexDirection:'row',marginTop:12}}>
                         <TouchableOpacity
@@ -236,9 +233,24 @@ class EditContact extends Component {
                         <Text style={{fontSize:17}}>Phone Number</Text>
                     </View>
                  </View>
-
-             </View>
+                 <View style={styles.phoneContainer}>
+                    {!this.state.isLoading && this.renderList('Email')}
+                    <View style={{flexDirection:'row',marginTop:12}}>
+                        <TouchableOpacity
+                        style={{ paddingHorizontal:10}}
+                        onPress={() => this.addInfo('email')}>
+                            <FeatherIcon 
+                            name='plus-circle'
+                            size={20}
+                            color='green'
+                            />
+                        </TouchableOpacity>
+                        <Text style={{fontSize:17}}>Email Address</Text>
+                    </View>
+                 </View>
+             
              </Animatable.View>
+             </ScrollView>
          );
     }
 }
@@ -268,6 +280,6 @@ const styles = StyleSheet.create({
         flex:2.5
     },
     phoneContainer:{
-        flex:1,
+        marginBottom:30,
     }
 })

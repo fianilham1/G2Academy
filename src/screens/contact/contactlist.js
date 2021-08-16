@@ -23,7 +23,8 @@ class ContactList extends Component {
             users: [],
             refresh: false,
             limit: 15,
-            page: 1
+            page: 1,
+            idMax:500
          }
     }
 
@@ -101,18 +102,24 @@ class ContactList extends Component {
       }
     }
 
+    clearParams = () => {
+      this.props.navigation.setParams({itemAddData: null, itemData: null})
+    }
+
     addRow = newData => {
       const {users} = this.state
       const dataList = [...users];
-      const id = users.length===0 ? 1 : Math.max(...users.map(item => item.id)) + 1
+      // const id = users.length===0 ? 1 : Math.max(...users.map(item => item.id)) + 1
+      const id = this.state.idMax + 1 //hardcode id max from fake api jsonholder
+      this.clearParams()
       dataList.push({
-        id,
-        ...newData
-      })
-      // console.log('newlistdata',dataList[10])
-      this.setState({
-        users:dataList
-      })
+          id,
+          ...newData
+        })
+        this.setState({
+          users:dataList,
+          idMax:id
+        })
     }
 
     editRow = (newData) => {
