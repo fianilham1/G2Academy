@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import * as Animatable from 'react-native-animatable';
 import {
     Text,
     View,
     Image, 
     Alert,
     ScrollView,
-    ImageBackground,
+    TouchableOpacity,
     Dimensions,
     StyleSheet} from 'react-native';
 import {connect} from "react-redux";
 import {InputApp, ButtonApp, AuthHeader} from '../../components';
-import { MAIN_COLOR } from '../../constant/main-color';
+import { COLOR } from '../../constant/color';
 
 
 class Register extends Component{
@@ -103,7 +104,7 @@ class Register extends Component{
         return(
             <View style={{backgroundColor:"#FFF",height:"100%"}}>
                 <ScrollView>
-                <AuthHeader />
+                <AuthHeader title='CREATE' subtitle='Account' />
                 {/* <ImageBackground 
                     source ={require('../../images/image.jpg')}
                     style={{
@@ -111,6 +112,10 @@ class Register extends Component{
                         height:Dimensions.get('window').height/2.5,
                         marginTop:-20
                     }}/> */}
+                <Animatable.View
+                animation="fadeInDown"
+                duration={1300}>
+
                 <Text
                  style={{
                      fontSize:30,
@@ -172,18 +177,21 @@ class Register extends Component{
                     paddingVertical:20
                 }}>Already a Member?  
                 <Text>  </Text>
+                <TouchableOpacity
+                onPress={()=>navigation.replace('Login')}>
                     <Text 
-                    onPress={()=>navigation.replace('Login')}
                     style={{
-                        color:MAIN_COLOR,
+                        color:COLOR.main,
                         fontSize:18,
-                        fontWeight:'bold'
+                        fontWeight:'bold',
+                        marginBottom:-5
                     }}
                    >Sign In</Text>
+                </TouchableOpacity>
                     <Text> </Text>
                     Now
                 </Text>
-               
+               </Animatable.View>
                 </ScrollView>
                 
             </View>

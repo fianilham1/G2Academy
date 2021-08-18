@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MAIN_COLOR } from '../../constant/main-color';
+import { COLOR } from '../../constant/color';
 import {
     Text,
     View,
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
         marginHorizontal:45,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
-        backgroundColor:MAIN_COLOR,
+        marginTop:30,
+        backgroundColor:COLOR.main,
         paddingVertical:10,
         borderRadius:23,
         height:45

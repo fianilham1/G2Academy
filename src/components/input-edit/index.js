@@ -6,9 +6,7 @@ import {
 
 import {Input} from 'react-native-elements';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { MAIN_COLOR } from '../../constant/main-color';
-
-const GRAY_COLOR = '#CBCBCB'
+import { COLOR } from '../../constant/color';
 
 class inputEdit extends Component {
     constructor(props) {
@@ -31,7 +29,7 @@ class inputEdit extends Component {
                        marginVertical:5
                     }}
                     inputContainerStyle={{
-                        borderBottomColor:focus ? MAIN_COLOR : GRAY_COLOR,
+                        borderBottomColor:focus ? COLOR.main : COLOR.gray,
                         borderBottomWidth:2,
                         height:45
                     }} 

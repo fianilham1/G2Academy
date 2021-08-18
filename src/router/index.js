@@ -8,14 +8,18 @@ import {
   Home, 
   Find, 
   Post, 
-  Contact, 
-  Account} from '../screens';
+  Contact,
+  ContactDetail,
+  AddContact,
+  EditContact, 
+  Account,
+  OnBoard,
+  Detail} from '../screens';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity} from 'react-native';
-// import Register from '../screens/Register'
 import {connect} from "react-redux";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
@@ -66,9 +70,6 @@ class TabScreen extends Component {
         tabBarStyle:{
           position:'absolute',
           bottom:-20,
-          // left:20,
-          // right:20,
-          // elevation:0,
           backgroundColor:'#ffffff',
           borderRadius:25,
           height:90,
@@ -145,7 +146,7 @@ class TabScreen extends Component {
               return <View
               style={styles.button}>
               <Icon
-                name='camera'
+                name='list'
                 size={24}
                 color='#ffffff'
               />
@@ -159,7 +160,6 @@ class TabScreen extends Component {
           name="Contact" 
           component={Contact} 
           options={{
-            headerShown: false,
             tabBarIcon: ({focused}) => {
               return <View
               style={styles.buttonBar}>
@@ -228,7 +228,7 @@ class RootStackScreen extends Component {
         return ( 
         <NavigationContainer>
           <RootStack.Navigator 
-          initialRouteName="Splash"
+          initialRouteName="OnBoard"
           screenOptions={{
             headerShown: false
           }}>
@@ -236,16 +236,31 @@ class RootStackScreen extends Component {
           { !this.props.loginStatus ? 
             <>
             <RootStack.Screen 
-              name="Splash" 
-              component={Splash}/>
+              name="OnBoard" 
+              component={OnBoard}/>
             <RootStack.Screen 
               name="Auth" 
               component={AuthStackScreen} />
             </>
           :
+            <>
             <RootStack.Screen 
               name="Tab" 
               component={TabScreen} />
+            <RootStack.Screen 
+              name="Detail" 
+              component={Detail} />
+            <RootStack.Screen 
+              name="ContactDetail" 
+              component={ContactDetail} />
+            <RootStack.Screen 
+              name="AddContact" 
+              component={AddContact} />
+            <RootStack.Screen 
+              name="EditContact" 
+              component={EditContact} />
+            
+            </>
           }
         
           </RootStack.Navigator>

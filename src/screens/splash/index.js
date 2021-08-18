@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 import {Logo} from '../../components';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import { MAIN_COLOR } from '../../constant/main-color';
+import { COLOR } from '../../constant/color';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 class Splash extends Component {
@@ -39,7 +39,7 @@ class Splash extends Component {
             <ImageBackground 
             source ={require('../../images/landscape3.jpg')}
             style={styles.container}>
-                 <StatusBar translucent backgroundColor="transparent" /> 
+                 <StatusBar translucent backgroundColor="#fff" /> 
                  <View style={styles.dark}></View>
     
                 <Animatable.View
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:30
     },
     title:{
-        color:MAIN_COLOR,
+        color:COLOR.main,
         fontSize:30,
         fontWeight:'bold'
     },

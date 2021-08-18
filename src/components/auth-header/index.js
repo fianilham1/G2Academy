@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Animatable from 'react-native-animatable';
-import { MAIN_COLOR } from '../../constant/main-color';
+import { COLOR } from '../../constant/color';
 import { 
     View,
     Text,
@@ -18,22 +18,23 @@ class AuthHeader extends Component {
         this.state = {  }
     }
     render() { 
+        const {title, subtitle} = this.props
         return ( 
             <View style={styles.container} >
              <StatusBar translucent backgroundColor="transparent" /> 
                 <ImageBackground
                     style={styles.box}
                     imageStyle={styles.image}
-                    source ={require('../../images/landscape2.jpg')}>
+                    source ={require('../../images/location8-2.jpg')}>
                     <View style={styles.dark}></View>
                 </ImageBackground>
                 <Animatable.View
-                animation="bounceIn"
+                animation="fadeInLeft"
                 duration={1500}
                 style={styles.textContainer}
                 >
-                    <Text style={styles.text}>WELCOME!</Text>
-                    <Text style={styles.text2}>Stay Healthy</Text>
+                    <Text style={styles.text}>{title}</Text>
+                    <Text style={styles.text2}>{subtitle}</Text>
                 </Animatable.View>
                 <View style={styles.textContainer}>
                    
@@ -48,21 +49,19 @@ export default AuthHeader;
 
 const styles = StyleSheet.create({
     container:{
-        height:270,
+        height:220,
         marginBottom:20,
 
     },
     textContainer:{
         flex:1,
-        // justifyContent: 'flex-end', 
-        // alignItems: 'flex-start',
         marginLeft:70,
-        marginTop:70
+        marginTop:65
     },
     text:{
       color:"#ffffff",
       fontSize:40,
-      fontWeight:'bold'  
+      fontWeight:'bold',
     },
     text2:{
         color:"#ffffff",
@@ -72,14 +71,12 @@ const styles = StyleSheet.create({
         width:WIDTH*1.6,
         height:550,
         position:'absolute',
-        top: -290,
+        top: -320,
         left: -70,
-     
-        // borderRadius:Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
     },
     dark: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.25)',
         borderRadius:WIDTH*1.6,
       },
     image:{
@@ -105,7 +102,7 @@ const styles = StyleSheet.create({
         position:'absolute',
         flexDirection:'column',
         borderRadius:Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-        backgroundColor:MAIN_COLOR
+        backgroundColor:COLOR.main
     },
     topContainer:{
         flex:1.6,

@@ -5,9 +5,7 @@ import {
 import {Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { MAIN_COLOR } from '../../constant/main-color';
-
-const GRAY_COLOR = '#CBCBCB'
+import { COLOR } from '../../constant/color';
 
 class InputApp extends Component {
     constructor(props) {
@@ -22,9 +20,9 @@ class InputApp extends Component {
                 alignItems:"center",
                 marginHorizontal:45,
                 borderWidth:2,
-                marginTop:40,
+                marginTop:30,
                 paddingHorizontal:10,
-                borderColor:state[`isFocus${label}`] ? MAIN_COLOR : GRAY_COLOR,
+                borderColor:state[`isFocus${label}`] ? COLOR.main : COLOR.gray,
                 borderRadius:23,
                 paddingVertical:1
             }}>
@@ -42,7 +40,7 @@ class InputApp extends Component {
                         bottom:38,
                         left:10,
                         fontSize:18,
-                        color:MAIN_COLOR,
+                        color:COLOR.main,
                         backgroundColor:"#ffffff"
                     }}
                     leftIcon={
@@ -50,7 +48,7 @@ class InputApp extends Component {
                         // name='mail'
                         name={icon}
                         size={20}
-                        color={MAIN_COLOR}
+                        color={COLOR.main}
                         />
                     }
                     rightIcon={label==='Password' || label==='Confirm' ?
@@ -82,7 +80,7 @@ class InputApp extends Component {
                    containerStyle={{
                        height:45,
                        paddingHorizontal:10,
-                       borderColor:GRAY_COLOR
+                       borderColor:COLOR.gray
                     }}
                     inputContainerStyle={{
                         borderBottomWidth:0,

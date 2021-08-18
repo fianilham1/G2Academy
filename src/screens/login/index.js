@@ -4,11 +4,15 @@ import {
     Text,
     View,
     ScrollView, 
-    Alert} from 'react-native';
+    Alert,
+    StyleSheet,
+    TouchableOpacity,
+    ImageBackground} from 'react-native';
 import {connect} from "react-redux";
 import {signIn} from '../../actions/auth';
 import {InputApp, ButtonApp, AuthHeader} from '../../components';
-import { MAIN_COLOR } from '../../constant/main-color';
+import { COLOR} from '../../constant/color';
+import { SocialIcon } from 'react-native-elements'
 
 
 class Login extends Component{
@@ -129,23 +133,29 @@ class Login extends Component{
 
        }
 
+       if(!this.state.foundUsername) {
+          
+        this.setState({
+            validUsername:false
+        })
+       }
+
        this.setState({
-           validUsername:false,
            validPassword:false
        })
     }
 
     render(){
-        // console.log('state found',this.state.foundUsername)
         const {navigation} = this.props
         return(
             <ScrollView style={{backgroundColor:"#FFF",height:"100%"}}>
-                <AuthHeader />
+                <AuthHeader title='WELCOME!' subtitle='Stay Healthy' />
           
                 <Animatable.View
                 animation="fadeInDown"
-                duration={1200}>
-                    <Text
+                duration={1300}>
+              
+                <Text
                  style={{
                      fontSize:30,
                      fontFamily:"SemiBold",
@@ -187,30 +197,59 @@ class Login extends Component{
                 <ButtonApp 
                     label="Sign in"
                     handler={this.authHandler}/>
+                
+                <TouchableOpacity style={styles.forgetPass}>
+                    <Text style={styles.forgetPassText}>Forget Password ?</Text>
+                </TouchableOpacity>
 
+                <View style={styles.connect}>
+                    <Text style={styles.connectText}>or connect with</Text>
+                </View>
+
+                <View style={styles.socialContainer}>
+                    <TouchableOpacity>
+                        <SocialIcon
+                        title='Facebook'
+                        button
+                        type='facebook'
+                        style={{width:120,height:50}}
+                        />
+                    </TouchableOpacity>
+                  
+                    <TouchableOpacity>
+                        <SocialIcon
+                        title='Google'
+                        button
+                        type='google'
+                        style={{width:120,height:50}}
+                        />
+                    </TouchableOpacity>
+                </View>
+               
                 <Text
                  style={{
                     alignSelf:"center",
                     fontFamily:"SemiBold",
-                    paddingVertical:20
+                    paddingVertical:17
                 }}>Not a Member?  
                 <Text>  </Text>
+                <TouchableOpacity
+                onPress={()=>navigation.replace('Register')}>
                     <Text 
-                    onPress={()=>navigation.replace('Register')}
                     style={{
-                        color:MAIN_COLOR,
+                        color:COLOR.main,
                         fontSize:18,
-                        fontWeight:'bold'
+                        fontWeight:'bold',
+                        marginBottom:-5
                     }}
                    >Sign Up</Text>
+                </TouchableOpacity>
                     <Text> </Text>
                     Now
                 </Text>
-
-
-                </Animatable.View>
-                
                
+
+                </Animatable.View>               
             </ScrollView>
         )
     }
@@ -225,3 +264,35 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null, mapDispatchToProps)(Login);
+
+
+const styles = StyleSheet.create({
+    connect:{
+        marginTop:15,
+        marginBottom:5,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    connectText:{
+        fontSize:17, 
+        backgroundColor:'white',
+        justifyContent:'center',
+        alignItems:'center',
+        opacity:0.4
+        // color:COLOR.gray
+    },
+    socialContainer:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    forgetPass:{
+        marginLeft:50,
+        marginTop:5
+    },
+    forgetPassText:{
+        color:COLOR.main,
+        fontWeight:'bold',
+        fontSize:16
+    }
+})
