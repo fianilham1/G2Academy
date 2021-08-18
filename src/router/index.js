@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import {
   Splash, 
   Login,
@@ -24,11 +25,12 @@ import {connect} from "react-redux";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
 
-import {Header, Calls, Chats, Contacts} from '../components';
+import {Header, Calls, Chats} from '../components';
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 class AuthStackScreen extends Component {
   constructor(props) {
@@ -227,49 +229,50 @@ class HomeWA extends React.Component {
       Chats: [],
       Calls: [],
     };
-    fetch('/Users/chauhan/Desktop/Whatsapp/App/data/data.json')
-     .then(response => response.json())
-     .then(data => this.setState({
-       Contacts: data.Contacts,
-       Chats: data.Chats,
-       Calls: data.Calls,
-     }));
+    // fetch('/Users/chauhan/Desktop/Whatsapp/App/data/data.json')
+    //  .then(response => response.json())
+    //  .then(data => this.setState({
+    //    Contacts: data.Contacts,
+    //    Chats: data.Chats,
+    //    Calls: data.Calls,
+    //  }));
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Header />
-        {/* <ScrollableTabView
-          style={{ borderColor: '#fff' }}
-          tabBarUnderlineStyle={style = { backgroundColor: '#fff' }}
-          tabBarBackgroundColor="#075e54"
-          tabBarActiveTextColor="#fff"
-          tabBarInactiveTextColor="#88b0ac"
-          initialPage={1}
-        >
-          <Calls
-            tabLabel="CALLS"
-            CallsData={this.state.Calls}
-            {...this.props}
-          />
-          <Chats
-            tabLabel="CHATS"
-            ChatsData={this.state.Chats}
-            {...this.props}
-          />
-          <Contacts
-            tabLabel="CONTACTS"
-            ContactsData={this.state.Contacts}
-            {...this.props}
-          />
-        </ScrollableTabView> */}
-      </View>
+      <TopTab.Navigator>
+        <TopTab.Screen name="Chats" children={(props) => <Chats {...props} ChatsData={this.state.Chats}/>}/>
+        <TopTab.Screen name="Calls" children={(props) => <Calls {...props}/>} CallsData={this.state.Calls}/>
+      </TopTab.Navigator>
+      // <View style={{ flex: 1 }}>
+      //   <Header />
+      //   <ScrollableTabView
+      //     style={{ borderColor: '#fff' }}
+      //     tabBarUnderlineStyle={style = { backgroundColor: '#fff' }}
+      //     tabBarBackgroundColor="#075e54"
+      //     tabBarActiveTextColor="#fff"
+      //     tabBarInactiveTextColor="#88b0ac"
+      //     initialPage={1}
+      //   >
+      //     <Calls
+      //       tabLabel="CALLS"
+      //       CallsData={this.state.Calls}
+      //       {...this.props}
+      //     />
+      //     <Chats
+      //       tabLabel="CHATS"
+      //       ChatsData={this.state.Chats}
+      //       {...this.props}
+      //     />
+      //     <Contacts
+      //       tabLabel="CONTACTS"
+      //       ContactsData={this.state.Contacts}
+      //       {...this.props}
+      //     />
+      //   </ScrollableTabView>
+      // </View>
     );
   }
 }
-
-
-
 
 class RootStackScreen extends Component {
     constructor(props) {
@@ -299,7 +302,9 @@ class RootStackScreen extends Component {
             </>
           :
             <>
-          
+            <RootStack.Screen 
+              name="HomeWA" 
+              component={HomeWA} />
             </>
           }
         

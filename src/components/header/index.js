@@ -7,40 +7,48 @@ import {
   } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
-const Header = () => (
-  <View style={styles.top}>
-    <Text style={styles.logo}>WhatsApp</Text>
-    <View style={styles.icons}>
-      <TouchableOpacity>
-        <Icon
-          name="search"
-          color="#fff"
-          size={23}
-          style={{ padding: 5 }}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Icon
-          name="chat"
-          color="#fff"
-          size={23}
-          style={{ padding: 5 }}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Icon
-          name="more-vert"
-          color="#fff"
-          size={23}
-          style={{ padding: 5 }}
-        />
-      </TouchableOpacity>
-    </View>
-  </View>
-  );
-
+class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        return (
+            <View style={styles.top}>
+            <Text style={styles.logo}>WhatsApp</Text>
+            <View style={styles.icons}>
+              <TouchableOpacity>
+                <Icon
+                  name="search"
+                  color="#fff"
+                  size={23}
+                  style={{ padding: 5 }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Icon
+                  name="chat"
+                  color="#fff"
+                  size={23}
+                  style={{ padding: 5 }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Icon
+                  name="more-vert"
+                  color="#fff"
+                  size={23}
+                  style={{ padding: 5 }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          );
+    }
+}
+ 
 export default Header;
+
 
 const styles = StyleSheet.create({
   top: {

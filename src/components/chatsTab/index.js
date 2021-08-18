@@ -1,15 +1,14 @@
 import React from 'react';
 import {
    View,
-   ListView,
    Image,
    Text,
    TouchableOpacity,
    StyleSheet,
+   FlatList
  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 const Row = props => (
   <TouchableOpacity
@@ -40,14 +39,56 @@ const Row = props => (
   </TouchableOpacity>
 );
 
-const ChatsTab = props => (
-  <View style={{ flex: 1 }} >
-    <ListView
-      dataSource={ds.cloneWithRows(props.ChatsData)}
-      renderRow={Chats => <Row {...Chats} {...props} />}
-    />
-  </View>
-  );
+renderItem = ({item}) => {
+    return (
+        <TouchableOpacity
+        // onPress={() => {
+        //   props.navigator.push({
+        //     id: 'ChatView',
+        //     name: props.name,
+        //     image: props.image,
+        //   });
+        // }}
+      >
+        <View style={styles.row}>
+          <Image source={{ uri: item.image }} style={styles.pic} />
+          <View>
+            <View style={styles.nameContainer}>
+              <Text style={styles.nameTxt}>{item.name}</Text>
+              <Text style={styles.time}>{item.time}</Text>
+            </View>
+            <View style={styles.msgContainer}>
+              <Icon
+                name={item.icon} size={15} color="#b3b3b3"
+                style={{ marginLeft: 15, marginRight: 5 }}
+              />
+              <Text style={styles.msgTxt}>{item.message}</Text>
+            </View>
+          </View>
+        </View>
+    </TouchableOpacity>
+    );
+  }
+
+class ChatsTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        return ( 
+            <FlatList
+            data={this.props.ChatsData}
+            keyExtractor={(item, idx) => idx}
+            renderItem={this.renderData}
+            // onRefresh={() => this.getData(1)}
+            // refreshing={this.state.refresh}
+            // onEndReached={() => this.getData(this.state.page + 1)}
+            // onEndReachedThreshold={0.5}
+        />
+         );
+    }
+}
 
 export default ChatsTab;
 
