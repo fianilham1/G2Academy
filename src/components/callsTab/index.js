@@ -9,6 +9,13 @@ import {
  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+
+class CallsTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+
     renderItem = ({item}) => {
         return (
             <TouchableOpacity
@@ -46,17 +53,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
         );
       }
 
-class CallsTab extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
     render() { 
         return ( 
             <FlatList
             data={this.props.CallsData}
             keyExtractor={(item, idx) => idx}
-            renderItem={this.renderData}
+            renderItem={this.renderItem}
             // onRefresh={() => this.getData(1)}
             // refreshing={this.state.refresh}
             // onEndReached={() => this.getData(this.state.page + 1)}

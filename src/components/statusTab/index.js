@@ -9,7 +9,7 @@ import {
  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-class ChatsTab extends Component {
+class StatusTab extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
@@ -62,7 +62,7 @@ class ChatsTab extends Component {
     }
 }
 
-export default ChatsTab;
+export default StatusTab;
 
 const styles = StyleSheet.create({
   row: {

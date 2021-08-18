@@ -247,6 +247,90 @@ class HomeWA extends React.Component {
           time:'12:11',
           message:'Can we Talk Now?',
           icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
         }
       ],
       Calls: [
@@ -270,6 +354,76 @@ class HomeWA extends React.Component {
           date:'2021-08-17',
           time:'11:50',
           icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
         }
       ],
     };
@@ -283,10 +437,35 @@ class HomeWA extends React.Component {
   }
   render() {
     return (
-      <TopTab.Navigator>
+      <View style={{ flex: 1 }}>
+      <Header />
+      <TopTab.Navigator
+       screenOptions={{
+        tabBarLabelStyle: { 
+          fontSize: 16,
+           color:'white' 
+          },
+        tabBarStyle: { 
+          backgroundColor: '#075e54',
+        },
+        tabBarIcon: ({focused}) => {
+          return <View
+          style={{
+            borderBottomColor: focused ? 'white' : '#075e54',
+            borderBottomWidth: 4,
+            top:62,
+            left:-37,
+            width:100,
+          }}
+          >
+          </View>
+        },
+      }}
+      >
         <TopTab.Screen name="Chats" children={(props) => <ChatsTab {...props} ChatsData={this.state.Chats}/>}/>
-        <TopTab.Screen name="Calls" children={(props) => <CallsTab {...props}/>} CallsData={this.state.Calls}/>
+        <TopTab.Screen name="Calls" children={(props) => <CallsTab {...props}  CallsData={this.state.Calls}/>}/>
       </TopTab.Navigator>
+      </View>
       // <View style={{ flex: 1 }}>
       //   <Header />
       //   <ScrollableTabView
