@@ -25,7 +25,7 @@ import {connect} from "react-redux";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
 
-import {Header, Calls, Chats} from '../components';
+import {Header, CallsTab, ChatsTab} from '../components';
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -226,8 +226,52 @@ class HomeWA extends React.Component {
     super(props);
     this.state = {
       Contacts: [],
-      Chats: [],
-      Calls: [],
+      Chats: [
+        {
+          name:'sheby',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'08:00',
+          message:'Hello there?',
+          icon:'person'
+        },
+        {
+          name:'Violet',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'15:30',
+          message:'Can I Ask?',
+          icon:'person'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          time:'12:11',
+          message:'Can we Talk Now?',
+          icon:'person'
+        }
+      ],
+      Calls: [
+        {
+          name:'sheby',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-11',
+          time:'09:50',
+          icon:'call'
+        },
+        {
+          name:'Violet',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-05-11',
+          time:'09:30',
+          icon:'video_call'
+        },
+        {
+          name:'Rose',
+          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
+          date:'2021-08-17',
+          time:'11:50',
+          icon:'call'
+        }
+      ],
     };
     // fetch('/Users/chauhan/Desktop/Whatsapp/App/data/data.json')
     //  .then(response => response.json())
@@ -240,8 +284,8 @@ class HomeWA extends React.Component {
   render() {
     return (
       <TopTab.Navigator>
-        <TopTab.Screen name="Chats" children={(props) => <Chats {...props} ChatsData={this.state.Chats}/>}/>
-        <TopTab.Screen name="Calls" children={(props) => <Calls {...props}/>} CallsData={this.state.Calls}/>
+        <TopTab.Screen name="Chats" children={(props) => <ChatsTab {...props} ChatsData={this.state.Chats}/>}/>
+        <TopTab.Screen name="Calls" children={(props) => <CallsTab {...props}/>} CallsData={this.state.Calls}/>
       </TopTab.Navigator>
       // <View style={{ flex: 1 }}>
       //   <Header />

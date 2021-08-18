@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
    View,
    Image,
@@ -8,36 +8,6 @@ import {
    FlatList
  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-
-const Row = props => (
-  <TouchableOpacity
-    onPress={() => {
-      props.navigator.push({
-        id: 'ChatView',
-        name: props.name,
-        image: props.image,
-      });
-    }}
-  >
-    <View style={styles.row}>
-      <Image source={{ uri: props.image }} style={styles.pic} />
-      <View>
-        <View style={styles.nameContainer}>
-          <Text style={styles.nameTxt}>{props.name}</Text>
-          <Text style={styles.time}>{props.time}</Text>
-        </View>
-        <View style={styles.msgContainer}>
-          <Icon
-            name={props.icon} size={15} color="#b3b3b3"
-            style={{ marginLeft: 15, marginRight: 5 }}
-          />
-          <Text style={styles.msgTxt}>{props.message}</Text>
-        </View>
-      </View>
-    </View>
-  </TouchableOpacity>
-);
 
 renderItem = ({item}) => {
     return (

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
    View,
    Image,
    Text,
    TouchableOpacity,
+   FlatList,
    StyleSheet,
  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -53,7 +54,7 @@ class CallsTab extends Component {
     render() { 
         return ( 
             <FlatList
-            data={this.props.ChatsData}
+            data={this.props.CallsData}
             keyExtractor={(item, idx) => idx}
             renderItem={this.renderData}
             // onRefresh={() => this.getData(1)}
