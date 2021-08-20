@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  StatusBar,
   } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -44,6 +45,7 @@ class Header extends Component {
     render() { 
         return (
             <View style={styles.top}>
+            <StatusBar translucent={false} backgroundColor='#0A4740' />
             <Text style={styles.logo}>WhatsApp</Text>
             <View style={styles.icons}>
               <TouchableOpacity>

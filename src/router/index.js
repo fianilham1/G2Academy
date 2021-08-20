@@ -1,36 +1,32 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import {
   Splash, 
   Login,
   Register, 
-  Home, 
-  Find, 
-  Post, 
-  Contact,
-  ContactDetail,
-  AddContact,
-  EditContact, 
-  Account,
   OnBoard,
-  Detail} from '../screens';
+  CallsTab,
+  ChatsTab,
+  StatusTab,
+  ChatView} from '../screens';
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity} from 'react-native';
+  Dimensions} from 'react-native';
 import {connect} from "react-redux";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
 
-import {Header, CallsTab, ChatsTab} from '../components';
+import {Header} from '../components';
+import { CHATSDATA } from '../constant/chatsData';
+import { CALLSDATA } from '../constant/callsData';
+import { STATUSDATA } from '../constant/statusData';
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 class AuthStackScreen extends Component {
   constructor(props) {
@@ -58,374 +54,19 @@ class AuthStackScreen extends Component {
   }
 }
 
-class TabScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      }
-  }
-  render() { 
-    return ( 
-      <Tab.Navigator 
-      initialRouteName="Home"
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel:false,
-        tabBarStyle:{
-          position:'absolute',
-          bottom:-20,
-          backgroundColor:'#ffffff',
-          borderRadius:25,
-          height:90,
-          ...styles.shadow
-        }
-      }}>
-
-        <Tab.Screen 
-          name="Home" 
-          component={Home} 
-          options={{
-            headerStyle: {
-              backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            tabBarIcon: ({focused}) => {
-              return <View
-              style={styles.buttonBar}>
-              <Icon
-                name='home'
-                size={24}
-                color={focused ? '#e32f45' : '#748c94'}
-              />
-                <Text
-                style={{
-                  color: focused ? '#e32f45' : '#748c94',
-                  fontSize: 12
-                }}
-                >Home</Text>
-              </View>
-            },
-            tabBarButton: (props) => {
-              return <TouchableOpacity 
-              underlayColor="#0EA5A2"
-              {...props} 
-              />
-            }
-          }}/>
-         <Tab.Screen 
-          name="Find" 
-          component={Find} 
-          options={{
-            tabBarIcon: ({focused}) => {
-              return <View
-              style={styles.buttonBar}>
-              <Icon
-                name='search'
-                size={24}
-                color={focused ? '#e32f45' : '#748c94'}
-              />
-                <Text
-                style={{
-                  color: focused ? '#e32f45' : '#748c94',
-                  fontSize: 12
-                }}
-                >Find</Text>
-              </View>
-            },
-            tabBarButton: (props) => {
-              return <TouchableOpacity 
-              underlayColor="#0EA5A2"
-              {...props} 
-              />
-            }
-          }}/>
-         <Tab.Screen 
-          name="Post" 
-          component={Post} 
-          options={{
-            tabBarIcon: () => {
-              return <View
-              style={styles.button}>
-              <Icon
-                name='list'
-                size={24}
-                color='#ffffff'
-              />
-              </View>
-            },
-            tabBarButton: (props) => {
-              return <TouchableOpacity {...props} />
-            }
-          }}/>
-         <Tab.Screen 
-          name="Contact" 
-          component={Contact} 
-          options={{
-            tabBarIcon: ({focused}) => {
-              return <View
-              style={styles.buttonBar}>
-              <Icon
-                name='address-book'
-                size={24}
-                color={focused ? '#e32f45' : '#748c94'}
-              />
-                <Text
-                style={{
-                  color: focused ? '#e32f45' : '#748c94',
-                  fontSize: 12
-                }}
-                >Contact</Text>
-              </View>
-            },
-            tabBarButton: (props) => {
-              return <TouchableOpacity 
-              underlayColor="#0EA5A2"
-              {...props} 
-              />
-            }
-          }}/>
-         <Tab.Screen 
-          name="Account" 
-          component={Account} 
-          options={{
-            tabBarIcon: ({focused}) => {
-              return <View
-              style={styles.buttonBar}>
-              <Icon
-                name='user'
-                size={24}
-                color={focused ? '#e32f45' : '#748c94'}
-              />
-                <Text
-                style={{
-                  color: focused ? '#e32f45' : '#748c94',
-                  fontSize: 12
-                }}
-                >Me</Text>
-              </View>
-            },
-            tabBarButton: (props) => {
-              return <TouchableOpacity 
-              underlayColor="#0EA5A2"
-              {...props} 
-              />
-            }
-          }}/>
-
-      </Tab.Navigator>
-     );
-  }
-}
-
 // Main Component WHATSAPP.......................................................
-class HomeWA extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       Contacts: [],
-      Chats: [
-        {
-          name:'sheby',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'08:00',
-          message:'Hello there?',
-          icon:'person'
-        },
-        {
-          name:'Violet',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'15:30',
-          message:'Can I Ask?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          time:'12:11',
-          message:'Can we Talk Now?',
-          icon:'person'
-        }
-      ],
-      Calls: [
-        {
-          name:'sheby',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-11',
-          time:'09:50',
-          icon:'call'
-        },
-        {
-          name:'Violet',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-05-11',
-          time:'09:30',
-          icon:'video_call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        },
-        {
-          name:'Rose',
-          image:'https://images.bisnis-cdn.com/thumb/posts/2021/03/23/1371168/rose-blackpink-100-hot.jpg?w=744&h=465',
-          date:'2021-08-17',
-          time:'11:50',
-          icon:'call'
-        }
-      ],
+      Chats: CHATSDATA,
+      Calls: CALLSDATA,
+      Status: STATUSDATA,
+      ProfileStatus: {
+        name:'My Status',
+        image:'https://miscmedia-9gag-fun.9cache.com/images/thumbnail-facebook/1557216671.5403_tunyra_n.jpg'
+      }
     };
     // fetch('/Users/chauhan/Desktop/Whatsapp/App/data/data.json')
     //  .then(response => response.json())
@@ -439,60 +80,35 @@ class HomeWA extends React.Component {
     return (
       <View style={{ flex: 1 }}>
       <Header />
-      <TopTab.Navigator
+      <Tab.Navigator
        screenOptions={{
         tabBarLabelStyle: { 
           fontSize: 16,
-           color:'white' 
+           color:'white',
           },
         tabBarStyle: { 
           backgroundColor: '#075e54',
         },
-        tabBarIcon: ({focused}) => {
-          return <View
-          style={{
-            borderBottomColor: focused ? 'white' : '#075e54',
-            borderBottomWidth: 4,
-            top:62,
-            left:-37,
-            width:100,
-          }}
-          >
-          </View>
+        tabBarIndicatorStyle:{
+          borderBottomColor:'white',
+          borderBottomWidth: 2.5,
         },
+        tabBarPressColor:'#83B0AA',
       }}
+      style={{backgroundColor:'red'}}
+      timingConfig={{duration:200}}
+      initialLayout={{width: Dimensions.get('window').width}}
       >
-        <TopTab.Screen name="Chats" children={(props) => <ChatsTab {...props} ChatsData={this.state.Chats}/>}/>
-        <TopTab.Screen name="Calls" children={(props) => <CallsTab {...props}  CallsData={this.state.Calls}/>}/>
-      </TopTab.Navigator>
+        <Tab.Screen tim name="Chats" children={(props) => <ChatsTab {...props} 
+        ChatsData={this.state.Chats}/>}/>
+        <Tab.Screen name="Status" children={(props) => <StatusTab {...props} 
+        StatusData={this.state.Status} 
+        ProfileData={this.state.ProfileStatus}
+        />}/>
+        <Tab.Screen name="Calls" children={(props) => <CallsTab {...props}  
+        CallsData={this.state.Calls}/>}/>
+      </Tab.Navigator>
       </View>
-      // <View style={{ flex: 1 }}>
-      //   <Header />
-      //   <ScrollableTabView
-      //     style={{ borderColor: '#fff' }}
-      //     tabBarUnderlineStyle={style = { backgroundColor: '#fff' }}
-      //     tabBarBackgroundColor="#075e54"
-      //     tabBarActiveTextColor="#fff"
-      //     tabBarInactiveTextColor="#88b0ac"
-      //     initialPage={1}
-      //   >
-      //     <Calls
-      //       tabLabel="CALLS"
-      //       CallsData={this.state.Calls}
-      //       {...this.props}
-      //     />
-      //     <Chats
-      //       tabLabel="CHATS"
-      //       ChatsData={this.state.Chats}
-      //       {...this.props}
-      //     />
-      //     <Contacts
-      //       tabLabel="CONTACTS"
-      //       ContactsData={this.state.Contacts}
-      //       {...this.props}
-      //     />
-      //   </ScrollableTabView>
-      // </View>
     );
   }
 }
@@ -526,8 +142,11 @@ class RootStackScreen extends Component {
           :
             <>
             <RootStack.Screen 
-              name="HomeWA" 
-              component={HomeWA} />
+              name="Home" 
+              component={Home} />
+            <RootStack.Screen 
+              name="ChatView" 
+              component={ChatView} />
             </>
           }
         
@@ -575,20 +194,3 @@ const styles = StyleSheet.create({
     backgroundColor:'#F02A48'
   }
 })
-
-
-{/* <RootStack.Screen 
-name="Tab" 
-component={TabScreen} />
-<RootStack.Screen 
-name="Detail" 
-component={Detail} />
-<RootStack.Screen 
-name="ContactDetail" 
-component={ContactDetail} />
-<RootStack.Screen 
-name="AddContact" 
-component={AddContact} />
-<RootStack.Screen 
-name="EditContact" 
-component={EditContact} /> */}

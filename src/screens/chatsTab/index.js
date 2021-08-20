@@ -7,62 +7,62 @@ import {
    StyleSheet,
    FlatList
  } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-class StatusTab extends Component {
+class ChatsTab extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
     }
 
+    chatsHandler = () => {
+
+    }
+
     renderItem = ({item}) => {
         return (
-            <TouchableOpacity
-            // onPress={() => {
-            //   props.navigator.push({
-            //     id: 'ChatView',
-            //     name: props.name,
-            //     image: props.image,
-            //   });
-            // }}
-          >
-            <View style={styles.row}>
-              <Image source={{ uri: item.image }} style={styles.pic} />
-              <View>
+          <ListItem
+          onPress={() => this.props.navigation.navigate('ChatView',{name:item.name, image:item.image, message:item.message})}
+           >
+           <Image source={{ uri: item.image }} style={styles.pic} />
+            <ListItem.Content>
+                <ListItem.Title>
                 <View style={styles.nameContainer}>
                   <Text style={styles.nameTxt}>{item.name}</Text>
                   <Text style={styles.time}>{item.time}</Text>
                 </View>
-                <View style={styles.msgContainer}>
-                  <Icon
-                    name={item.icon} size={15} color="#b3b3b3"
-                    style={{ marginLeft: 15, marginRight: 5 }}
-                  />
+                  </ListItem.Title>
+                <ListItem.Subtitle>
+                  <View style={styles.msgContainer}>
+                  {item.messageType === 'Photo' ? 
+                   <Icon
+                   name={item.icon} size={15} color="#b3b3b3"
+                   style={{marginRight: 5 }}
+                 />
+                  :
+                  null
+                  }
                   <Text style={styles.msgTxt}>{item.message}</Text>
                 </View>
-              </View>
-            </View>
-        </TouchableOpacity>
+                 </ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
         );
       }
       
     render() { 
-        // console.log(this.props.ChatsData)
         return ( 
             <FlatList
             data={this.props.ChatsData}
             keyExtractor={(item, idx) => idx}
             renderItem={this.renderItem}
-            // onRefresh={() => this.getData(1)}
-            // refreshing={this.state.refresh}
-            // onEndReached={() => this.getData(this.state.page + 1)}
-            // onEndReachedThreshold={0.5}
-        />
+            />
          );
     }
 }
 
-export default StatusTab;
+export default ChatsTab;
 
 const styles = StyleSheet.create({
   row: {
@@ -74,17 +74,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   pic: {
-    borderRadius: 30,
-    width: 60,
-    height: 60,
+    borderRadius: 25,
+    width: 50,
+    height: 50,
   },
   nameContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 280,
+    width: 250,
   },
   nameTxt: {
-    marginLeft: 15,
     fontWeight: '600',
     color: '#222',
     fontSize: 15,
@@ -102,6 +101,6 @@ const styles = StyleSheet.create({
   msgTxt: {
     fontWeight: '400',
     color: '#666',
-    fontSize: 12,
+    fontSize: 13,
   },
 });

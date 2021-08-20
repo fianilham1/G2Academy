@@ -7,6 +7,7 @@ import {
    FlatList,
    StyleSheet,
  } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
@@ -18,38 +19,40 @@ class CallsTab extends Component {
 
     renderItem = ({item}) => {
         return (
-            <TouchableOpacity
-            // onPress={() => {
-            //   props.navigator.push({
-            //     id: 'CallScreen',
-            //     name: props.name,
-            //     image: props.image,
-            //   });
-            // }}
-          >
-            <View style={styles.row}>
-        
-              <Image source={{ uri: item.image }} style={styles.pic} />
-              <View >
+          <ListItem >
+           <Image source={{ uri: item.image }} style={styles.pic} />
+            <ListItem.Content>
+                <ListItem.Title>
                 <View style={styles.nameContainer}>
                   <Text style={styles.nameTxt}>
                     {item.name}
                   </Text>
                 </View>
-                <View style={styles.end}>
+                </ListItem.Title>
+                <ListItem.Subtitle>
+                <View style={styles.callContainer}>
+                  <View style={styles.end}>
                   <Icon
-                    name="call-missed" size={15} color="#ed788b"
-                    style={{ marginLeft: 15, marginRight: 5 }}
+                    name={item.call} size={15} color={ item.call==='call-missed' ? "red" : "green"}
+                    style={{  marginRight: 5 }}
                   />
                   <Text style={styles.time}>
                     {item.date} {item.time}
                   </Text>
+                  </View>
+
+                  <View>
+                  <TouchableOpacity>
+                  <Icon 
+                  name={item.callType} size={25} color="#098B7C" 
+                  style={{ bottom:15}}/>
+                  </TouchableOpacity>
+                  </View>
+                 
                 </View>
-              </View>
-              <Icon name={item.call} size={23} color="#075e54" style={{ marginRight: 50 }} />
-            </View>
-        
-          </TouchableOpacity>
+                </ListItem.Subtitle>
+            </ListItem.Content>
+          </ListItem>
         );
       }
 
@@ -59,11 +62,7 @@ class CallsTab extends Component {
             data={this.props.CallsData}
             keyExtractor={(item, idx) => idx}
             renderItem={this.renderItem}
-            // onRefresh={() => this.getData(1)}
-            // refreshing={this.state.refresh}
-            // onEndReached={() => this.getData(this.state.page + 1)}
-            // onEndReachedThreshold={0.5}
-        />
+            />
          );
     }
 }
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
     width: 270,
   },
   nameTxt: {
-    marginLeft: 15,
     fontWeight: '600',
     color: '#222',
     fontSize: 15,
@@ -106,7 +104,13 @@ const styles = StyleSheet.create({
     color: '#777',
     fontSize: 13,
   },
-  end: {
+  callContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 250,
+  },
+  end:{
     flexDirection: 'row',
     alignItems: 'center',
   },

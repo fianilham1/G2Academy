@@ -21,7 +21,7 @@ class AuthHeader extends Component {
         const {title, subtitle} = this.props
         return ( 
             <View style={styles.container} >
-             <StatusBar translucent backgroundColor="transparent" /> 
+            <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
                 <ImageBackground
                     style={styles.box}
                     imageStyle={styles.image}
