@@ -106,7 +106,7 @@ class ChatView extends Component {
     }else{
         conversation.push({
             sent: false,
-            msg: 'What do u mean??',
+            msg: 'What do u mean ???',
           });
     }
    
