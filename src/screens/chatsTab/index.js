@@ -53,11 +53,26 @@ class ChatsTab extends Component {
       
     render() { 
         return ( 
+          <View style={{flex:1, backgroundColor:'white'}}>
             <FlatList
             data={this.props.ChatsData}
             keyExtractor={(item, idx) => idx}
             renderItem={this.renderItem}
             />
+             <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('ContactView')}
+              style={styles.newChatButton}
+              >
+                <Icon
+                  name="chat"
+                  color="#fff"
+                  size={30}
+                  style={{ padding: 5 }}
+                />
+              </TouchableOpacity>
+          </View>
+          
+            
          );
     }
 }
@@ -103,4 +118,19 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 13,
   },
+  newChatButton:{
+    alignItems:'center',
+    justifyContent:'center',
+    position:'absolute',
+    // top:38,
+    bottom:20,
+    right:20,
+    height:70,
+    width:70,
+    borderColor:'white',
+    borderWidth:2,
+    borderRadius:35,
+    backgroundColor:'#25d366',
+
+  }
 });

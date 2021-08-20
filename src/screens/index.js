@@ -6,5 +6,6 @@ import CallsTab from './callsTab'
 import ChatsTab from './chatsTab'
 import StatusTab from './statusTab'
 import ChatView from './chatView'
+import ContactView from './contactView'
 
-export {Splash, Login, Register, OnBoard, CallsTab, ChatsTab, StatusTab, ChatView}
+export {Splash, Login, Register, OnBoard, CallsTab, ChatsTab, StatusTab, ChatView, ContactView}

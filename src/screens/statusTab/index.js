@@ -81,7 +81,7 @@ class StatusTab extends Component {
     render() { 
 
         return (
-             <View style={{flex:1, backgroundColor:'white'}}>
+            <View style={{flex:1, backgroundColor:'white'}}>
             {this.renderProfile(this.props.ProfileData)}
             <View style={styles.recentBar}>
                 <Text style={{fontWeight:'bold',fontSize:13, opacity:0.6}}>Recent Updates</Text>

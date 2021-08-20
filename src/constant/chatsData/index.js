@@ -1,4 +1,4 @@
-export const CHATSDATA = [
+export const CHATSDATA_USER1 = [
     {
         name:'Mark',
         image:'https://bootdey.com/img/Content/avatar/avatar1.png',
@@ -56,67 +56,78 @@ export const CHATSDATA = [
         messageType:'text'
       },
       {
-        name:'Curly',
-        image:'https://bootdey.com/img/Content/avatar/avatar3.png',
-        time:'00:11 PM',
-        message:'Hey',
+        name:'Bob',
+        image:'https://bootdey.com/img/Content/avatar/avatar8.png',
+        time:'00:50 PM',
+        message:'Hello',
         icon:'image',
         messageType:'text'
       },
-      {
-        name:'Clark',
-        image:'https://bootdey.com/img/Content/avatar/avatar6.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Fermond',
-        image:'https://bootdey.com/img/Content/avatar/avatar7.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        time:'00:11 PM',
-        message:'Hey',
-        icon:'image',
-        messageType:'text'
-      },
+]
+
+export const CHATSDATA_USER2 = [
+  {
+    name:'Curly',
+    image:'https://bootdey.com/img/Content/avatar/avatar3.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Clark',
+    image:'https://bootdey.com/img/Content/avatar/avatar6.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Fermond',
+    image:'https://bootdey.com/img/Content/avatar/avatar7.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    time:'00:11 PM',
+    message:'Hey',
+    icon:'image',
+    messageType:'text'
+  },
 ]

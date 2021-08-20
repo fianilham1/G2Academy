@@ -1,4 +1,4 @@
-export const STATUSDATA = [
+export const STATUSDATA_USER1 = [
       {
         name:'Mark',
         image:'https://bootdey.com/img/Content/avatar/avatar1.png',
@@ -25,10 +25,31 @@ export const STATUSDATA = [
         date:'Today',
         time:'04:10 PM',
       },
-      {
-        name:'Shayla',
-        image:'https://images-na.ssl-images-amazon.com/images/I/81KgXSGE8BL.png',
-        date:'Today',
-        time:'08:50 PM',
-      },
+]
+
+export const STATUSDATA_USER2 = [
+  {
+    name:'Curly',
+    image:'https://bootdey.com/img/Content/avatar/avatar3.png',
+    date:'',
+    time:'30 minutes ago',
+  },
+  {
+    name:'Clark',
+    image:'https://bootdey.com/img/Content/avatar/avatar6.png',
+    date:'',
+    time:'45 minutes ago',
+  },
+  {
+    name:'Fermond',
+    image:'https://bootdey.com/img/Content/avatar/avatar7.png',
+    date:'Today',
+    time:'15:00 PM',
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'Today',
+    time:'16:55 PM',
+  },
 ]

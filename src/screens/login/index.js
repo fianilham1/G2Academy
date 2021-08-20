@@ -76,12 +76,11 @@ class Login extends Component{
     authUsername = () => {
         const {userList} = this.state
         for(let i=0;i<userList.length;i++){
-         if(userList[i].username===this.state.username) {
+        if(userList[i].username===this.state.username) {
              return (true)
-         }else{
-            return (false)
-         } 
+        }
         } 
+        return (false)
     }   
 
     ValidateEmail = () => {
@@ -93,17 +92,7 @@ class Login extends Component{
     }
 
     getUserApi = () => {
-        const userList = [
-        {
-            name:'Fian',
-            username:"fian1@gmail.com",
-            password:"fian123@"
-        },
-        {
-            name:'John',
-            username:"john1@gmail.com",
-            password:"john123@"
-        }]
+        const userList = this.props.userList
         this.setState({
             userList
         })
@@ -119,8 +108,11 @@ class Login extends Component{
         if(this.state.foundUsername && userList[i].password===this.state.password) {
             this.props.doLogin(
                 {
+                name:userList[i].name,
                 username:this.state.username,
-                password:this.state.password
+                password:this.state.password,
+                role:userList[i].role,
+                image:userList[i].image
                 }
             )
             return (
@@ -255,15 +247,15 @@ class Login extends Component{
     }
 }
 
-// const mapStateToProps = state => ({
-//     isLogin: state.auth.statusLogin,
-// })
+const mapStateToProps = state => ({
+    userList: state.auth.userList,
+})
 
 const mapDispatchToProps = dispatch => ({
     doLogin: data => dispatch(signIn(data))
 })
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 
 const styles = StyleSheet.create({

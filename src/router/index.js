@@ -9,7 +9,8 @@ import {
   CallsTab,
   ChatsTab,
   StatusTab,
-  ChatView} from '../screens';
+  ChatView,
+  ContactView} from '../screens';
 import {
   View,
   Text,
@@ -20,9 +21,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import React, { Component } from 'react';
 
 import {Header} from '../components';
-import { CHATSDATA } from '../constant/chatsData';
-import { CALLSDATA } from '../constant/callsData';
-import { STATUSDATA } from '../constant/statusData';
+import { CHATSDATA_USER1, CHATSDATA_USER2 } from '../constant/chatsData';
+import { CALLSDATA_USER1, CALLSDATA_USER2 } from '../constant/callsData';
+import { STATUSDATA_USER1, STATUSDATA_USER2 } from '../constant/statusData';
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -60,21 +61,14 @@ class Home extends React.Component {
     super(props);
     this.state = {
       Contacts: [],
-      Chats: CHATSDATA,
-      Calls: CALLSDATA,
-      Status: STATUSDATA,
+      Chats: this.props.userLogin.role  === 'admin' ? CHATSDATA_USER1 : CHATSDATA_USER2,
+      Calls: this.props.userLogin.role  === 'admin' ? CALLSDATA_USER1 : CALLSDATA_USER2,
+      Status: this.props.userLogin.role  === 'admin' ? STATUSDATA_USER1 : STATUSDATA_USER2,
       ProfileStatus: {
         name:'My Status',
-        image:'https://miscmedia-9gag-fun.9cache.com/images/thumbnail-facebook/1557216671.5403_tunyra_n.jpg'
+        image: this.props.userLogin.image
       }
     };
-    // fetch('/Users/chauhan/Desktop/Whatsapp/App/data/data.json')
-    //  .then(response => response.json())
-    //  .then(data => this.setState({
-    //    Contacts: data.Contacts,
-    //    Chats: data.Chats,
-    //    Calls: data.Calls,
-    //  }));
   }
   render() {
     return (
@@ -117,7 +111,7 @@ class RootStackScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-         
+          Chats: 'Admin'  === 'Admin' ? CHATSDATA_USER1 : CHATSDATA_USER2,
          }
     }
 
@@ -143,10 +137,13 @@ class RootStackScreen extends Component {
             <>
             <RootStack.Screen 
               name="Home" 
-              component={Home} />
+              children={(props) => <Home {...props} userLogin={this.props.userLogin}/>}/>
             <RootStack.Screen 
               name="ChatView" 
               component={ChatView} />
+            <RootStack.Screen 
+            name="ContactView" 
+            children={(props) => <ContactView {...props} ContactsData={this.state.Chats}/>}/>
             </>
           }
         

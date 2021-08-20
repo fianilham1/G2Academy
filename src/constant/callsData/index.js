@@ -1,4 +1,4 @@
-export const CALLSDATA = [
+export const CALLSDATA_USER1 = [
       {
         name:'Mark',
         image:'https://bootdey.com/img/Content/avatar/avatar1.png',
@@ -56,67 +56,79 @@ export const CALLSDATA = [
         call:'call-missed'
       },
       {
-        name:'Curly',
-        image:'https://bootdey.com/img/Content/avatar/avatar3.png',
-        date:'July 22',
-        time:'08:00 PM',
-        callType:'video-call',
+        name:'Bob',
+        image:'https://bootdey.com/img/Content/avatar/avatar8.png',
+        date:'July 14',
+        time:'11:20 AM',
+        callType:'call',
         call:'call-received'
       },
-      {
-        name:'Clark',
-        image:'https://bootdey.com/img/Content/avatar/avatar6.png',
-        date:'July 21',
-        time:'11:12 AM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Fermond',
-        image:'https://bootdey.com/img/Content/avatar/avatar7.png',
-        date:'July 10',
-        time:'09:50 AM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        date:'July 5',
-        time:'01:00 PM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        date:'July 5',
-        time:'01:00 PM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        date:'July 5',
-        time:'01:00 PM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        date:'July 5',
-        time:'01:00 PM',
-        callType:'call',
-        call:'call-missed'
-      },
-      {
-        name:'Steve',
-        image:'https://bootdey.com/img/Content/avatar/avatar4.png',
-        date:'July 5',
-        time:'13:00',
-        callType:'call',
-        call:'call-missed'
-      },
+]
+
+export const CALLSDATA_USER2 = [
+
+  {
+    name:'Curly',
+    image:'https://bootdey.com/img/Content/avatar/avatar3.png',
+    date:'July 22',
+    time:'08:00 PM',
+    callType:'video-call',
+    call:'call-received'
+  },
+  {
+    name:'Clark',
+    image:'https://bootdey.com/img/Content/avatar/avatar6.png',
+    date:'July 21',
+    time:'11:12 AM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Fermond',
+    image:'https://bootdey.com/img/Content/avatar/avatar7.png',
+    date:'July 10',
+    time:'09:50 AM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'July 5',
+    time:'01:00 PM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'July 5',
+    time:'01:00 PM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'July 5',
+    time:'01:00 PM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'July 5',
+    time:'01:00 PM',
+    callType:'call',
+    call:'call-missed'
+  },
+  {
+    name:'Steve',
+    image:'https://bootdey.com/img/Content/avatar/avatar4.png',
+    date:'July 5',
+    time:'13:00',
+    callType:'call',
+    call:'call-missed'
+  },
 ]
