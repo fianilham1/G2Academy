@@ -10,7 +10,8 @@ import {
   ChatsTab,
   StatusTab,
   ChatView,
-  ContactView} from '../screens';
+  ContactView,
+  Camera} from '../screens';
 import {
   View,
   Text,
@@ -93,14 +94,16 @@ class Home extends React.Component {
       timingConfig={{duration:200}}
       initialLayout={{width: Dimensions.get('window').width}}
       >
-        <Tab.Screen tim name="Chats" children={(props) => <ChatsTab {...props} 
-        ChatsData={this.state.Chats}/>}/>
+        
+        <Tab.Screen name="Chats" children={(props) => <ChatsTab {...props} 
+          ChatsData={this.state.Chats}/>}/>
+        <Tab.Screen name="Camera" children={(props) => <Camera {...props}/>}/>
         <Tab.Screen name="Status" children={(props) => <StatusTab {...props} 
-        StatusData={this.state.Status} 
-        ProfileData={this.state.ProfileStatus}
+          StatusData={this.state.Status} 
+          ProfileData={this.state.ProfileStatus}
         />}/>
         <Tab.Screen name="Calls" children={(props) => <CallsTab {...props}  
-        CallsData={this.state.Calls}/>}/>
+          CallsData={this.state.Calls}/>}/>
       </Tab.Navigator>
       </View>
     );
