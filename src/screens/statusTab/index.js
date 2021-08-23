@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
     backgroundColor:'rgba(0,0,0,0.07)',
     paddingLeft:15
   },
-
   addStatusButton:{
     alignItems:'center',
     justifyContent:'center',
@@ -167,6 +166,5 @@ const styles = StyleSheet.create({
     borderWidth:2,
     borderRadius:40,
     backgroundColor:'#25d366',
-
   }
 });

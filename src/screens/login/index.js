@@ -108,11 +108,13 @@ class Login extends Component{
         if(this.state.foundUsername && userList[i].password===this.state.password) {
             this.props.doLogin(
                 {
+                id:userList[i].id,
                 name:userList[i].name,
                 username:this.state.username,
                 password:this.state.password,
                 role:userList[i].role,
-                image:userList[i].image
+                image:userList[i].image,
+                phone:userList[i].phone,
                 }
             )
             return (

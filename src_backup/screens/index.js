@@ -1,0 +1,15 @@
+import Splash from './splash'
+import Login from './login'
+import Register from './register'
+import Home from './home'
+import Find from './find'
+import Post from './post'
+import Contact from './contact'
+import AddContact from './addContact'
+import EditContact from './editContact'
+import ContactDetail from './contactDetail'
+import Account from './account'
+import OnBoard from './onBoard'
+import Detail from './detail'
+
+export {Splash, Login, Register, Home, Find, Post, Contact, AddContact, EditContact, ContactDetail, Account, OnBoard, Detail}

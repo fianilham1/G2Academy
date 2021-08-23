@@ -1,45 +1,70 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {signOut} from '../../actions/auth';
+import { COLOR } from '../../constant/color';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
+  TouchableHighlight,
   StatusBar,
+  Modal,
+  Dimensions
   } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const WIDTH= Dimensions.get('window').width;
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isClicked:false
+            modalVisible: false
          }
     }
 
-    clicked = () => {
-        this.setState({
-            isClicked:!this.state.isClicked
-        })
+    clickModalHandler = (visible, command) => {
+      this.setState({ modalVisible: visible });
+      if (command==='signOut') {
+        this.props.doLogout()
+      }else if(command==='toProfile'){
+        this.props.navigation.navigate('ProfileView')
+      }
+      
     }
 
     renderLogout = () => {
-        if (this.state.isClicked) return <TouchableOpacity
-        onPress={() => this.props.doLogout()}
-        style={{
-            height:120,
-            backgroundColor:'white',
-            position:'absolute',
-            top:30,
-            right:5,
-            paddingHorizontal:15
-        }}
-        >
-            <Text>Log out</Text>
-        </TouchableOpacity>
+      const { modalVisible } = this.state;
 
-        return null
+      return (
+      <View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableHighlight
+               underlayColor={COLOR.gray}
+                style={styles.button}
+                onPress={() => this.clickModalHandler(!modalVisible,'toProfile')}
+              >
+                <Text style={styles.textStyle}>Profile</Text>              
+              </TouchableHighlight>
+              <TouchableHighlight
+               underlayColor={COLOR.gray}
+                style={styles.button}
+                onPress={() => this.clickModalHandler(!modalVisible,'signOut')}
+              >
+                <Text style={styles.textStyle}>Sign Out</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+      </View>
+      )
     }
 
     render() { 
@@ -65,7 +90,7 @@ class Header extends Component {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-              onPress={this.clicked}
+              onPress={() => this.clickModalHandler(true)}
               >
                 <Icon
                   name="more-vert"
@@ -107,4 +132,35 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
   },
+  // centeredView: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   marginTop: 22
+  // },
+  modalView: {
+    marginLeft:WIDTH*0.5,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    padding: 10,
+    elevation: 2,
+    alignItems:'flex-start',
+    justifyContent:'flex-start',
+  },
+  textStyle: {
+    fontSize:17,
+  },
+  modalText: {
+    marginBottom: 15,
+
+  }
 });

@@ -19,7 +19,6 @@ class ContactView extends Component {
     }
 
     renderItem = ({item}) => {
-        console.log('contactlist',item)
         return (
           <ListItem
           onPress={() => this.props.navigation.navigate('ChatView',{name:item.name, image:item.image, message:item.message})}
@@ -57,9 +56,9 @@ class ContactView extends Component {
                     />
                 </TouchableOpacity>
                 </View>
-                <View style={styles.contactHeader}>
-                    <Text style={styles.contactTitle}>Select Contact</Text>
-                    <Text style={styles.contactSubtitle}>{this.props.ContactsData.length} Contacts</Text>
+                <View style={styles.screenHeader}>
+                    <Text style={styles.screenTitle}>Select Contact</Text>
+                    <Text style={styles.screenSubtitle}>{this.props.ContactsData.length} Contacts</Text>
                 </View>
           
                 <View style={styles.right} >
@@ -94,16 +93,16 @@ const styles = StyleSheet.create({
       right: {
         flexDirection: 'row',
       },
-      contactHeader:{
+      screenHeader:{
         flexDirection:'column',
         marginLeft:-20
       },
-      contactTitle: {
+      screenTitle: {
         color: '#fff',
         fontWeight: '600',
         fontSize: 20,
       },
-      contactSubtitle: {
+      screenSubtitle: {
         color: '#fff',
         fontWeight: '600',
         fontSize: 13,

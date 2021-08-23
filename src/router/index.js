@@ -11,7 +11,8 @@ import {
   StatusTab,
   ChatView,
   ContactView,
-  Camera} from '../screens';
+  Camera,
+  ProfileView} from '../screens';
 import {
   View,
   Text,
@@ -25,6 +26,8 @@ import {Header} from '../components';
 import { CHATSDATA_USER1, CHATSDATA_USER2 } from '../constant/chatsData';
 import { CALLSDATA_USER1, CALLSDATA_USER2 } from '../constant/callsData';
 import { STATUSDATA_USER1, STATUSDATA_USER2 } from '../constant/statusData';
+
+const WIDTH= Dimensions.get('window').width;
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -74,7 +77,7 @@ class Home extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-      <Header />
+      <Header {...this.props}/>
       <Tab.Navigator
        screenOptions={{
         tabBarLabelStyle: { 
@@ -89,21 +92,78 @@ class Home extends React.Component {
           borderBottomWidth: 2.5,
         },
         tabBarPressColor:'#83B0AA',
+        tabBarItemStyle:{width:'auto'}
       }}
       style={{backgroundColor:'red'}}
       timingConfig={{duration:200}}
       initialLayout={{width: Dimensions.get('window').width}}
+      initialRouteName='Chats'
       >
-        
-        <Tab.Screen name="Chats" children={(props) => <ChatsTab {...props} 
-          ChatsData={this.state.Chats}/>}/>
-        <Tab.Screen name="Camera" children={(props) => <Camera {...props}/>}/>
-        <Tab.Screen name="Status" children={(props) => <StatusTab {...props} 
+         <Tab.Screen 
+          name="Camera" 
+          children={(props) => <Camera {...props}/>}
+          options={{
+            tabBarShowLabel:false,
+            tabBarIcon: () => {
+             return <View style={styles.topBar}>
+                <Icon
+                name="camera"
+                color="#fff"
+                size={20}
+            />
+             </View>
+            },
+            tabBarIconStyle:{
+              width:WIDTH*0.06,
+            }
+          }}/>
+        <Tab.Screen 
+          name="Chats" 
+          children={(props) => <ChatsTab {...props} 
+          ChatsData={this.state.Chats}/>}
+          options={{
+            tabBarShowLabel:false,
+            tabBarIcon: () => {
+             return <View style={styles.topBar}>
+               <Text style={styles.topBarText}>CHATS</Text>
+             </View>
+            },
+            tabBarIconStyle:{
+              width:WIDTH*0.225,
+            }
+          }}/>
+        <Tab.Screen 
+          name="Status" 
+          children={(props) => <StatusTab {...props} 
           StatusData={this.state.Status} 
           ProfileData={this.state.ProfileStatus}
-        />}/>
-        <Tab.Screen name="Calls" children={(props) => <CallsTab {...props}  
-          CallsData={this.state.Calls}/>}/>
+          />}
+          options={{
+            tabBarShowLabel:false,
+            tabBarIcon: () => {
+             return <View style={styles.topBar}>
+               <Text style={styles.topBarText}>STATUS</Text>
+             </View>
+            },
+            tabBarIconStyle:{
+              width:WIDTH*0.225,
+            }
+          }}/>
+        <Tab.Screen 
+          name="Calls" 
+          children={(props) => <CallsTab {...props}  
+          CallsData={this.state.Calls}/>}
+          options={{
+            tabBarShowLabel:false,
+            tabBarIcon: () => {
+             return <View style={styles.topBar}>
+               <Text style={styles.topBarText}>CALLS</Text>
+             </View>
+            },
+            tabBarIconStyle:{
+              width:WIDTH*0.225,
+            }
+          }}/>
       </Tab.Navigator>
       </View>
     );
@@ -141,12 +201,18 @@ class RootStackScreen extends Component {
             <RootStack.Screen 
               name="Home" 
               children={(props) => <Home {...props} userLogin={this.props.userLogin}/>}/>
-            <RootStack.Screen 
+             <RootStack.Screen 
               name="ChatView" 
-              component={ChatView} />
+              children={(props) => <ChatView {...props} userLogin={this.props.userLogin}/>}/>
             <RootStack.Screen 
-            name="ContactView" 
-            children={(props) => <ContactView {...props} ContactsData={this.state.Chats}/>}/>
+              name="ContactView" 
+              children={(props) => <ContactView {...props} ContactsData={this.state.Chats}/>}/>
+            <RootStack.Screen 
+              name="ProfileView" 
+              children={(props) => <ProfileView {...props} />}/>
+            <RootStack.Screen 
+              name="Camera" 
+              children={(props) => <Camera {...props} />}/>
             </>
           }
         
@@ -164,6 +230,14 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(RootStackScreen);
 
 const styles = StyleSheet.create({
+  topBar:{
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  topBarText:{
+    color:'white',
+    fontSize:16
+  },
   buttonBar:{
     alignItems:'center',
     justifyContent:'center',

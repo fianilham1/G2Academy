@@ -17,16 +17,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconFA from 'react-native-vector-icons/FontAwesome5';
 
 const { width, height } = Dimensions.get('window');
-// const conversation = [
-//   {
-//     sent: true,
-//     msg: 'all cool!',
-//   },
-//   {
-//     sent: false,
-//     msg: 'Hey wassup?',
-//   },
-// ];
 
 class EachMsg extends Component {
     constructor(props) {
@@ -55,27 +45,6 @@ class EachMsg extends Component {
         );
     }
 }
- 
-// EachMsg = ({item}) => {
-//     if (item.sent === false) {
-//       return (
-//         <View style={styles.eachMsg}>
-//           <Image source={{ uri: props.image }}style={styles.userPic} />
-//           <View style={styles.msgBlock}>
-//             <Text style={styles.msgTxt}>{props.msg}</Text>
-//           </View>
-//         </View>
-//       );
-//     }
-//     return (
-//       <View style={styles.rightMsg} >
-//         <View style={styles.rightBlock} >
-//           <Text style={styles.rightTxt}>{props.msg}</Text>
-//         </View>
-//         <Image source={{uri:this.state.profile.image}} style={styles.userPic} />
-//       </View>
-//     );
-//   };
 
 class ChatView extends Component {
   constructor(props) {
@@ -90,7 +59,7 @@ class ChatView extends Component {
       msg: '',
       profile: {
         name:'My Status',
-        image:'https://miscmedia-9gag-fun.9cache.com/images/thumbnail-facebook/1557216671.5403_tunyra_n.jpg'
+        image:this.props.userLogin.image
       }
     };
   }
@@ -101,7 +70,7 @@ class ChatView extends Component {
     if(conversation[conversation.length-1].msg.toLowerCase()==='yes'){
         conversation.push({
             sent: false,
-            msg: 'Do u want to be my boyfriend?',
+            msg: 'Can u teach me about math?',
           });
     }else{
         conversation.push({

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, PermissionsAndroid  } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import RNFS from 'react-native-fs'
+import RNFS from 'react-native-fs';
+import { connect } from 'react-redux';
+import { editUser, signIn } from '../../actions/auth';
 
 class Camera extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+         }
     }
 
     takePicture = async () => {
@@ -15,9 +18,16 @@ class Camera extends Component {
           const data = await this.camera.takePictureAsync(options);
           
           const uri = data.uri.substr(7)
-          // const photoPath = RNFS.PicturesDirectoryPath + '/AndroidProject'
-
-          this.copyToPic(uri)
+          const newData = {
+            ...this.props.userLogin,
+            image:`data:image/png;base64,${data.base64}`
+          }
+          this.props.editUser(newData)
+          this.props.doLogin(newData)
+          this.props.navigation.goBack()
+          
+          // `data:image/png;base64,${this.state.logo}`
+          // this.copyToPic(uri)
         }
         
       };
@@ -85,8 +95,17 @@ class Camera extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+  userLogin: state.auth.userLogin,
+})
  
-export default Camera;
+const mapDispatchToProps = dispatch => ({
+  editUser: newData => dispatch(editUser(newData)),
+  doLogin: data => dispatch(signIn(data))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Camera);
 
 const styles = StyleSheet.create({
   container: {
