@@ -7,14 +7,14 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     StyleSheet,
-    Dimensions,
-    Modal} from 'react-native';
+    Dimensions} from 'react-native';
  import Icon from 'react-native-vector-icons/MaterialIcons';
  import { COLOR } from '../../constant/color';
  import { connect } from 'react-redux';
  import { editUser, signIn } from '../../actions/auth';
  import {Input} from 'react-native-elements';
- import * as ImagePicker from "react-native-image-picker"
+ import * as ImagePicker from "react-native-image-picker";
+ import Modal from "react-native-modal";
 
  const WIDTH= Dimensions.get('window').width;
  const HEIGHT= Dimensions.get('window').height;
@@ -53,8 +53,7 @@ class ProfileView extends Component {
             maxHeight: 550,
         };
         ImagePicker.launchCamera(options, (response) => {
-          console.log('Response = ', response);
-    
+        //   console.log('Response = ', response);
           if (response.didCancel) {
             console.log('User cancelled image picker');
           } else if (response.error) {
@@ -64,7 +63,7 @@ class ProfileView extends Component {
             alert(response.customButton);
           } else {
             const source = { uri: response.uri };
-            console.log('response success', JSON.stringify(response));
+            // console.log('response success', JSON.stringify(response));
 
             const newData = {
                 ...this.state.profile,
@@ -91,8 +90,7 @@ class ProfileView extends Component {
             maxHeight: 550,
         };
         ImagePicker.launchImageLibrary(options, (response) => {
-          console.log('Response = ', response);
-    
+        //   console.log('Response = ', response);
           if (response.didCancel) {
             console.log('User cancelled image picker');
           } else if (response.error) {
@@ -101,8 +99,7 @@ class ProfileView extends Component {
             console.log('User tapped custom button: ', response.customButton);
             alert(response.customButton);
           } else {
-            console.log('response success', JSON.stringify(response));
-
+            // console.log('response success', JSON.stringify(response));
             const newData = {
                 ...this.state.profile,
                 [this.state.editProfile]:'data:image/jpeg;base64,' +  response.assets[0].base64
@@ -128,8 +125,8 @@ class ProfileView extends Component {
     clickModalHandler = (visible, params, save) => {
         this.setState({ 
             modalVisible: visible,
-            editProfile: params,
-            inputEditProfile: this.state.profile[params]
+            editProfile: params ? params : this.state.editProfile,
+            inputEditProfile: params ?  this.state.profile[params] : this.state.inputEditProfile
          });
         if (save) {
             const newData = {
@@ -145,35 +142,50 @@ class ProfileView extends Component {
       }
 
     renderEditBox = () => {
-        const { modalVisible } = this.state;
+        const { modalVisible, editProfile, inputEditProfile } = this.state;
         return (
         <View>
           <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            backdropOpacity={0.3}
+            isVisible={modalVisible}
+            animationIn="slideInUp"
+            backdropOpacity={0.6}
+            onBackdropPress={() => this.clickModalHandler(!modalVisible)}
+            backdropTransitionOutTiming={0}
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                {this.state.editProfile==='image' ? 
+                {editProfile==='image' ? 
                 <View style={styles.btnParentSection}>
                     <TouchableOpacity onPress={this.launchCamera} style={styles.btnSection}  >
-                    <Text style={styles.btnText}>Directly Launch Camera</Text>
+                    <Image 
+                    style={{
+                        height:50,
+                        width:50,
+                        margin:10
+                    }}
+                    source={require('../../images/cameraAndroid.png')}/>
+                    <Text>Camera</Text>
                     </TouchableOpacity>
     
                     <TouchableOpacity onPress={this.launchImageLibrary} style={styles.btnSection}  >
-                    <Text style={styles.btnText}>Directly Launch Image Library</Text>
+                    <Image 
+                    style={{
+                        height:60,
+                        width:60,
+                        margin:5
+                    }}
+                    source={require('../../images/galleryAndroid.png')}/>
+                     <Text>Gallery</Text>
                     </TouchableOpacity>
                </View>
                 :
                 <>
                 <View>
                     <Input
-                        placeholder={this.state.editProfile}
+                        placeholder={editProfile}
                         onChangeText={text => this.setValue(text)}
-                        label={'Enter your '+this.state.editProfile}
-                        value={this.state.inputEditProfile}
+                        label={'Enter your '+editProfile}
+                        value={inputEditProfile}
                         containerStyle={{
                         height:45,
                         borderColor:COLOR.gray
@@ -200,7 +212,7 @@ class ProfileView extends Component {
                     <TouchableHighlight
                     underlayColor={COLOR.gray}
                     style={styles.button}
-                    onPress={() => this.clickModalHandler(!modalVisible,this.state.editProfile,true)}
+                    onPress={() => this.clickModalHandler(!modalVisible,editProfile,true)}
                     >
                     <Text style={styles.textStyle}>Save</Text>              
                     </TouchableHighlight>
@@ -217,7 +229,7 @@ class ProfileView extends Component {
                 }
                                
               </View>
-            </View>
+            </View >
           </Modal>
         </View>
         )
@@ -419,24 +431,25 @@ const styles = StyleSheet.create({
           fontSize:15
       },
     centeredView: {
-        flex: 1,
+        flex:1,
         justifyContent: "flex-end",
         alignItems: "center",
+        bottom:-40
     },
     modalView: {
         backgroundColor: "white",
         width:WIDTH,
-        padding: 20,
-        paddingTop:45,
+        padding: 30,
+        paddingTop:50,
         borderRadius: 20,
-        shadowColor: "#000",
-        shadowOffset: {
-        width: 0,
-        height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+        // shadowColor: "#000",
+        // shadowOffset: {
+        // width: 0,
+        // height: 2
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
+        // elevation: 5
     },
     button: {
         padding: 10,
@@ -453,22 +466,15 @@ const styles = StyleSheet.create({
         marginBottom: 15,
 
     },
-    dark: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.25)',
-      },
     btnParentSection: {
         alignItems: 'center',
-        marginTop:10
+        flexDirection:'row'
     },
     btnSection: {
-        width: 225,
-        height: 50,
-        backgroundColor: '#DCDCDC',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 3,
-        marginBottom:10
+       alignItems: 'center',
+       justifyContent:'center',
+       marginLeft:20,
+       marginBottom:20
     },
     btnText: {
         textAlign: 'center',

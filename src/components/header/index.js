@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   StatusBar,
-  Modal,
   Dimensions
   } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Modal from "react-native-modal";
 
 const WIDTH= Dimensions.get('window').width;
 
@@ -39,12 +39,15 @@ class Header extends Component {
 
       return (
       <View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-        >
-          <View style={styles.centeredView}>
+         <Modal
+            isVisible={modalVisible}
+            animationIn="slideInDown"
+            animationOut='slideOutRight'
+            backdropOpacity={0}
+            onBackdropPress={() => this.clickModalHandler(!modalVisible)}
+          >
+          <View
+          style={styles.centeredView}>
             <View style={styles.modalView}>
               <TouchableHighlight
                underlayColor={COLOR.gray}
@@ -132,12 +135,11 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
   },
-  // centeredView: {
-  //   flex: 1,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   marginTop: 22
-  // },
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-start",
+    margin:-20
+  },
   modalView: {
     marginLeft:WIDTH*0.5,
     backgroundColor: "white",
