@@ -8,13 +8,13 @@ import {
     TouchableHighlight,
     StyleSheet,
     Dimensions,
-    Modal,
-    ImageBackground} from 'react-native';
+    Modal} from 'react-native';
  import Icon from 'react-native-vector-icons/MaterialIcons';
  import { COLOR } from '../../constant/color';
  import { connect } from 'react-redux';
  import { editUser, signIn } from '../../actions/auth';
  import {Input} from 'react-native-elements';
+ import * as ImagePicker from "react-native-image-picker"
 
  const WIDTH= Dimensions.get('window').width;
  const HEIGHT= Dimensions.get('window').height;
@@ -22,24 +22,102 @@ import {
 class ProfileView extends Component {
     constructor(props) {
         super(props);
-        this.state = {  
+        this.state = {
+            filepath: {
+                data: '',
+                uri: ''
+            },  
+            fileData: '',
+            fileUri: '',
             profile:this.props.userLogin,
             modalVisible: false,
             editProfile:'', //name or email or phone
             inputEditProfile:'' //input change text
         }
     }
-
+   
     componentDidUpdate(prevState){
-        // console.log('cek state prev',prevState.userLogin.image.substr(15))
-        // console.log('cek state photo',this.state.profile.image.substr(15))
-        // console.log('redux state',this.props.userLogin.image.substr(15))
         if(JSON.stringify(prevState.userLogin) !== JSON.stringify(this.props.userLogin)){
             this.setState({
                 profile:this.props.userLogin
             })
         }
     }
+    
+      launchCamera = () => {
+        const options = { 
+            mediaType: 'photo',
+            quality:1,
+            includeBase64: true,
+            maxWidth: 300,
+            maxHeight: 550,
+        };
+        ImagePicker.launchCamera(options, (response) => {
+          console.log('Response = ', response);
+    
+          if (response.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+            alert(response.customButton);
+          } else {
+            const source = { uri: response.uri };
+            console.log('response success', JSON.stringify(response));
+
+            const newData = {
+                ...this.state.profile,
+                [this.state.editProfile]:'data:image/jpeg;base64,' +  response.assets[0].base64
+            }
+            this.props.editUser(newData) //update userList 
+            this.props.doLogin(newData)  //update userLogin
+
+            this.setState({
+              profile:newData,
+              modalVisible:!this.state.modalVisible,
+            });
+          }
+        });
+    
+      }
+    
+      launchImageLibrary = () => {
+        const options = { 
+            mediaType: 'photo',
+            quality:1,
+            includeBase64: true,
+            maxWidth: 300,
+            maxHeight: 550,
+        };
+        ImagePicker.launchImageLibrary(options, (response) => {
+          console.log('Response = ', response);
+    
+          if (response.didCancel) {
+            console.log('User cancelled image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+            alert(response.customButton);
+          } else {
+            console.log('response success', JSON.stringify(response));
+
+            const newData = {
+                ...this.state.profile,
+                [this.state.editProfile]:'data:image/jpeg;base64,' +  response.assets[0].base64
+            }
+            this.props.editUser(newData) //update userList 
+            this.props.doLogin(newData)  //update userLogin
+
+            this.setState({
+              profile:newData,
+              modalVisible:!this.state.modalVisible,
+            });
+          }
+        });
+    
+      }
 
     setValue = newData => {
         this.setState({
@@ -68,7 +146,6 @@ class ProfileView extends Component {
 
     renderEditBox = () => {
         const { modalVisible } = this.state;
-  
         return (
         <View>
           <Modal
@@ -79,6 +156,18 @@ class ProfileView extends Component {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
+                {this.state.editProfile==='image' ? 
+                <View style={styles.btnParentSection}>
+                    <TouchableOpacity onPress={this.launchCamera} style={styles.btnSection}  >
+                    <Text style={styles.btnText}>Directly Launch Camera</Text>
+                    </TouchableOpacity>
+    
+                    <TouchableOpacity onPress={this.launchImageLibrary} style={styles.btnSection}  >
+                    <Text style={styles.btnText}>Directly Launch Image Library</Text>
+                    </TouchableOpacity>
+               </View>
+                :
+                <>
                 <View>
                     <Input
                         placeholder={this.state.editProfile}
@@ -123,7 +212,10 @@ class ProfileView extends Component {
                     <Text style={styles.textStyle}>Cancel</Text>
                     </TouchableHighlight>
                 </View>
-               
+
+                </>
+                }
+                               
               </View>
             </View>
           </Modal>
@@ -152,7 +244,8 @@ class ProfileView extends Component {
                 <View style={styles.pic}>
                     <Image source={{ uri: profile.image }}  style={styles.picProfile} />
                     <TouchableOpacity 
-                    onPress={() => this.props.navigation.navigate('Camera')}
+                    // onPress={() => this.props.navigation.navigate('Camera')}
+                    onPress={() => this.clickModalHandler(true,'image')}
                     style={styles.addPhotoButton}>
                         <Icon
                         name='photo-camera' 
@@ -364,4 +457,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.25)',
       },
+    btnParentSection: {
+        alignItems: 'center',
+        marginTop:10
+    },
+    btnSection: {
+        width: 225,
+        height: 50,
+        backgroundColor: '#DCDCDC',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 3,
+        marginBottom:10
+    },
+    btnText: {
+        textAlign: 'center',
+        color: 'gray',
+        fontSize: 14,
+        fontWeight:'bold'
+    }
   });
