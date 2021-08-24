@@ -218,6 +218,7 @@ dependencies {
         implementation jscFlavor
     }
 
+    implementation project(':react-native-sqlite-storage')
     implementation project(':react-native-camera')
     implementation project(':react-native-fs')
 }

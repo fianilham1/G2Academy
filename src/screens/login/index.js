@@ -13,9 +13,10 @@ import {signIn} from '../../actions/auth';
 import {InputApp, ButtonApp, AuthHeader} from '../../components';
 import { COLOR} from '../../constant/color';
 import { SocialIcon } from 'react-native-elements'
+import { SQLiteContext } from '../../config/sqlite';
 
 
-class Login extends Component{
+class LoginSql extends Component{
     constructor(props) {
         super(props);
         this.state = { 
@@ -92,10 +93,14 @@ class Login extends Component{
     }
 
     getUserApi = () => {
-        const userList = this.props.userList
-        this.setState({
-            userList
-        })
+        this.props.sqlite.getAllUsers('SELECT * FROM users').then((userList) => {
+            this.setState({
+                userList
+            })
+          }).catch((err) => {
+            console.log('error get ALL users: ',err);
+          })
+       
     }
 
     componentDidMount(){
@@ -140,6 +145,7 @@ class Login extends Component{
     }
 
     render(){
+        console.log(this.state.userList)
         const {navigation} = this.props
         return(
             <ScrollView style={{backgroundColor:"#FFF",height:"100%"}}>
@@ -246,6 +252,22 @@ class Login extends Component{
                 </Animatable.View>               
             </ScrollView>
         )
+    }
+}
+
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        return ( 
+            <SQLiteContext.Consumer>
+            {
+                sqlite => <LoginSql {...this.props} sqlite={sqlite} />
+            }
+            </SQLiteContext.Consumer>
+         );
     }
 }
 

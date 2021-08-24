@@ -26,6 +26,7 @@ import {Header} from '../components';
 import { CHATSDATA_USER1, CHATSDATA_USER2 } from '../constant/chatsData';
 import { CALLSDATA_USER1, CALLSDATA_USER2 } from '../constant/callsData';
 import { STATUSDATA_USER1, STATUSDATA_USER2 } from '../constant/statusData';
+import { SQLiteContext } from '../config/sqlite';
 
 const WIDTH= Dimensions.get('window').width;
 
@@ -60,20 +61,80 @@ class AuthStackScreen extends Component {
 }
 
 // Main Component WHATSAPP.......................................................
-class Home extends React.Component {
+class HomeSql extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       Contacts: [],
-      Chats: this.props.userLogin.role  === 'admin' ? CHATSDATA_USER1 : CHATSDATA_USER2,
-      Calls: this.props.userLogin.role  === 'admin' ? CALLSDATA_USER1 : CALLSDATA_USER2,
-      Status: this.props.userLogin.role  === 'admin' ? STATUSDATA_USER1 : STATUSDATA_USER2,
+      Chats: [],
+      Calls: [],
+      Status: [],
       ProfileStatus: {
         name:'My Status',
         image: this.props.userLogin.image
       }
     };
   }
+
+  getUserApi = () => {
+    if (this.props.userLogin.role === 'admin') {
+      this.props.sqlite.getAllUsers('SELECT * FROM chats_user1').then((Chats) => {
+        this.setState({
+          Chats
+        })
+      }).catch((err) => {
+        console.log('error get ALL chat: ',err);
+      })
+
+      this.props.sqlite.getAllUsers('SELECT * FROM calls_user1').then((Calls) => {
+        this.setState({
+          Calls
+        })
+      }).catch((err) => {
+        console.log('error get ALL call: ',err);
+      })
+
+      this.props.sqlite.getAllUsers('SELECT * FROM status_user1').then((Status) => {
+        this.setState({
+          Status
+        })
+      }).catch((err) => {
+        console.log('error get ALL status: ',err);
+      })
+    
+    }else{  //end if for role user1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      this.props.sqlite.getAllUsers('SELECT * FROM chats_user2').then((Chats) => {
+        this.setState({
+          Chats
+        })
+      }).catch((err) => {
+        console.log('error get ALL chat: ',err);
+      })
+
+    this.props.sqlite.getAllUsers('SELECT * FROM calls_user2').then((Calls) => {
+        this.setState({
+          Calls
+        })
+      }).catch((err) => {
+        console.log('error get ALL call: ',err);
+      })
+
+    this.props.sqlite.getAllUsers('SELECT * FROM status_user2').then((Status) => {
+        this.setState({
+          Status
+        })
+      }).catch((err) => {
+        console.log('error get ALL status: ',err);
+      })
+
+    } 
+   
+  }
+
+  componentDidMount(){
+      this.getUserApi()
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -167,6 +228,22 @@ class Home extends React.Component {
       </Tab.Navigator>
       </View>
     );
+  }
+}
+
+class Home extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {  }
+  }
+  render() { 
+      return ( 
+          <SQLiteContext.Consumer>
+          {
+              sqlite => <HomeSql {...this.props} sqlite={sqlite} />
+          }
+          </SQLiteContext.Consumer>
+       );
   }
 }
 
